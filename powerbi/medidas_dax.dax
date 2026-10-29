@@ -1,0 +1,503 @@
+// =====================================================================
+// Medidas DAX - Dashboard Eleições Presidenciais 2014 a 2026
+//
+// Crie as medidas DEPOIS da limpeza no Power Query (guia_dashboard.md,
+// etapas 2 e 3). As tabelas e colunas abaixo são as que a limpeza gera
+// (iguais às do notebook notebooks/limpeza_dados.ipynb):
+//
+//   dTurno           chave_turno, ano, nr_turno, rotulo_turno, ordem_turno
+//   dCandidato       chave_candidato, ano, nr_candidato, nm_urna, sg_partido, sg_partido_atual
+//   dMunicipio       cd_municipio_tse, cd_municipio_ibge, municipio, municipio_uf, sg_uf, nm_uf,
+//                    sg_regiao, nm_regiao, exterior, populacao_2022, alfabetizacao_2022,
+//                    pib_mil_reais, pib_per_capita, faixa_populacao, ordem_faixa_populacao, local_mapa
+//   fVotos           chave_turno, ano, nr_turno, cd_municipio_tse, chave_candidato,
+//                    situacao_turno, qt_votos_nominais
+//   fComparecimento  chave_turno, ano, nr_turno, cd_municipio_tse, aptos, comparecimento,
+//                    abstencoes, votos_validos, votos_brancos, votos_nulos
+//
+// Relacionamentos (1 -> muitos, filtro em direção única):
+//   dTurno[chave_turno]            -> fVotos[chave_turno]
+//   dTurno[chave_turno]            -> fComparecimento[chave_turno]
+//   dMunicipio[cd_municipio_tse]   -> fVotos[cd_municipio_tse]
+//   dMunicipio[cd_municipio_tse]   -> fComparecimento[cd_municipio_tse]
+//   dCandidato[chave_candidato]    -> fVotos[chave_candidato]
+//
+// Como usar: crie uma tabela vazia chamada _Medidas (Página Inicial >
+// Inserir dados > Carregar) e cole cada medida em "Nova medida". As linhas
+// "Pasta:" indicam a pasta de exibição sugerida.
+//
+// Regra do modelo: percentuais são sempre MEDIDAS (razão de somas), nunca
+// colunas. Assim o % fica certo em qualquer nível: Brasil, UF ou município.
+// =====================================================================
+
+
+// ---------------------------------------------------------------------
+// TABELA DE CORES DOS PARTIDOS (Modelagem > Nova tabela)
+// Cores inspiradas na identidade visual de cada partido; partidos menores
+// em tons de cinza para destacar os principais. Ajuste se quiser.
+// ---------------------------------------------------------------------
+
+PartidoCores =
+DATATABLE (
+    "sg_partido", STRING,
+    "cor", STRING,
+    {
+        { "PT",       "#C8102E" },
+        { "PSDB",     "#1E5AA8" },
+        { "PSB",      "#F08C00" },
+        { "PSL",      "#2E8B3E" },
+        { "PL",       "#23408E" },
+        { "PDT",      "#7B3FA0" },
+        { "MDB",      "#1F7A4D" },
+        { "NOVO",     "#F26522" },
+        { "PSOL",     "#F2C200" },
+        { "REDE",     "#0FA39A" },
+        { "UNIÃO",    "#00A3E0" },
+        { "PODE",     "#7CB342" },
+        { "PSD",      "#E0A100" },
+        { "AVANTE",   "#B5525C" },
+        { "PV",       "#4CAF50" },
+        { "PSC",      "#8C9BAB" },
+        { "PSTU",     "#9AA3AE" },
+        { "PCB",      "#A7AFB9" },
+        { "PCO",      "#B3BAC3" },
+        { "UP",       "#BFC5CD" },
+        { "DC",       "#7F8B99" },
+        { "PRTB",     "#97A1AD" },
+        { "PATRIOTA", "#8A96A3" },
+        { "PPL",      "#AEB6BF" },
+        { "PTB",      "#9099A4" },
+        { "MISSÃO",   "#A3ACB6" },
+        { "DEMOCRATA","#868F9B" }
+    }
+)
+
+
+// ---------------------------------------------------------------------
+// COLUNAS CALCULADAS (tabela dMunicipio > Nova coluna)
+// Quartis precisam olhar todos os municípios ao mesmo tempo, por isso
+// ficam no DAX e não no Power Query.
+// ---------------------------------------------------------------------
+
+// Quartis do PIB per capita (cada faixa tem 1/4 dos municípios com dado)
+Quartil PIB per capita =
+VAR valor = dMunicipio[pib_per_capita]
+VAR q1 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.25 )
+VAR q2 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.50 )
+VAR q3 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.75 )
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( valor ), "Sem dado",
+        valor <= q1, "1º quartil (menor PIB)",
+        valor <= q2, "2º quartil",
+        valor <= q3, "3º quartil",
+        "4º quartil (maior PIB)"
+    )
+
+// Quartis da taxa de alfabetização (Censo 2022)
+Quartil Alfabetização =
+VAR valor = dMunicipio[alfabetizacao_2022]
+VAR q1 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.25 )
+VAR q2 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.50 )
+VAR q3 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.75 )
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( valor ), "Sem dado",
+        valor <= q1, "1º quartil (menor alfabetização)",
+        valor <= q2, "2º quartil",
+        valor <= q3, "3º quartil",
+        "4º quartil (maior alfabetização)"
+    )
+
+
+// =====================================================================
+// MEDIDAS
+// =====================================================================
+
+// ---------------------------------------------------------------------
+// Pasta: 1 Eleitorado
+// ---------------------------------------------------------------------
+
+Aptos =
+SUM ( fComparecimento[aptos] )
+
+Comparecimento =
+SUM ( fComparecimento[comparecimento] )
+
+Abstenções =
+SUM ( fComparecimento[abstencoes] )
+
+Votos Válidos =
+SUM ( fComparecimento[votos_validos] )
+
+Votos Brancos =
+SUM ( fComparecimento[votos_brancos] )
+
+Votos Nulos =
+SUM ( fComparecimento[votos_nulos] )
+
+% Abstenção =
+DIVIDE ( [Abstenções], [Aptos] )
+
+% Comparecimento =
+DIVIDE ( [Comparecimento], [Aptos] )
+
+% Brancos =
+DIVIDE ( [Votos Brancos], [Comparecimento] )
+
+% Nulos =
+DIVIDE ( [Votos Nulos], [Comparecimento] )
+
+% Brancos e Nulos =
+DIVIDE ( [Votos Brancos] + [Votos Nulos], [Comparecimento] )
+
+
+// ---------------------------------------------------------------------
+// Pasta: 2 Votos
+// ---------------------------------------------------------------------
+
+Votos =
+SUM ( fVotos[qt_votos_nominais] )
+
+// Votos de todos os candidatos no filtro atual (eleição, turno, lugar)
+Votos Todos os Candidatos =
+CALCULATE ( [Votos], REMOVEFILTERS ( dCandidato ) )
+
+// Percentual do candidato (ou partido) sobre os votos válidos
+% Votos Válidos =
+DIVIDE ( [Votos], [Votos Todos os Candidatos] )
+
+// Posição do candidato no lugar filtrado (1 = mais votado)
+Posição =
+IF (
+    NOT ISBLANK ( [Votos] ),
+    RANKX ( ALLSELECTED ( dCandidato[nm_urna] ), [Votos],, DESC, DENSE )
+)
+
+
+// ---------------------------------------------------------------------
+// Pasta: 3 Vencedores
+// ---------------------------------------------------------------------
+
+// Candidato mais votado no contexto (ex.: em cada município do mapa)
+Vencedor =
+VAR primeiro =
+    TOPN ( 1, VALUES ( dCandidato[nm_urna] ), [Votos] )
+RETURN
+    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[nm_urna], " / " ) )
+
+// Partido do candidato mais votado
+Partido Vencedor =
+VAR primeiro =
+    TOPN ( 1, VALUES ( dCandidato[sg_partido_atual] ), [Votos] )
+RETURN
+    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[sg_partido_atual], " / " ) )
+
+// % do vencedor sobre os válidos
+% do Vencedor =
+VAR primeiro =
+    TOPN ( 1, VALUES ( dCandidato[chave_candidato] ), [Votos] )
+RETURN
+    DIVIDE ( MAXX ( primeiro, [Votos] ), [Votos Todos os Candidatos] )
+
+// Diferença entre o 1º e o 2º colocados, sobre os válidos
+Margem de Vitória =
+VAR doisPrimeiros =
+    TOPN ( 2, VALUES ( dCandidato[chave_candidato] ), [Votos] )
+VAR primeiro = MAXX ( doisPrimeiros, [Votos] )
+VAR segundo = MINX ( doisPrimeiros, [Votos] )
+RETURN
+    IF (
+        COUNTROWS ( doisPrimeiros ) >= 2,
+        DIVIDE ( primeiro - segundo, [Votos Todos os Candidatos] )
+    )
+
+// Municípios em que o candidato (ou partido) do filtro foi o mais votado.
+// Use em um gráfico de barras com dCandidato[nm_urna] no eixo.
+Municípios Vencidos =
+COUNTROWS (
+    FILTER (
+        VALUES ( dMunicipio[cd_municipio_tse] ),
+        VAR votosCandidato = [Votos]
+        VAR maiorVotacao =
+            CALCULATE (
+                MAXX ( VALUES ( dCandidato[chave_candidato] ), [Votos] ),
+                REMOVEFILTERS ( dCandidato )
+            )
+        RETURN
+            votosCandidato > 0 && votosCandidato = maiorVotacao
+    )
+)
+
+% Municípios Vencidos =
+DIVIDE (
+    [Municípios Vencidos],
+    CALCULATE ( DISTINCTCOUNT ( fVotos[cd_municipio_tse] ), REMOVEFILTERS ( dCandidato ) )
+)
+
+
+// ---------------------------------------------------------------------
+// Pasta: 4 Comparação entre eleições
+// Eleições presidenciais são a cada 4 anos: a anterior é ano - 4.
+// ---------------------------------------------------------------------
+
+Ano Selecionado =
+SELECTEDVALUE ( dTurno[ano] )
+
+// Partido vencedor no 1º turno da eleição selecionada
+Partido Vencedor 1º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE (
+        [Partido Vencedor],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAtual,
+        dTurno[nr_turno] = 1
+    )
+
+// Partido vencedor no 1º turno da eleição anterior
+Partido Vencedor 1º Turno Anterior =
+VAR anoAnterior = [Ano Selecionado] - 4
+RETURN
+    CALCULATE (
+        [Partido Vencedor],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAnterior,
+        dTurno[nr_turno] = 1
+    )
+
+// 1 se o partido vencedor do município mudou; 0 se manteve
+Mudou Partido Vencedor =
+VAR atual = [Partido Vencedor 1º Turno]
+VAR anterior = [Partido Vencedor 1º Turno Anterior]
+RETURN
+    IF ( NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ), IF ( atual <> anterior, 1, 0 ) )
+
+Municípios que Mudaram =
+SUMX ( VALUES ( dMunicipio[cd_municipio_tse] ), [Mudou Partido Vencedor] )
+
+% Municípios que Mudaram =
+DIVIDE (
+    [Municípios que Mudaram],
+    SUMX (
+        VALUES ( dMunicipio[cd_municipio_tse] ),
+        IF ( NOT ISBLANK ( [Mudou Partido Vencedor] ), 1 )
+    )
+)
+
+// % do partido (filtre dCandidato[sg_partido_atual]) no mesmo turno da eleição anterior
+% Votos Válidos Eleição Anterior =
+VAR anoAnterior = [Ano Selecionado] - 4
+VAR turnoAtual = SELECTEDVALUE ( dTurno[nr_turno] )
+RETURN
+    CALCULATE (
+        [% Votos Válidos],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAnterior,
+        dTurno[nr_turno] = turnoAtual
+    )
+
+// Variação em pontos percentuais (formato: +0.0" p.p.";-0.0" p.p.")
+Variação p.p. =
+VAR atual = [% Votos Válidos]
+VAR anterior = [% Votos Válidos Eleição Anterior]
+RETURN
+    IF ( NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ), ( atual - anterior ) * 100 )
+
+% Abstenção Eleição Anterior =
+VAR anoAnterior = [Ano Selecionado] - 4
+VAR turnoAtual = SELECTEDVALUE ( dTurno[nr_turno] )
+RETURN
+    CALCULATE (
+        [% Abstenção],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAnterior,
+        dTurno[nr_turno] = turnoAtual
+    )
+
+Variação Abstenção p.p. =
+VAR atual = [% Abstenção]
+VAR anterior = [% Abstenção Eleição Anterior]
+RETURN
+    IF ( NOT ISBLANK ( anterior ), ( atual - anterior ) * 100 )
+
+
+// ---------------------------------------------------------------------
+// Pasta: 5 Comparação entre turnos
+// 1º turno x 2º turno da mesma eleição (2014, 2018, 2022 e 2026).
+// Funcionam com qualquer turno selecionado na segmentação.
+// ---------------------------------------------------------------------
+
+// Candidato mais votado no 1º turno da eleição selecionada
+Vencedor 1º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE (
+        [Vencedor],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAtual,
+        dTurno[nr_turno] = 1
+    )
+
+// Candidato mais votado no 2º turno da eleição selecionada
+Vencedor 2º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE (
+        [Vencedor],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAtual,
+        dTurno[nr_turno] = 2
+    )
+
+// 1 se o mais votado do 2º turno não foi o mais votado do 1º; 0 se manteve.
+// Empate no município conta como mudança (o Vencedor vira "A / B").
+Virou no 2º Turno =
+VAR primeiro = [Vencedor 1º Turno]
+VAR segundo = [Vencedor 2º Turno]
+RETURN
+    IF ( NOT ISBLANK ( primeiro ) && NOT ISBLANK ( segundo ), IF ( primeiro <> segundo, 1, 0 ) )
+
+Municípios que Viraram =
+SUMX ( VALUES ( dMunicipio[cd_municipio_tse] ), [Virou no 2º Turno] )
+
+% Municípios que Viraram =
+DIVIDE (
+    [Municípios que Viraram],
+    SUMX (
+        VALUES ( dMunicipio[cd_municipio_tse] ),
+        IF ( NOT ISBLANK ( [Virou no 2º Turno] ), 1 )
+    )
+)
+
+// Votos do candidato do filtro em cada turno da eleição selecionada
+Votos 1º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE ( [Votos], REMOVEFILTERS ( dTurno ), dTurno[ano] = anoAtual, dTurno[nr_turno] = 1 )
+
+Votos 2º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE ( [Votos], REMOVEFILTERS ( dTurno ), dTurno[ano] = anoAtual, dTurno[nr_turno] = 2 )
+
+// Votos que o finalista somou do 1º para o 2º turno
+Votos Ganhos no 2º Turno =
+VAR primeiro = [Votos 1º Turno]
+VAR segundo = [Votos 2º Turno]
+RETURN
+    IF ( NOT ISBLANK ( segundo ), segundo - primeiro )
+
+% Votos Válidos 1º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE (
+        [% Votos Válidos],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAtual,
+        dTurno[nr_turno] = 1
+    )
+
+% Votos Válidos 2º Turno =
+VAR anoAtual = [Ano Selecionado]
+RETURN
+    CALCULATE (
+        [% Votos Válidos],
+        REMOVEFILTERS ( dTurno ),
+        dTurno[ano] = anoAtual,
+        dTurno[nr_turno] = 2
+    )
+
+// Variação do finalista entre os turnos (formato: +0.0" p.p.";-0.0" p.p.")
+Variação entre Turnos p.p. =
+VAR primeiro = [% Votos Válidos 1º Turno]
+VAR segundo = [% Votos Válidos 2º Turno]
+RETURN
+    IF ( NOT ISBLANK ( primeiro ) && NOT ISBLANK ( segundo ), ( segundo - primeiro ) * 100 )
+
+
+// ---------------------------------------------------------------------
+// Pasta: 6 Perfil dos municípios
+// Estas medidas usam só dMunicipio: descrevem os lugares, não a eleição.
+// ---------------------------------------------------------------------
+
+Municípios =
+CALCULATE ( DISTINCTCOUNT ( dMunicipio[cd_municipio_tse] ), dMunicipio[exterior] = FALSE () )
+
+População 2022 =
+SUM ( dMunicipio[populacao_2022] )
+
+// PIB total / população total (e não a média dos PIB per capita)
+PIB per capita =
+DIVIDE (
+    SUM ( dMunicipio[pib_mil_reais] ) * 1000,
+    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[pib_mil_reais] ) )
+)
+
+// Alfabetização média ponderada pela população
+Alfabetização =
+DIVIDE (
+    SUMX ( dMunicipio, dMunicipio[alfabetizacao_2022] * dMunicipio[populacao_2022] ),
+    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[alfabetizacao_2022] ) )
+)
+
+
+// ---------------------------------------------------------------------
+// Pasta: 7 Qualidade dos dados
+// ---------------------------------------------------------------------
+
+// Comparecimento - (válidos + brancos + nulos). Deve ser 0, exceto em
+// 2018 · 1º turno: 746 votos anulados e apurados em separado (Salvador/BA).
+Diferença de Apuração =
+[Comparecimento] - ( [Votos Válidos] + [Votos Brancos] + [Votos Nulos] )
+
+// A soma dos votos dos candidatos deve ser igual aos votos válidos
+Conferência Válidos =
+IF ( [Votos Todos os Candidatos] = [Votos Válidos], "✔ confere", "✖ diferente" )
+
+
+// ---------------------------------------------------------------------
+// Pasta: 8 Cores e textos
+// ---------------------------------------------------------------------
+
+// Cor do partido do contexto. Use em: Formatar visual > Barras > Cores >
+// fx > Estilo de formato "Valor do campo" > campo "Cor do Partido".
+Cor do Partido =
+VAR partido = SELECTEDVALUE ( dCandidato[sg_partido_atual] )
+RETURN
+    COALESCE ( LOOKUPVALUE ( PartidoCores[cor], PartidoCores[sg_partido], partido ), "#9AA3AE" )
+
+// Cor do partido vencedor, para pintar o mapa e a tabela por UF
+Cor do Partido Vencedor =
+VAR partido = [Partido Vencedor]
+RETURN
+    IF (
+        NOT ISBLANK ( partido ),
+        COALESCE ( LOOKUPVALUE ( PartidoCores[cor], PartidoCores[sg_partido], partido ), "#9AA3AE" )
+    )
+
+// Destaca no mapa os municípios que mudaram de partido vencedor
+Cor Mudança =
+SWITCH ( [Mudou Partido Vencedor], 1, "#E3B505", 0, "#C9CED6" )
+
+// Destaca no mapa os municípios em que o vencedor mudou do 1º para o 2º turno
+Cor Virada =
+SWITCH ( [Virou no 2º Turno], 1, "#E3B505", 0, "#C9CED6" )
+
+// Título dinâmico das páginas
+Título Eleição =
+VAR rotulo = SELECTEDVALUE ( dTurno[rotulo_turno], "Selecione uma eleição e um turno" )
+RETURN
+    "Eleição presidencial · " & rotulo
+
+// Frase-resumo para o cartão de destaque da Visão nacional
+Resumo Vencedor =
+VAR nome = [Vencedor]
+VAR pct = [% do Vencedor]
+RETURN
+    IF (
+        NOT ISBLANK ( nome ),
+        nome & " teve " & FORMAT ( pct, "0.00%" ) & " dos votos válidos"
+    )
