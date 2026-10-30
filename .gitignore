@@ -3,3 +3,4 @@ data/raw/
 *.db-journal
 __pycache__/
 .DS_Store
+databricks/guia_databricks.html
