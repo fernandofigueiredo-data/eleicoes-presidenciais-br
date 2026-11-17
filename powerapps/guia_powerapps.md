@@ -73,6 +73,10 @@ sumir, basta importar a Solution num ambiente novo e rodar a carga de novo.
    - uma **avaliação de 30 dias** (Power Apps Plan Trial);
    - um ambiente de desenvolvimento **gerenciado**, pedido ao administrador do tenant.
 3. Confira que o ambiente tem **Dataverse** (o menu **Tabelas** aparece à esquerda).
+4. No [Centro de administração](https://admin.powerplatform.microsoft.com), em **Gerenciar >
+   Ambientes**, veja a coluna **Gerenciado** do seu ambiente de desenvolvedor. Se for **Não**, o
+   prazo de 15/12/2026 vale para ele: exporte a Solution (Etapa 10) ao fim de cada etapa grande.
+   Se for **Sim**, não há prazo.
 
 **Limites do ambiente de desenvolvimento**
 
@@ -714,19 +718,18 @@ pac solution export --name EleicoesPresidenciaisBR --path powerapps/EleicoesPres
 ```
 
 ```bash
-pac solution unpack --zipfile powerapps/EleicoesPresidenciaisBR.zip --folder powerapps/solution --packagetype Unmanaged --allowDelete true
+pac solution unpack --zipfile powerapps/EleicoesPresidenciaisBR.zip --folder powerapps/solution --packagetype Unmanaged --allowWrite --allowDelete
 ```
+
+`--allowWrite` e `--allowDelete` são chaves sem valor: não escreva `true` depois delas.
 
 ```bash
 rm powerapps/EleicoesPresidenciaisBR.zip
 ```
 
-3. Os apps canvas ficam em `powerapps/solution/CanvasApps/` como `.msapp`. Para o diff ficar
-   legível, extraia a fonte (`.pa.yaml`):
-
-```bash
-pac canvas unpack --msapp "powerapps/solution/CanvasApps/<nome>_DocumentUri.msapp" --sources powerapps/solution/CanvasApps/src/eleicoes-no-meu-municipio
-```
+3. Os apps canvas ficam em `powerapps/solution/CanvasApps/` como `.msapp`. O `pac canvas unpack`,
+   que extraía o código do `.msapp`, foi descontinuado; o caminho atual para versionar o código
+   (`.pa.yaml`) é a integração com o Git da Power Platform. Para o portfólio, o `.msapp` basta.
 
 4. **Os dados não vão na Solution**, só a estrutura (tabelas, colunas, chaves, apps, fluxos). Os
    dados se recriam com `gerar_tabelas_powerapps.py` e a Etapa 4.

@@ -89,7 +89,8 @@ def gravar(pasta: Path, nome: str, linhas: list[dict]) -> None:
             w.writerow({k: valor_csv(v) for k, v in linha.items()})
     mb = caminho.stat().st_size / 1_000_000
     n = f"{len(linhas):,}".replace(",", ".")
-    print(f"  {caminho.relative_to(RAIZ)}: {n} linhas, {mb:.1f} MB")
+    exibir = caminho.relative_to(RAIZ) if caminho.resolve().is_relative_to(RAIZ) else caminho
+    print(f"  {exibir}: {n} linhas, {mb:.1f} MB")
     if mb > LIMITE_MB:
         print(f"  AVISO: passa de {LIMITE_MB} MB, o limite do assistente de importação do Dataverse",
               file=sys.stderr)
