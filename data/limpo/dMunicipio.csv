@@ -1,4 +1,4 @@
-cd_municipio_tse;cd_municipio_ibge;municipio;municipio_uf;sg_uf;nm_uf;sg_regiao;nm_regiao;exterior;populacao_2022;alfabetizacao_2022;pib_mil_reais;pib_per_capita;faixa_populacao;ordem_faixa_populacao;local_mapa
+cd_municipio_tse;cd_municipio_ibge;municipio;municipio_uf;sg_uf;sg_uf_nome;sg_regiao;sg_regiao_nome;exterior;populacao_2022;alfabetizacao_2022;pib_mil_reais;pib_per_capita;faixa_populacao;ordem_faixa_populacao;local_mapa
 19;1100106;Guajará-Mirim;Guajará-Mirim (RO);RO;Rondônia;N;Norte;False;39387;94.16;1145034.0;29071.368725721684;20 a 100 mil;3;Guajará-Mirim, Rondônia, Brasil
 35;1100205;Porto Velho;Porto Velho (RO);RO;Rondônia;N;Norte;False;460434;95.64;25402193.0;55170.106899142986;100 a 500 mil;4;Porto Velho, Rondônia, Brasil
 51;1100122;Ji-Paraná;Ji-Paraná (RO);RO;Rondônia;N;Norte;False;124333;94.37;5824472.0;46845.744894758434;100 a 500 mil;4;Ji-Paraná, Rondônia, Brasil
