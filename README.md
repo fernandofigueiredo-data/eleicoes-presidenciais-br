@@ -54,6 +54,22 @@ resultado oficial do TSE.
 - **Os números conferem.** Comparecimento e votos válidos batem com o TSE nos 8 turnos, e a soma
   dos votos dos candidatos é igual aos válidos em todas as zonas.
 
+## Dashboard
+
+![Mapa dos vencedores, 2º turno de 2026](prints/02_mapa_dos_vencedores.png)
+
+| Página | Print |
+|---|---|
+| Visão nacional | [01_visao_nacional.png](prints/01_visao_nacional.png) |
+| Mapa dos vencedores | [02_mapa_dos_vencedores.png](prints/02_mapa_dos_vencedores.png) |
+| Comparecimento e abstenção | [03_comparecimento_e_abstencao.png](prints/03_comparecimento_e_abstencao.png) |
+| Mudanças entre eleições | [04_mudancas_entre_eleicoes.png](prints/04_mudancas_entre_eleicoes.png) |
+| Do 1º ao 2º turno | [05_do_1o_ao_2o_turno.png](prints/05_do_1o_ao_2o_turno.png) |
+| Perfil socioeconômico | [06_perfil_socioeconomico.png](prints/06_perfil_socioeconomico.png) |
+| Sobre os dados | [07_sobre_os_dados.png](prints/07_sobre_os_dados.png) |
+
+🎬 Navegação pelo dashboard em vídeo: [prints/demo_dashboard.mov](prints/demo_dashboard.mov)
+
 ## Entregas
 
 | Etapa | Ferramenta | Onde está | Situação |
@@ -101,9 +117,12 @@ eleicoes-presidenciais-br/
 │   └── schema.sql                     tabelas, views, índices e triggers
 │
 ├── diagrama/
-│   ├── modelo_relacional_eleicoes.dbml
+│   ├── modelo_relacional_eleicoes.dbml   fonte do diagrama (dbdiagram.io)
+│   ├── modelo_relacional_eleicoes.sql    DDL exportado do dbdiagram.io
 │   ├── modelo_relacional_eleicoes.png
 │   └── modelo_relacional_eleicoes.pdf
+│
+├── prints/                            prints das 7 páginas do dashboard e vídeo de navegação
 │
 ├── powerbi/
 │   ├── eleicoes-presidenciais-br.pbix dashboard (8 páginas, 55 medidas)

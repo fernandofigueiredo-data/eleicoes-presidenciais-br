@@ -6,6 +6,10 @@ Dashboard com 7 páginas de análise e 1 dica de ferramenta, construído no Powe
 modelo estrela (2 fatos, 3 dimensões) com 55 medidas DAX. Responde às 6 perguntas do projeto, do
 resultado nacional ao perfil socioeconômico dos municípios.
 
+![Perfil socioeconômico, 2º turno de 2026](../prints/06_perfil_socioeconomico.png)
+
+Prints de todas as páginas e vídeo de navegação: [`../prints/`](../prints/).
+
 ## Páginas
 
 | Página | Pergunta |
