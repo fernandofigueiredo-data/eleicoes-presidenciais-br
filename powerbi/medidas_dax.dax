@@ -6,9 +6,9 @@
 // (iguais às do notebook notebooks/limpeza_dados.ipynb):
 //
 //   dTurno           chave_turno, ano, nr_turno, rotulo_turno, ordem_turno
-//   dCandidato       chave_candidato, ano, nr_candidato, nm_urna, sg_partido, sg_partido_atual
-//   dMunicipio       cd_municipio_tse, cd_municipio_ibge, municipio, municipio_uf, sg_uf, nm_uf,
-//                    sg_regiao, nm_regiao, exterior, populacao_2022, alfabetizacao_2022,
+//   dCandidato       chave_candidato, ano, nr_candidato, nm_urna, sg_partido, partido_atual
+//   dMunicipio       cd_municipio_tse, cd_municipio_ibge, municipio, municipio_uf, sg_uf, sg_uf_nome,
+//                    sg_regiao, sg_regiao_nome, exterior, populacao_2022, alfabetizacao_2022,
 //                    pib_mil_reais, pib_per_capita, faixa_populacao, ordem_faixa_populacao, local_mapa
 //   fVotos           chave_turno, ano, nr_turno, cd_municipio_tse, chave_candidato,
 //                    situacao_turno, qt_votos_nominais
@@ -153,6 +153,13 @@ DIVIDE ( [Votos Nulos], [Comparecimento] )
 % Brancos e Nulos =
 DIVIDE ( [Votos Brancos] + [Votos Nulos], [Comparecimento] )
 
+// Abstenção do país inteiro, mesmo com uma UF filtrada (linha de referência)
+% Abstenção Nacional =
+CALCULATE (
+    [% Abstenção],
+    REMOVEFILTERS ( dMunicipio[sg_uf] )
+)
+
 
 // ---------------------------------------------------------------------
 // Pasta: 2 Votos
@@ -191,9 +198,9 @@ RETURN
 // Partido do candidato mais votado
 Partido Vencedor =
 VAR primeiro =
-    TOPN ( 1, VALUES ( dCandidato[sg_partido_atual] ), [Votos] )
+    TOPN ( 1, VALUES ( dCandidato[partido_atual] ), [Votos] )
 RETURN
-    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[sg_partido_atual], " / " ) )
+    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[partido_atual], " / " ) )
 
 // % do vencedor sobre os válidos
 % do Vencedor =
@@ -272,8 +279,15 @@ RETURN
 Mudou Partido Vencedor =
 VAR atual = [Partido Vencedor 1º Turno]
 VAR anterior = [Partido Vencedor 1º Turno Anterior]
+-- Bolsonaro concorreu pelo PSL em 2018 e pelo PL em 2022/2026: tratamos PSL e PL como o mesmo
+-- campo para que a troca de sigla do mesmo candidato não conte como mudança de vencedor.
+VAR atualComparavel = SUBSTITUTE ( atual, "PSL", "PL" )
+VAR anteriorComparavel = SUBSTITUTE ( anterior, "PSL", "PL" )
 RETURN
-    IF ( NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ), IF ( atual <> anterior, 1, 0 ) )
+    IF (
+        NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ),
+        IF ( atualComparavel <> anteriorComparavel, 1, 0 )
+    )
 
 Municípios que Mudaram =
 SUMX ( VALUES ( dMunicipio[cd_municipio_tse] ), [Mudou Partido Vencedor] )
@@ -287,16 +301,30 @@ DIVIDE (
     )
 )
 
-// % do partido (filtre dCandidato[sg_partido_atual]) no mesmo turno da eleição anterior
+// % do partido (filtre dCandidato[partido_atual]) no mesmo turno da eleição anterior
 % Votos Válidos Eleição Anterior =
 VAR anoAnterior = [Ano Selecionado] - 4
 VAR turnoAtual = SELECTEDVALUE ( dTurno[nr_turno] )
+-- Bolsonaro concorreu pelo PSL em 2018 e pelo PL em 2022: na comparação 2022 x 2018,
+-- o PL usa o resultado do PSL, como nos cards, no mapa e na tabela da página.
+VAR partidoSelecionado = SELECTEDVALUE ( dCandidato[partido_atual] )
+VAR usarPSL = partidoSelecionado = "PL" && anoAnterior = 2018
 RETURN
-    CALCULATE (
-        [% Votos Válidos],
-        REMOVEFILTERS ( dTurno ),
-        dTurno[ano] = anoAnterior,
-        dTurno[nr_turno] = turnoAtual
+    IF (
+        usarPSL,
+        CALCULATE (
+            [% Votos Válidos],
+            REMOVEFILTERS ( dTurno ),
+            dTurno[ano] = anoAnterior,
+            dTurno[nr_turno] = turnoAtual,
+            dCandidato[partido_atual] = "PSL"
+        ),
+        CALCULATE (
+            [% Votos Válidos],
+            REMOVEFILTERS ( dTurno ),
+            dTurno[ano] = anoAnterior,
+            dTurno[nr_turno] = turnoAtual
+        )
     )
 
 // Variação em pontos percentuais (formato: +0.0" p.p.";-0.0" p.p.")
@@ -429,11 +457,14 @@ CALCULATE ( DISTINCTCOUNT ( dMunicipio[cd_municipio_tse] ), dMunicipio[exterior]
 População 2022 =
 SUM ( dMunicipio[populacao_2022] )
 
-// PIB total / população total (e não a média dos PIB per capita)
+// PIB total / população total (e não a média dos PIB per capita).
+// Soma de (PIB per capita × população) = PIB total, contando só municípios
+// com PIB. Usa pib_per_capita (decimal), que não depende do tipo de
+// pib_mil_reais. Brasil: ≈ R$ 53.887.
 PIB per capita =
 DIVIDE (
-    SUM ( dMunicipio[pib_mil_reais] ) * 1000,
-    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[pib_mil_reais] ) )
+    SUMX ( dMunicipio, dMunicipio[pib_per_capita] * dMunicipio[populacao_2022] ),
+    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[pib_per_capita] ) )
 )
 
 // Alfabetização média ponderada pela população
@@ -464,8 +495,11 @@ IF ( [Votos Todos os Candidatos] = [Votos Válidos], "✔ confere", "✖ diferen
 
 // Cor do partido do contexto. Use em: Formatar visual > Barras > Cores >
 // fx > Estilo de formato "Valor do campo" > campo "Cor do Partido".
+// (usa o candidato com votos no contexto: o mesmo nome pode ter partidos
+// diferentes em anos diferentes, ex.: Bolsonaro PSL em 2018 e PL em 2022)
 Cor do Partido =
-VAR partido = SELECTEDVALUE ( dCandidato[sg_partido_atual] )
+VAR partido =
+    CONCATENATEX ( TOPN ( 1, VALUES ( dCandidato[partido_atual] ), [Votos] ), dCandidato[partido_atual], " / " )
 RETURN
     COALESCE ( LOOKUPVALUE ( PartidoCores[cor], PartidoCores[sg_partido], partido ), "#9AA3AE" )
 

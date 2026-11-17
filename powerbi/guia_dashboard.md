@@ -117,13 +117,13 @@ Assim, para usar o arquivo em outra pasta, basta mudar o parâmetro.
    **Transformar > Formato > Aparar** (tira espaços do começo e do fim).
 5. **Regiao**: selecione `sg_regiao` > **Substituir Valores**: valor vazio por `EX`. Os vazios
    são todos do exterior (`sg_uf = ZZ`).
-6. **NomeRegiao**: **Adicionar Coluna > Coluna Condicional** `nm_regiao`:
+6. **NomeRegiao**: **Adicionar Coluna > Coluna Condicional** `sg_regiao_nome`:
    N → Norte, NE → Nordeste, SE → Sudeste, S → Sul, CO → Centro-Oeste, senão → Exterior.
-7. **NomeUF**: coluna `nm_uf` com o nome do estado por extenso (use o código abaixo; pelos menus
+7. **NomeUF**: coluna `sg_uf_nome` com o nome do estado por extenso (use o código abaixo; pelos menus
    seria uma coluna condicional com 28 regras).
 8. **Exterior**: **Coluna Personalizada** `exterior` = `[sg_uf] = "ZZ"`, tipo **Verdadeiro/Falso**.
 9. **MunicipioUF**: **Coluna Personalizada** `municipio_uf` = `[municipio] & " (" & [sg_uf] & ")"`.
-10. **PartidoAtual**: **Coluna Condicional** `sg_partido_atual`: se `sg_partido` = `PSDC` então `DC`,
+10. **PartidoAtual**: **Coluna Condicional** `partido_atual`: se `sg_partido` = `PSDC` então `DC`,
     senão o próprio `sg_partido` (o PSDC mudou de nome para DC em 2017).
 11. **ChaveTurno**: **Coluna Personalizada** `chave_turno` =
     `Text.From([ano]) & "-" & Text.From([nr_turno])`
@@ -172,7 +172,7 @@ let
     ),
     Regioes = [N = "Norte", NE = "Nordeste", SE = "Sudeste", S = "Sul", CO = "Centro-Oeste", EX = "Exterior"],
     NomeRegiao = Table.AddColumn(
-        Regiao, "nm_regiao", each Record.FieldOrDefault(Regioes, [sg_regiao], "Exterior"), type text
+        Regiao, "sg_regiao_nome", each Record.FieldOrDefault(Regioes, [sg_regiao], "Exterior"), type text
     ),
     UFs = [
         AC = "Acre", AL = "Alagoas", AP = "Amapá", AM = "Amazonas", BA = "Bahia", CE = "Ceará",
@@ -183,14 +183,14 @@ let
         SC = "Santa Catarina", SP = "São Paulo", SE = "Sergipe", TO = "Tocantins", ZZ = "Exterior"
     ],
     NomeUF = Table.AddColumn(
-        NomeRegiao, "nm_uf", each Record.FieldOrDefault(UFs, [sg_uf], "Exterior"), type text
+        NomeRegiao, "sg_uf_nome", each Record.FieldOrDefault(UFs, [sg_uf], "Exterior"), type text
     ),
     Exterior = Table.AddColumn(NomeUF, "exterior", each [sg_uf] = "ZZ", type logical),
     MunicipioUF = Table.AddColumn(
         Exterior, "municipio_uf", each [municipio] & " (" & [sg_uf] & ")", type text
     ),
     PartidoAtual = Table.AddColumn(
-        MunicipioUF, "sg_partido_atual", each if [sg_partido] = "PSDC" then "DC" else [sg_partido], type text
+        MunicipioUF, "partido_atual", each if [sg_partido] = "PSDC" then "DC" else [sg_partido], type text
     ),
     ChaveTurno = Table.AddColumn(
         PartidoAtual, "chave_turno", each Text.From([ano]) & "-" & Text.From([nr_turno]), type text
@@ -231,14 +231,14 @@ in
 Referência de `Eleicoes` > renomeie para `dCandidato`.
 
 1. **Escolher Colunas**: `chave_candidato`, `ano`, `nr_candidato`, `nm_urna`, `sg_partido`,
-   `sg_partido_atual`
+   `partido_atual`
 2. **Remover Duplicatas**
 
 ```m
 let
     Fonte = Eleicoes,
     Colunas = Table.SelectColumns(
-        Fonte, {"chave_candidato", "ano", "nr_candidato", "nm_urna", "sg_partido", "sg_partido_atual"}
+        Fonte, {"chave_candidato", "ano", "nr_candidato", "nm_urna", "sg_partido", "partido_atual"}
     ),
     Unicos = Table.Distinct(Colunas),
     Ordenado = Table.Sort(Unicos, {{"ano", Order.Ascending}, {"nr_candidato", Order.Ascending}})
@@ -253,9 +253,13 @@ Referência de `Eleicoes` > renomeie para `dMunicipio`.
 O PIB muda a cada ano. Para descrever o perfil do município, uso o **mais recente** (2023, ou 2022
 quando o de 2023 não foi publicado), que está nas linhas de 2022 e 2026.
 
+> **Atenção ao tipo do PIB.** Crie `pib_ref` e a agregação `pib_mil_reais` com tipo **Número
+> decimal**. Sem tipo, a Coluna Condicional sai como "qualquer" e o `pib_mil_reais` chega ao
+> modelo como **texto**, e aí `SUM` não funciona nele. O código abaixo já define os tipos.
+
 1. **Coluna Condicional** `pib_ref`: se `ano` ≥ 2022 então `pib_mil_reais`, senão `null`
 2. **Agrupar Por** (Avançado) pelas colunas `cd_municipio_tse`, `cd_municipio_ibge`, `municipio`,
-   `municipio_uf`, `sg_uf`, `nm_uf`, `sg_regiao`, `nm_regiao`, `exterior`, `populacao_2022`,
+   `municipio_uf`, `sg_uf`, `sg_uf_nome`, `sg_regiao`, `sg_regiao_nome`, `exterior`, `populacao_2022`,
    `alfabetizacao_2022`, com a agregação `pib_mil_reais` = **Máximo** de `pib_ref`
 3. **Coluna Personalizada** `pib_per_capita` = `[pib_mil_reais] * 1000 / [populacao_2022]`
    (o PIB está em mil reais), tipo Número decimal
@@ -263,7 +267,7 @@ quando o de 2023 não foi publicado), que está nas linhas de 2022 e 2026.
    até 20.000 → 5 a 20 mil; até 100.000 → 20 a 100 mil; até 500.000 → 100 a 500 mil;
    senão → Mais de 500 mil
 5. **Coluna Condicional** `ordem_faixa_populacao` com os números 0 a 5 na mesma ordem
-6. **Coluna Personalizada** `local_mapa`: para o Brasil, `[municipio] & ", " & [nm_uf] & ", Brasil"`;
+6. **Coluna Personalizada** `local_mapa`: para o Brasil, `[municipio] & ", " & [sg_uf_nome] & ", Brasil"`;
    para o exterior, só `[municipio]`. É o endereço que o mapa usa (com o estado, para não confundir
    municípios com o mesmo nome).
 
@@ -275,8 +279,8 @@ let
     ),
     Agrupado = Table.Group(
         PibRef,
-        {"cd_municipio_tse", "cd_municipio_ibge", "municipio", "municipio_uf", "sg_uf", "nm_uf",
-         "sg_regiao", "nm_regiao", "exterior", "populacao_2022", "alfabetizacao_2022"},
+        {"cd_municipio_tse", "cd_municipio_ibge", "municipio", "municipio_uf", "sg_uf", "sg_uf_nome",
+         "sg_regiao", "sg_regiao_nome", "exterior", "populacao_2022", "alfabetizacao_2022"},
         {{"pib_mil_reais", each List.Max([pib_ref]), type nullable number}}
     ),
     PibPerCapita = Table.AddColumn(
@@ -307,7 +311,7 @@ let
     ),
     LocalMapa = Table.AddColumn(
         OrdemFaixa, "local_mapa",
-        each if [exterior] then [municipio] else [municipio] & ", " & [nm_uf] & ", Brasil",
+        each if [exterior] then [municipio] else [municipio] & ", " & [sg_uf_nome] & ", Brasil",
         type text
     ),
     Ordenado = Table.Sort(LocalMapa, {{"cd_municipio_tse", Order.Ascending}})
@@ -377,10 +381,10 @@ Se algum número for diferente, algum passo ficou diferente do guia.
 | Totais de zona repetidos em cada candidato | Votos e comparecimento em tabelas separadas; zonas sem repetição antes de somar | Somar direto multiplica o total |
 | Decimal com ponto | Importação em Inglês (EUA) | Evita `88.35` virar `8835` |
 | Espaços sobrando nos textos | Aparar | Evita "PT" e "PT " serem dois partidos |
-| Região vazia no exterior | `EX`, mais `nm_regiao` e `nm_uf` por extenso | Rótulos legíveis e mapa por estado |
+| Região vazia no exterior | `EX`, mais `sg_regiao_nome` e `sg_uf_nome` por extenso | Rótulos legíveis e mapa por estado |
 | Indicadores vazios (exterior e Boa Esperança do Norte/MT) | Não preenchidos; coluna `exterior` | Não existe dado do IBGE para esses lugares |
 | Municípios com o mesmo nome | `municipio_uf` e `local_mapa` com o estado; relacionamento pelo código | Não misturar cidades diferentes |
-| PSDC virou DC (2017) | `sg_partido_atual` | Mesmo partido com outra sigla |
+| PSDC virou DC (2017) | `partido_atual` | Mesmo partido com outra sigla |
 | Número do candidato repete entre eleições | `chave_turno` e `chave_candidato` | Ligar as tabelas sem misturar anos |
 | PIB muda a cada ano | PIB mais recente em `dMunicipio` | Um perfil por município, comparável |
 | Percentuais | Não ficam em colunas; são medidas DAX | Razão de somas certa em qualquer nível |
@@ -407,7 +411,7 @@ Apague relacionamentos automáticos diferentes destes (por exemplo, pela coluna 
 
 - `dTurno[rotulo_turno]` > **Ferramentas de coluna > Classificar por coluna > `ordem_turno`**
 - `dMunicipio[faixa_populacao]` > **Classificar por coluna > `ordem_faixa_populacao`**
-- `dMunicipio[nm_uf]` > **Categoria de dados: Estado ou Província**
+- `dMunicipio[sg_uf_nome]` > **Categoria de dados: Estado ou Província**
 - `dMunicipio[local_mapa]` > **Categoria de dados: Local**
 - Nas tabelas de fatos, oculte as chaves e as colunas `ano` e `nr_turno` (clique direito >
   **Ocultar na exibição de relatório**): os filtros usam sempre as dimensões.
@@ -504,9 +508,11 @@ fx** > Estilo de formato **Valor do campo** > campo **Cor do Partido**.
 
 ### Grade da página
 
-- Tamanho: **16:9 (1280 × 720)**
-- Margem externa: **16 px**; espaço entre visuais: **12 px**
-- Cabeçalho: **72 px** de altura em todas as páginas
+- Tamanho: **1920 × 1080 px (16:9)**. Em **Formatar página > Tamanho da tela**, mude **Tipo** para
+  **Personalizado** e informe **Largura** 1920 e **Altura** 1080 (o preset "16:9" do Power BI é
+  1280 × 720, não use)
+- Margem externa: **24 px**; espaço entre visuais: **18 px**
+- Cabeçalho: **108 px** de altura em todas as páginas
 - Bordas arredondadas de 8 px e sem sombra (já vêm do tema)
 
 ### Regras de neutralidade
@@ -522,9 +528,9 @@ fx** > Estilo de formato **Valor do campo** > campo **Cor do Partido**.
 
 Monte na primeira página e copie para as outras.
 
-1. **Inserir > Formas > Retângulo**: 1280 × 64 px, posição (0, 0), cor `#002776`, sem borda.
-2. Dois retângulos finos logo abaixo, como uma faixa da bandeira: 4 px de altura, um verde
-   `#009C3B` (0 a 640 px) e um amarelo `#FFDF00` (640 a 1280 px).
+1. **Inserir > Formas > Retângulo**: 1920 × 96 px, posição (0, 0), cor `#002776`, sem borda.
+2. Dois retângulos finos logo abaixo, como uma faixa da bandeira: 6 px de altura, um verde
+   `#009C3B` (0 a 960 px) e um amarelo `#FFDF00` (960 a 1920 px).
 3. **Cartão** com a medida `Título Eleição`: fundo transparente, texto branco, 18–20, alinhado à
    esquerda, sem rótulo de categoria.
 4. **Segmentação** com `dTurno[rotulo_turno]`: estilo **Lista suspensa**, seleção única, no canto
@@ -546,7 +552,7 @@ Falso**.
 |---|---|---|---|
 | 1 | 6 **Cartões** em linha | `Aptos`, `Comparecimento`, `% Abstenção`, `Votos Válidos`, `% Brancos`, `% Nulos` | Unidade de exibição "Milhões" nas quantidades |
 | 2 | **Cartão** de destaque | `Resumo Vencedor` | Fonte 16, texto `#1C2333` |
-| 3 | **Barras horizontais** "Votos válidos por candidato" | Eixo Y: `dCandidato[nm_urna]`; Valor: `% Votos Válidos`; Dica de ferramenta: `Votos`, `dCandidato[sg_partido_atual]`, `Municípios Vencidos` | Ordenar por `% Votos Válidos` decrescente; cores por `Cor do Partido`; rótulos de dados ligados |
+| 3 | **Barras horizontais** "Votos válidos por candidato" | Eixo Y: `dCandidato[nm_urna]`; Valor: `% Votos Válidos`; Dica de ferramenta: `Votos`, `dCandidato[partido_atual]`, `Municípios Vencidos` | Ordenar por `% Votos Válidos` decrescente; cores por `Cor do Partido`; rótulos de dados ligados |
 | 4 | **Barras horizontais** "Municípios vencidos" | Eixo Y: `nm_urna`; Valor: `Municípios Vencidos` | Cores por `Cor do Partido`; filtro `exterior` = Falso |
 | 5 | **Colunas agrupadas** "Participação ao longo das eleições" | Eixo X: `dTurno[rotulo_turno]`; Valores: `% Abstenção`, `% Brancos e Nulos` | **Formatar > Editar interações**: a segmentação do cabeçalho **não** filtra este visual |
 
@@ -562,10 +568,10 @@ Abstenção 19,22% · Brancos 1,12% · Nulos 2,12% · LULA 51,79% · FLAVIO BOLS
 
 | # | Visual | Campos | Formatação |
 |---|---|---|---|
-| 1 | **Mapa coroplético** por UF | Local: `dMunicipio[nm_uf]`; Dica de ferramenta: `Vencedor`, `% do Vencedor`, `Margem de Vitória` | **Cores de preenchimento > fx > Valor do campo > `Cor do Partido Vencedor`** |
+| 1 | **Mapa coroplético** por UF | Local: `dMunicipio[sg_uf_nome]`; Dica de ferramenta: `Vencedor`, `% do Vencedor`, `Margem de Vitória` | **Cores de preenchimento > fx > Valor do campo > `Cor do Partido Vencedor`** |
 | 2 | **Mapa (Azure Maps)** de bolhas por município | Local: `dMunicipio[local_mapa]`; Tamanho: `Aptos`; Dica: `Vencedor`, `% do Vencedor` | Cor das bolhas por `Cor do Partido Vencedor` |
 | 3 | **Tabela** "Resultado por UF" | `dMunicipio[sg_uf]`, `Vencedor`, `% do Vencedor`, `Margem de Vitória`, `% Abstenção` | **Formatação condicional > Cor de fundo** da coluna `Vencedor` por `Cor do Partido Vencedor` (texto branco) |
-| 4 | **Segmentação** | `dMunicipio[nm_regiao]` | Estilo blocos (botões) |
+| 4 | **Segmentação** | `dMunicipio[sg_regiao_nome]` | Estilo blocos (botões) |
 
 **Conferência (2022 · 2º turno, sem exterior):** LULA venceu em 3.125 municípios e
 JAIR BOLSONARO em 2.447 (dois municípios empatados contam para os dois).
@@ -582,9 +588,9 @@ FLAVIO BOLSONARO em 2.696 (um município empatado conta para os dois).
 
 | # | Visual | Campos | Formatação |
 |---|---|---|---|
-| 1 | **Mapa coroplético** por UF | Local: `nm_uf`; Cor: `% Abstenção` | Gradiente do tema (`#EEF3FA` → `#002776`) |
+| 1 | **Mapa coroplético** por UF | Local: `sg_uf_nome`; Cor: `% Abstenção` | Gradiente do tema (`#EEF3FA` → `#002776`) |
 | 2 | **Barras horizontais** "% abstenção por UF" | Eixo: `sg_uf`; Valor: `% Abstenção` | Ordenar decrescente; **Análise > Linha constante** com a média nacional |
-| 3 | **Linhas** "Abstenção por região ao longo do tempo" | Eixo X: `dTurno[rotulo_turno]`; Valor: `% Abstenção`; Legenda: `nm_regiao` | Não filtrar pela segmentação do cabeçalho (Editar interações) |
+| 3 | **Linhas** "Abstenção por região ao longo do tempo" | Eixo X: `dTurno[rotulo_turno]`; Valor: `% Abstenção`; Legenda: `sg_regiao_nome` | Não filtrar pela segmentação do cabeçalho (Editar interações) |
 | 4 | **Colunas agrupadas** "Brancos e nulos" | Eixo: `dTurno[rotulo_turno]`; Valores: `% Brancos`, `% Nulos` | Mesma regra de interação |
 | 5 | **Dispersão** "Abstenção × alfabetização" | Valores: `dMunicipio[cd_municipio_tse]`; X: `Alfabetização`; Y: `% Abstenção`; Tamanho: `Aptos` | Transparência 60% |
 | 6 | **Cartão** | `Variação Abstenção p.p.` | Título "Variação vs. eleição anterior" |
@@ -606,8 +612,8 @@ Use esta página com uma eleição de **2018 em diante** (2014 não tem anterior
 | 1 | 2 **Cartões** | `Municípios que Mudaram`, `% Municípios que Mudaram` | Número em `#E3B505` |
 | 2 | **Mapa (Azure Maps)** | Local: `local_mapa`; Cor: `Cor Mudança` | Amarelo = mudou; cinza = manteve |
 | 3 | **Tabela** "Municípios que mudaram" | `municipio_uf`, `Partido Vencedor 1º Turno Anterior`, `Partido Vencedor 1º Turno` | Filtro de visual: `Mudou Partido Vencedor` = 1 |
-| 4 | **Matriz** "Variação por UF (p.p.)" | Linhas: `sg_uf`; Colunas: `dCandidato[sg_partido_atual]`; Valores: `Variação p.p.` | **Cor de fundo > Gradiente**: mínimo `#B8892B`, centro `#FFFFFF` (valor 0), máximo `#0F7B6C`. Filtre só os partidos que disputaram as duas eleições |
-| 5 | **Segmentação** | `dCandidato[sg_partido_atual]` | Seleção única |
+| 4 | **Matriz** "Variação por UF (p.p.)" | Linhas: `sg_uf`; Colunas: `dCandidato[partido_atual]`; Valores: `Variação p.p.` | **Cor de fundo > Gradiente**: mínimo `#B8892B`, centro `#FFFFFF` (valor 0), máximo `#0F7B6C`. Filtre só os partidos que disputaram as duas eleições |
+| 5 | **Segmentação** | `dCandidato[partido_atual]` | Seleção única |
 
 **Conferência (1º turno, sem exterior):** municípios que mudaram de partido vencedor:
 2018 = 3.027 · 2022 = 2.980 · 2026 = 714.
@@ -689,6 +695,7 @@ votos anulados e apurados em separado em Salvador/BA).
 - [ ] Linhas das tabelas: 8 · 47 · 5.766 · 309.308 · 45.834
 - [ ] A consulta `Eleicoes` com carga desabilitada
 - [ ] Os 5 relacionamentos certos, sem relacionamentos automáticos extras
+- [ ] Todas as páginas em 1920 × 1080 (Tipo: Personalizado)
 - [ ] Todos os números de **Conferência** deste guia batem
 - [ ] Exterior filtrado nos mapas e nos gráficos de indicadores
 - [ ] Segmentação do cabeçalho sincronizada em todas as páginas
