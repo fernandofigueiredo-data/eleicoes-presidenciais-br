@@ -1,0 +1,175 @@
+// =====================================================================
+// Modelo relacional: eleições presidenciais 2014, 2018, 2022 e 2026
+// Fonte da estrutura: sql/schema.sql (SQLite 3.25+)
+// Diagrama online: https://dbdiagram.io/d/6ae4915b8bf38111a8ea8f2e
+// Para editar: cole este arquivo em dbdiagram.io (Import > DBML).
+// =====================================================================
+
+Project eleicoes_presidenciais_br {
+  database_type: 'SQLite'
+  Note: '''
+  Resultados de presidente do TSE por município e zona eleitoral (1º e 2º turnos),
+  ligados a indicadores do IBGE (população e alfabetização do Censo 2022, PIB municipal).
+  Chaves naturais. cd_municipio_tse é o único código que cobre também o exterior (UF ZZ).
+  '''
+}
+
+
+// ---------------------------------------------------------------------
+// Geografia
+// ---------------------------------------------------------------------
+
+Table uf {
+  sg_uf     text [pk, note: '27 UFs + ZZ (exterior)']
+  sg_regiao text [note: 'N, NE, SE, S, CO; nulo só para ZZ']
+  Note: 'Unidades da federação e região'
+}
+
+Table municipio {
+  cd_municipio_tse   integer [pk]
+  cd_municipio_ibge  integer [unique, note: 'nulo no exterior']
+  municipio          text    [not null]
+  sg_uf              text    [not null]
+  populacao_2022     integer [note: 'IBGE, SIDRA 4709']
+  alfabetizacao_2022 real    [note: '% de 15 anos ou mais, SIDRA 9543']
+  Note: 'Municípios do Brasil e cidades do exterior onde há votação'
+}
+
+Table zona {
+  cd_municipio_tse integer [not null]
+  nr_zona          integer [not null]
+  indexes {
+    (cd_municipio_tse, nr_zona) [pk]
+  }
+  Note: 'Zona eleitoral: só existe no par (município, zona)'
+}
+
+
+// ---------------------------------------------------------------------
+// Eleição, turno, partido e candidatura
+// ---------------------------------------------------------------------
+
+Table eleicao {
+  ano integer [pk, note: 'ano par entre 1989 e 2100']
+}
+
+Table turno {
+  ano      integer [not null]
+  nr_turno integer [not null, note: '1 ou 2']
+  indexes {
+    (ano, nr_turno) [pk]
+  }
+}
+
+Table pib_municipal {
+  cd_municipio_tse integer [not null]
+  ano              integer [not null]
+  pib_mil_reais    real    [not null, note: 'mil R$, SIDRA 5938']
+  indexes {
+    (cd_municipio_tse, ano) [pk]
+  }
+  Note: 'PIB do próprio ano em 2014 e 2018; o de 2023 (ou 2022) para 2022 e 2026'
+}
+
+Table partido {
+  sg_partido text [pk]
+}
+
+Table candidatura {
+  ano          integer [not null]
+  nr_candidato integer [not null, note: '10 a 99']
+  nm_urna      text    [not null]
+  sg_partido   text    [not null]
+  indexes {
+    (ano, nr_candidato) [pk]
+    sg_partido [name: 'idx_candidatura_partido']
+  }
+  Note: 'Candidatura a presidente que recebeu votos'
+}
+
+Table candidatura_turno {
+  ano            integer [not null]
+  nr_turno       integer [not null]
+  nr_candidato   integer [not null]
+  situacao_turno text    [note: 'ELEITO, NÃO ELEITO ou 2º TURNO']
+  indexes {
+    (ano, nr_turno, nr_candidato) [pk]
+  }
+  Note: 'Candidatura em cada turno que disputou; impede votos de quem não disputou o turno'
+}
+
+
+// ---------------------------------------------------------------------
+// Fatos
+// ---------------------------------------------------------------------
+
+Table comparecimento_zona {
+  ano              integer [not null]
+  nr_turno         integer [not null]
+  cd_municipio_tse integer [not null]
+  nr_zona          integer [not null]
+  aptos            integer [not null]
+  comparecimento   integer [not null, note: '<= aptos']
+  abstencoes       integer [not null]
+  votos_validos    integer [not null]
+  votos_brancos    integer [not null]
+  votos_nulos      integer [not null]
+  indexes {
+    (ano, nr_turno, cd_municipio_tse, nr_zona) [pk]
+    cd_municipio_tse [name: 'idx_comparec_municipio']
+  }
+  Note: 'Totais de uma zona em um turno (válidos + brancos + nulos <= comparecimento)'
+}
+
+Table votacao {
+  ano               integer [not null]
+  nr_turno          integer [not null]
+  cd_municipio_tse  integer [not null]
+  nr_zona           integer [not null]
+  nr_candidato      integer [not null]
+  qt_votos_nominais integer [not null]
+  indexes {
+    (ano, nr_turno, cd_municipio_tse, nr_zona, nr_candidato) [pk]
+    (ano, nr_candidato) [name: 'idx_votacao_candidato']
+    (cd_municipio_tse, nr_zona) [name: 'idx_votacao_municipio']
+  }
+  Note: 'Votos nominais de uma candidatura em uma zona, em um turno'
+}
+
+
+// ---------------------------------------------------------------------
+// Auditoria (preenchida pelos triggers trg_votacao_audita_update/delete)
+// ---------------------------------------------------------------------
+
+Table auditoria_votacao {
+  id               integer [pk]
+  momento          text    [not null, default: `datetime('now')`]
+  operacao         text    [not null, note: 'UPDATE ou DELETE']
+  ano              integer [not null]
+  nr_turno         integer [not null]
+  cd_municipio_tse integer [not null]
+  nr_zona          integer [not null]
+  nr_candidato     integer [not null]
+  qt_antigo        integer
+  qt_novo          integer
+  Note: 'Correções de votos (ex.: o TSE republicou um arquivo)'
+}
+
+
+// ---------------------------------------------------------------------
+// Relacionamentos
+// ---------------------------------------------------------------------
+
+Ref: municipio.sg_uf > uf.sg_uf
+Ref: zona.cd_municipio_tse > municipio.cd_municipio_tse
+Ref: turno.ano > eleicao.ano
+Ref: pib_municipal.cd_municipio_tse > municipio.cd_municipio_tse
+Ref: pib_municipal.ano > eleicao.ano
+Ref: candidatura.ano > eleicao.ano
+Ref: candidatura.sg_partido > partido.sg_partido
+Ref: candidatura_turno.(ano, nr_turno) > turno.(ano, nr_turno)
+Ref: candidatura_turno.(ano, nr_candidato) > candidatura.(ano, nr_candidato)
+Ref: comparecimento_zona.(ano, nr_turno) > turno.(ano, nr_turno)
+Ref: comparecimento_zona.(cd_municipio_tse, nr_zona) > zona.(cd_municipio_tse, nr_zona)
+Ref: votacao.(ano, nr_turno, cd_municipio_tse, nr_zona) > comparecimento_zona.(ano, nr_turno, cd_municipio_tse, nr_zona)
+Ref: votacao.(ano, nr_turno, nr_candidato) > candidatura_turno.(ano, nr_turno, nr_candidato)
