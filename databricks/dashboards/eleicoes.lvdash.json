@@ -1,0 +1,1005 @@
+{
+  "datasets": [
+    {
+      "name": "a32445e3",
+      "displayName": "ds_resultado",
+      "queryLines": [
+        "SELECT * FROM workspace.gold.v_resultado_nacional"
+      ],
+      "catalog": "workspace",
+      "schema": "gold"
+    },
+    {
+      "name": "4eeea61c",
+      "displayName": "ds_abstencao_uf",
+      "queryLines": [
+        "SELECT * FROM workspace.gold.v_comparecimento_uf"
+      ],
+      "catalog": "workspace",
+      "schema": "gold"
+    },
+    {
+      "name": "e3647c7e",
+      "displayName": "ds_vencedores",
+      "queryLines": [
+        "SELECT * FROM workspace.gold.mv_resultado_municipio WHERE posicao = 1 AND sg_uf <> 'ZZ'"
+      ],
+      "catalog": "workspace",
+      "schema": "gold"
+    },
+    {
+      "name": "b292f95d",
+      "displayName": "ds_controle",
+      "queryLines": [
+        "SELECT * FROM workspace.gold.v_controle_nacional"
+      ],
+      "catalog": "workspace",
+      "schema": "gold"
+    }
+  ],
+  "pages": [
+    {
+      "name": "6a02dfd0",
+      "displayName": "Visão geral",
+      "layout": [
+        {
+          "widget": {
+            "name": "cab-titulo",
+            "multilineTextboxSpec": {
+              "lines": [
+                "## Eleições presidenciais no Brasil, 2014–2026\n",
+                "\n",
+                "Resultados do TSE por município, ligados a indicadores do IBGE. Todos os números conferem com o resultado oficial."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "cb8461ed",
+            "queries": [
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46ae9eb1aa59ee2e742ce1d9520_ano",
+                "query": {
+                  "datasetName": "a32445e3",
+                  "fields": [
+                    {
+                      "name": "ano",
+                      "expression": "`ano`"
+                    },
+                    {
+                      "name": "ano_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b592219e1be918f8b5c2ccda7_ano",
+                "query": {
+                  "datasetName": "b292f95d",
+                  "fields": [
+                    {
+                      "name": "ano",
+                      "expression": "`ano`"
+                    },
+                    {
+                      "name": "ano_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b324b1c4aa014577c5362e871_ano",
+                "query": {
+                  "datasetName": "4eeea61c",
+                  "fields": [
+                    {
+                      "name": "ano",
+                      "expression": "`ano`"
+                    },
+                    {
+                      "name": "ano_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "scale": {
+                "type": "categorical",
+                "sort": {
+                  "by": "natural-order"
+                }
+              },
+              "disallowAll": false,
+              "frame": {
+                "showTitle": true,
+                "title": "Ano"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "ano",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46ae9eb1aa59ee2e742ce1d9520_ano"
+                  },
+                  {
+                    "fieldName": "ano",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b592219e1be918f8b5c2ccda7_ano"
+                  },
+                  {
+                    "fieldName": "ano",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b324b1c4aa014577c5362e871_ano"
+                  }
+                ]
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "INTEGER",
+                    "values": [
+                      {
+                        "value": "2026"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 2,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "279017f3",
+            "queries": [
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46ae9eb1aa59ee2e742ce1d9520_nr_turno",
+                "query": {
+                  "datasetName": "a32445e3",
+                  "fields": [
+                    {
+                      "name": "nr_turno",
+                      "expression": "`nr_turno`"
+                    },
+                    {
+                      "name": "nr_turno_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b324b1c4aa014577c5362e871_nr_turno",
+                "query": {
+                  "datasetName": "4eeea61c",
+                  "fields": [
+                    {
+                      "name": "nr_turno",
+                      "expression": "`nr_turno`"
+                    },
+                    {
+                      "name": "nr_turno_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b592219e1be918f8b5c2ccda7_nr_turno",
+                "query": {
+                  "datasetName": "b292f95d",
+                  "fields": [
+                    {
+                      "name": "nr_turno",
+                      "expression": "`nr_turno`"
+                    },
+                    {
+                      "name": "nr_turno_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b48241b9cb5bbc11b0cd9c2fb_nr_turno",
+                "query": {
+                  "datasetName": "e3647c7e",
+                  "fields": [
+                    {
+                      "name": "nr_turno",
+                      "expression": "`nr_turno`"
+                    },
+                    {
+                      "name": "nr_turno_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": "Turno"
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "nr_turno",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46ae9eb1aa59ee2e742ce1d9520_nr_turno"
+                  },
+                  {
+                    "fieldName": "nr_turno",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b324b1c4aa014577c5362e871_nr_turno"
+                  },
+                  {
+                    "fieldName": "nr_turno",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b592219e1be918f8b5c2ccda7_nr_turno"
+                  },
+                  {
+                    "fieldName": "nr_turno",
+                    "queryName": "dashboards/01f1d46ada0d179e80d08192e2238920/datasets/01f1d46b48241b9cb5bbc11b0cd9c2fb_nr_turno"
+                  }
+                ]
+              },
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "INTEGER",
+                    "values": [
+                      {
+                        "value": "2"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 2,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "nota-filtros",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**Como usar:** escolha o ano e o turno. O gráfico de municípios vencidos compara todos os anos do turno escolhido."
+              ]
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 2,
+            "width": 6,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "comparecimento",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b292f95d",
+                  "fields": [
+                    {
+                      "name": "sum(comparecimento)",
+                      "expression": "SUM(`comparecimento`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(comparecimento)",
+                  "displayName": "Comparecimento",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Comparecimento",
+                "showDescription": true,
+                "description": "Eleitores que votaram"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "votos-validos",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b292f95d",
+                  "fields": [
+                    {
+                      "name": "sum(votos_validos)",
+                      "expression": "SUM(`votos_validos`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "sum(votos_validos)",
+                  "displayName": "Votos válidos",
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Votos válidos",
+                "showDescription": true,
+                "description": "Soma dos votos nominais dos candidatos"
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "abstencao-percent",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "b292f95d",
+                  "fields": [
+                    {
+                      "name": "avg(pct_abstencao)",
+                      "expression": "AVG(`pct_abstencao`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "avg(pct_abstencao)",
+                  "displayName": "Abstenção (%)",
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "suffix": "%"
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Abstenção (%)",
+                "showDescription": true,
+                "description": "Abstenções sobre eleitores aptos"
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 4,
+            "width": 4,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "votos-por-candidato",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a32445e3",
+                  "fields": [
+                    {
+                      "name": "nm_urna",
+                      "expression": "`nm_urna`"
+                    },
+                    {
+                      "name": "sg_partido",
+                      "expression": "`sg_partido`"
+                    },
+                    {
+                      "name": "sum(votos)",
+                      "expression": "SUM(`votos`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "x": {
+                  "fieldName": "nm_urna",
+                  "displayName": "Candidato",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "sum(votos)",
+                  "displayName": "Votos",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "sg_partido",
+                  "displayName": "Partido",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "PT",
+                        "color": "#C8102E"
+                      },
+                      {
+                        "value": "PSDB",
+                        "color": "#1E5AA8"
+                      },
+                      {
+                        "value": "PSB",
+                        "color": "#F08C00"
+                      },
+                      {
+                        "value": "PSL",
+                        "color": "#2E8B3E"
+                      },
+                      {
+                        "value": "PL",
+                        "color": "#23408E"
+                      },
+                      {
+                        "value": "PDT",
+                        "color": "#7B3FA0"
+                      },
+                      {
+                        "value": "MDB",
+                        "color": "#1F7A4D"
+                      },
+                      {
+                        "value": "NOVO",
+                        "color": "#F26522"
+                      },
+                      {
+                        "value": "PSOL",
+                        "color": "#F2C200"
+                      },
+                      {
+                        "value": "REDE",
+                        "color": "#0FA39A"
+                      },
+                      {
+                        "value": "UNIÃO",
+                        "color": "#00A3E0"
+                      },
+                      {
+                        "value": "PODE",
+                        "color": "#7CB342"
+                      },
+                      {
+                        "value": "PSD",
+                        "color": "#E0A100"
+                      },
+                      {
+                        "value": "AVANTE",
+                        "color": "#B5525C"
+                      },
+                      {
+                        "value": "PV",
+                        "color": "#4CAF50"
+                      },
+                      {
+                        "value": "PSC",
+                        "color": "#8C9BAB"
+                      },
+                      {
+                        "value": "PSTU",
+                        "color": "#9AA3AE"
+                      },
+                      {
+                        "value": "PCB",
+                        "color": "#A7AFB9"
+                      },
+                      {
+                        "value": "PCO",
+                        "color": "#B3BAC3"
+                      },
+                      {
+                        "value": "UP",
+                        "color": "#BFC5CD"
+                      },
+                      {
+                        "value": "DC",
+                        "color": "#7F8B99"
+                      },
+                      {
+                        "value": "PSDC",
+                        "color": "#7F8B99"
+                      },
+                      {
+                        "value": "PRTB",
+                        "color": "#97A1AD"
+                      },
+                      {
+                        "value": "PATRIOTA",
+                        "color": "#8A96A3"
+                      },
+                      {
+                        "value": "PPL",
+                        "color": "#AEB6BF"
+                      },
+                      {
+                        "value": "PTB",
+                        "color": "#9099A4"
+                      },
+                      {
+                        "value": "MISSÃO",
+                        "color": "#A3ACB6"
+                      },
+                      {
+                        "value": "DEMOCRATA",
+                        "color": "#868F9B"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Votos por candidato",
+                "showDescription": true,
+                "description": "Votos nominais no ano e turno selecionados"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "municipios-vencidos-por-partido",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "e3647c7e",
+                  "fields": [
+                    {
+                      "name": "ano",
+                      "expression": "`ano`"
+                    },
+                    {
+                      "name": "sg_partido",
+                      "expression": "`sg_partido`"
+                    },
+                    {
+                      "name": "count(*)",
+                      "expression": "COUNT(`*`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "x": {
+                  "fieldName": "ano",
+                  "displayName": "Ano",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "count(*)",
+                  "displayName": "Municípios",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 0
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "sg_partido",
+                  "displayName": "Partido",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "PT",
+                        "color": "#C8102E"
+                      },
+                      {
+                        "value": "PSDB",
+                        "color": "#1E5AA8"
+                      },
+                      {
+                        "value": "PSB",
+                        "color": "#F08C00"
+                      },
+                      {
+                        "value": "PSL",
+                        "color": "#2E8B3E"
+                      },
+                      {
+                        "value": "PL",
+                        "color": "#23408E"
+                      },
+                      {
+                        "value": "PDT",
+                        "color": "#7B3FA0"
+                      },
+                      {
+                        "value": "MDB",
+                        "color": "#1F7A4D"
+                      },
+                      {
+                        "value": "NOVO",
+                        "color": "#F26522"
+                      },
+                      {
+                        "value": "PSOL",
+                        "color": "#F2C200"
+                      },
+                      {
+                        "value": "REDE",
+                        "color": "#0FA39A"
+                      },
+                      {
+                        "value": "UNIÃO",
+                        "color": "#00A3E0"
+                      },
+                      {
+                        "value": "PODE",
+                        "color": "#7CB342"
+                      },
+                      {
+                        "value": "PSD",
+                        "color": "#E0A100"
+                      },
+                      {
+                        "value": "AVANTE",
+                        "color": "#B5525C"
+                      },
+                      {
+                        "value": "PV",
+                        "color": "#4CAF50"
+                      },
+                      {
+                        "value": "PSC",
+                        "color": "#8C9BAB"
+                      },
+                      {
+                        "value": "PSTU",
+                        "color": "#9AA3AE"
+                      },
+                      {
+                        "value": "PCB",
+                        "color": "#A7AFB9"
+                      },
+                      {
+                        "value": "PCO",
+                        "color": "#B3BAC3"
+                      },
+                      {
+                        "value": "UP",
+                        "color": "#BFC5CD"
+                      },
+                      {
+                        "value": "DC",
+                        "color": "#7F8B99"
+                      },
+                      {
+                        "value": "PSDC",
+                        "color": "#7F8B99"
+                      },
+                      {
+                        "value": "PRTB",
+                        "color": "#97A1AD"
+                      },
+                      {
+                        "value": "PATRIOTA",
+                        "color": "#8A96A3"
+                      },
+                      {
+                        "value": "PPL",
+                        "color": "#AEB6BF"
+                      },
+                      {
+                        "value": "PTB",
+                        "color": "#9099A4"
+                      },
+                      {
+                        "value": "MISSÃO",
+                        "color": "#A3ACB6"
+                      },
+                      {
+                        "value": "DEMOCRATA",
+                        "color": "#868F9B"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Municípios vencidos por partido",
+                "showDescription": true,
+                "description": "Municípios do Brasil (sem o exterior) em que o partido teve mais votos, no turno selecionado"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 7,
+            "width": 6,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "abstencao-por-uf-percent",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4eeea61c",
+                  "fields": [
+                    {
+                      "name": "sg_regiao",
+                      "expression": "`sg_regiao`"
+                    },
+                    {
+                      "name": "sg_uf",
+                      "expression": "`sg_uf`"
+                    },
+                    {
+                      "name": "avg(pct_abstencao)",
+                      "expression": "AVG(`pct_abstencao`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 3,
+              "widgetType": "bar",
+              "data": {
+                "queryName": "main_query"
+              },
+              "encodings": {
+                "x": {
+                  "fieldName": "sg_uf",
+                  "displayName": "UF",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "y-reversed"
+                    }
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(pct_abstencao)",
+                  "displayName": "Abstenção (%)",
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "format": {
+                    "type": "number-plain",
+                    "decimalPlaces": {
+                      "type": "max",
+                      "places": 2
+                    },
+                    "suffix": "%"
+                  }
+                },
+                "color": {
+                  "fieldName": "sg_regiao",
+                  "displayName": "Região",
+                  "scale": {
+                    "type": "categorical",
+                    "mappings": [
+                      {
+                        "value": "N",
+                        "color": "#009C3B"
+                      },
+                      {
+                        "value": "NE",
+                        "color": "#E3B505"
+                      },
+                      {
+                        "value": "SE",
+                        "color": "#002776"
+                      },
+                      {
+                        "value": "S",
+                        "color": "#4A8CC7"
+                      },
+                      {
+                        "value": "CO",
+                        "color": "#7B3FA0"
+                      }
+                    ]
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": "Abstenção por UF (%)",
+                "showDescription": true,
+                "description": "Abstenções sobre eleitores aptos; ZZ = exterior"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 14,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "rodape",
+            "multilineTextboxSpec": {
+              "lines": [
+                "**Fonte:** TSE, Portal de Dados Abertos (CC-BY); IBGE. O 2º turno de 2026 usa os arquivos publicados em 28/10/2026. O exterior (ZZ) não entra na contagem de municípios."
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 21,
+            "width": 12,
+            "height": 2
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "canvasBackgroundColor": {
+        "light": "#F4F6F9",
+        "dark": "#0E1624"
+      },
+      "widgetBackgroundColor": {
+        "light": "#FFFFFF",
+        "dark": "#16213A"
+      },
+      "fontColor": {
+        "light": "#002776",
+        "dark": "#E8ECF0"
+      },
+      "selectionColor": {
+        "light": "#002776",
+        "dark": "#8ACAFF"
+      },
+      "visualizationColors": [
+        "#002776",
+        "#009C3B",
+        "#E3B505",
+        "#C8102E",
+        "#4A8CC7",
+        "#7B3FA0",
+        "#9AA3AE"
+      ],
+      "widgetHeaderAlignment": "LEFT",
+      "widgetCornerRadius": 8
+    },
+    "applyModeEnabled": false
+  }
+}
