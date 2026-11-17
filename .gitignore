@@ -1,6 +1,53 @@
+# ─── Dados sensíveis ─────────────────────────────────────────────
+.env
+*.env
+.databrickscfg
+credenciais.txt
+senha*.txt
+config_local.*
+
+# ─── Dados brutos e gerados (refaça com os scripts) ──────────────
+# data/raw/: arquivos baixados do TSE e do IBGE (scripts/baixar_dados.py)
+# *.db: banco SQLite gerado por scripts/carregar_banco.py
 data/raw/
 *.db
 *.db-journal
+
+# ─── Python ──────────────────────────────────────────────────────
 __pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+
+# ─── Jupyter ─────────────────────────────────────────────────────
+.ipynb_checkpoints/
+.jupyter/
+.jupyter_ystore.db
+
+# ─── VS Code ─────────────────────────────────────────────────────
+.vscode/
+*.code-workspace
+
+# ─── Sistema operacional ─────────────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# ─── Arquivos temporários ────────────────────────────────────────
+*.tmp
+*.temp
+*.log
+*.bak
+~$*
+
+# ─── Power BI ────────────────────────────────────────────────────
+# Só a versão final vai para o GitHub; cópias de trabalho ficam locais.
+powerbi/backups/
+
+# ─── Databricks ──────────────────────────────────────────────────
+# Guia de uso pessoal, fora do repositório.
 databricks/guia_databricks.html
