@@ -12,7 +12,6 @@ gerado por `scripts/gerar_dataset.py` a partir dos arquivos do TSE e do IBGE.
 | `eleicoes_presidente.csv` | Dataset completo: 340.702 linhas, 22 colunas, separador `;`, UTF-8, decimal com ponto |
 | `eleicoes_presidente.xlsx` | O mesmo dataset em Excel |
 | `limpo/` | As 5 tabelas do modelo estrela, geradas pelo notebook de limpeza (separador `;`) |
-| `powerapps/` | Tabelas no grão do app Power Apps, geradas por `scripts/gerar_tabelas_powerapps.py` |
 
 Não versionados (os scripts recriam): `raw/` (arquivos baixados do TSE e do IBGE, com o
 `manifesto.csv` da versão usada) e `eleicoes.db` (banco SQLite).

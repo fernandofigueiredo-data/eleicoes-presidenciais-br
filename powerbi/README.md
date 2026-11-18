@@ -8,6 +8,8 @@ resultado nacional ao perfil socioeconômico dos municípios.
 
 ![Perfil socioeconômico, 2º turno de 2026](../prints/06_perfil_socioeconomico.png)
 
+🔗 **[Dashboard publicado na web](https://app.powerbi.com/view?r=eyJrIjoiNjlmZGIxNmItMDU5Yy00MzQ2LWE2YTYtYWMyZTE0OTRhMzM2IiwidCI6IjI2MGZmOWM5LTM4OGYtNDdiYi04NjlhLTc3YTk1N2JmNzA4MiJ9)** (abre no navegador, sem instalar nada).
+
 Prints de todas as páginas e vídeo de navegação: [`../prints/`](../prints/).
 
 ## Páginas

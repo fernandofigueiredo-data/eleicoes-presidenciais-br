@@ -5,7 +5,6 @@
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
 ![Power BI](https://img.shields.io/badge/Power%20BI-F2C811?style=flat&logo=powerbi&logoColor=black)
 ![Databricks](https://img.shields.io/badge/Databricks-FF3621?style=flat&logo=databricks&logoColor=white)
-![Power Apps](https://img.shields.io/badge/Power%20Apps-742774?style=flat&logo=powerapps&logoColor=white)
 
 > Resultados de presidente do TSE em todos os municípios e zonas eleitorais, nas quatro últimas
 > eleições (1º e 2º turnos), ligados a indicadores do IBGE: população, alfabetização e PIB.
@@ -16,8 +15,7 @@
 
 O projeto parte dos arquivos públicos do TSE e do IBGE e percorre todo o caminho de uma análise:
 coleta automatizada, limpeza em Python, banco relacional em SQL, dashboard no Power BI, versão em
-nuvem no Databricks e um app de consulta no Power Apps. Cada etapa confere os números com o
-resultado oficial do TSE.
+nuvem no Databricks. Cada etapa confere os números com o resultado oficial do TSE.
 
 | | |
 |---|---|
@@ -56,6 +54,8 @@ resultado oficial do TSE.
 
 ## Dashboard
 
+🔗 **[Abrir o dashboard publicado (Power BI)](https://app.powerbi.com/view?r=eyJrIjoiNjlmZGIxNmItMDU5Yy00MzQ2LWE2YTYtYWMyZTE0OTRhMzM2IiwidCI6IjI2MGZmOWM5LTM4OGYtNDdiYi04NjlhLTc3YTk1N2JmNzA4MiJ9)**
+
 ![Mapa dos vencedores, 2º turno de 2026](prints/02_mapa_dos_vencedores.png)
 
 | Página | Print |
@@ -78,9 +78,8 @@ resultado oficial do TSE.
 | Limpeza | Python, Pandas, Jupyter | [`notebooks/`](notebooks/) | Concluída |
 | Banco relacional | SQL (SQLite) | [`sql/`](sql/) | Concluída |
 | Modelo de dados | dbdiagram.io (DBML) | [`diagrama/`](diagrama/) | Concluída |
-| Dashboard | Power BI, Power Query, DAX | [`powerbi/`](powerbi/) | Concluída |
+| Dashboard | Power BI, Power Query, DAX | [`powerbi/`](powerbi/) · [online](https://app.powerbi.com/view?r=eyJrIjoiNjlmZGIxNmItMDU5Yy00MzQ2LWE2YTYtYWMyZTE0OTRhMzM2IiwidCI6IjI2MGZmOWM5LTM4OGYtNDdiYi04NjlhLTc3YTk1N2JmNzA4MiJ9) | Concluída |
 | Nuvem | Databricks (AI/BI Dashboard) | [`databricks/`](databricks/) | Concluída |
-| App de consulta | Power Apps, Dataverse, Power Automate | [`powerapps/`](powerapps/) | Em andamento |
 
 ## Modelo de dados
 
@@ -101,14 +100,12 @@ eleicoes-presidenciais-br/
 ├── data/
 │   ├── eleicoes_presidente.csv        dataset (22 colunas, 340.702 linhas)
 │   ├── eleicoes_presidente.xlsx       o mesmo dataset em Excel
-│   ├── limpo/                         5 tabelas limpas (dTurno, dCandidato, dMunicipio, fVotos, fComparecimento)
-│   └── powerapps/                     tabelas no formato do Dataverse
+│   └── limpo/                         5 tabelas limpas (dTurno, dCandidato, dMunicipio, fVotos, fComparecimento)
 │
 ├── scripts/
 │   ├── baixar_dados.py                baixa os arquivos do TSE e do IBGE
 │   ├── gerar_dataset.py               gera o dataset a partir dos arquivos baixados
-│   ├── carregar_banco.py              cria o banco SQLite a partir do dataset
-│   └── gerar_tabelas_powerapps.py     gera as tabelas do Power Apps a partir do banco
+│   └── carregar_banco.py              cria o banco SQLite a partir do dataset
 │
 ├── notebooks/
 │   └── limpeza_dados.ipynb            limpeza em Python (igual à do Power Query)
@@ -131,12 +128,8 @@ eleicoes-presidenciais-br/
 │   ├── medidas_dax.dax                todas as medidas DAX, comentadas
 │   └── tema_eleicoes_br.json          tema (design system) do relatório
 │
-├── databricks/
-│   └── dashboards/eleicoes.lvdash.json  dashboard AI/BI
-│
-└── powerapps/
-    ├── guia_powerapps.md              passo a passo: Dataverse, apps, fluxos e Solution
-    └── formulas_powerfx.md            fórmulas Power Fx do app canvas
+└── databricks/
+    └── dashboards/eleicoes.lvdash.json  dashboard AI/BI
 ```
 
 Os arquivos brutos (`data/raw/`) e o banco (`data/eleicoes.db`) não vão para o repositório:
@@ -153,9 +146,6 @@ limpeza_dados.ipynb   Power Query (guia)    carregar_banco.py     Databricks (CS
     │                     │                     │                     │
     ▼                     ▼                     ▼                     ▼
 data/limpo/*.csv      dashboard Power BI    eleicoes.db (SQL)     dashboard AI/BI
-                                                │
-                                                ▼
-                                     gerar_tabelas_powerapps.py ──► Power Apps
 ```
 
 A limpeza em Python e no Power Query é a mesma: gera as mesmas 5 tabelas, com os mesmos nomes
@@ -169,7 +159,6 @@ Precisa só de Python 3.10+ (os scripts usam a biblioteca padrão; o notebook us
 python3 scripts/baixar_dados.py             # opcional: baixa de novo os dados brutos
 python3 scripts/gerar_dataset.py            # opcional: refaz o dataset
 python3 scripts/carregar_banco.py           # cria data/eleicoes.db
-python3 scripts/gerar_tabelas_powerapps.py  # gera data/powerapps/*.csv
 ```
 
 Depois:
@@ -179,7 +168,6 @@ Depois:
   a consulta `Eleicoes` para o seu `data/eleicoes_presidente.csv` e clique em **Atualizar**. Para
   montar do zero, siga `powerbi/guia_dashboard.md`.
 - **SQL:** consulte as views, por exemplo `SELECT * FROM v_resultado_nacional;`.
-- **Power Apps:** siga `powerapps/guia_powerapps.md`.
 
 ## Principais decisões de limpeza
 

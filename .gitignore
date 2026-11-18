@@ -51,7 +51,3 @@ powerbi/backups/
 # ─── Databricks ──────────────────────────────────────────────────
 # Guia de uso pessoal, fora do repositório.
 databricks/guia_databricks.html
-
-# ─── Power Apps ──────────────────────────────────────────────────
-# Guia interativo de uso pessoal, fora do repositório.
-powerapps/guia_powerapps.html
