@@ -59,3 +59,9 @@ test('"Pular para o conteúdo" leva o foco ao conteúdo sem trocar de página', 
   await expect(page).toHaveURL(/#\/mapa$/);
   await expect(page.locator('.tab[data-page="mapa"]')).toHaveAttribute('aria-current', 'page');
 });
+
+test('arquivo de verificação do Google Search Console é servido na raiz', async ({ request }) => {
+  const r = await request.get('/google18c225c689ba1d80.html');
+  expect(r.status()).toBe(200);
+  expect((await r.text()).trim()).toBe('google-site-verification: google18c225c689ba1d80.html');
+});

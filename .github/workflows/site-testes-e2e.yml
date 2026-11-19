@@ -1,0 +1,52 @@
+# Testes de ponta a ponta do site (Playwright, desktop e celular) contra o build de produção.
+# Roda em todo pull request e em cada push na main que altere o site. Se falhar, o relatório e as
+# capturas ficam nos artefatos da execução.
+name: Site (testes de ponta a ponta)
+
+on:
+  pull_request:
+    paths: ['election-intelligence/**', '.github/workflows/site-testes-e2e.yml']
+  push:
+    branches: [main]
+    paths: ['election-intelligence/**', '.github/workflows/site-testes-e2e.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  playwright:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: election-intelligence
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: election-intelligence/package-lock.json
+      - run: npm ci
+      - name: Testes do motor (Vitest)
+        run: npm test
+      - name: Navegador do Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Build de produção
+        run: npm run build
+      - name: Testes de ponta a ponta (Playwright)
+        run: npx playwright test
+      - name: Relatório em caso de falha
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-resultados
+          path: |
+            election-intelligence/test-results/
+            election-intelligence/playwright-report/
+          retention-days: 7

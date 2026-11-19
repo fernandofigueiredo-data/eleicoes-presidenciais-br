@@ -37,7 +37,10 @@ interceptadas) e `tests/divulgacao.test.js`.
 
 1. Em [analytics.google.com](https://analytics.google.com), crie uma propriedade GA4 e um fluxo de
    dados da Web para `https://eleicoes-presidenciais-br.vercel.app`. Copie o **ID da métrica**
-   (formato `G-XXXXXXXXXX`).
+   (formato `G-XXXXXXXXXX`): Administrador → Fluxos de dados → o fluxo da Web.
+   **Não cole no site o trecho de código que o Google oferece** ("Instalar manualmente", com
+   `gtag.js` ou `gtm.js`): ele carregaria a tag sem esperar o consentimento, e o site já tem esse
+   código. Um ID `GTM-XXXXXXX` é de contêiner do Google Tag Manager, que este site não usa.
 2. No fluxo de dados, em **Medição otimizada**, abra a engrenagem e **desligue "Mudanças de página
    com base em eventos do histórico de navegação"**. O site já envia uma página vista a cada troca de
    rota; deixar ligado contaria em dobro.

@@ -3,6 +3,7 @@
 [![Site](https://img.shields.io/badge/site-eleicoes--presidenciais--br.vercel.app-002776?style=flat&logo=vercel&logoColor=white)](https://eleicoes-presidenciais-br.vercel.app)
 [![Pipeline Python](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/python-pipeline.yml/badge.svg)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/python-pipeline.yml)
 [![Site: testes e deploy](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/deploy-election-intelligence.yml/badge.svg)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/deploy-election-intelligence.yml)
+[![Site: testes de ponta a ponta](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/site-testes-e2e.yml/badge.svg)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/actions/workflows/site-testes-e2e.yml)
 [![Licença MIT](https://img.shields.io/badge/licença-MIT-blue?style=flat)](LICENSE)
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white)
 ![SQL](https://img.shields.io/badge/SQLite-003B57?style=flat&logo=sqlite&logoColor=white)
@@ -26,7 +27,7 @@
 | **Dados** | 340.702 linhas (candidato × zona × turno), 5.571 municípios e 195 cidades do exterior, 2014, 2018, 2022 e 2026 · [baixar (CSV, Excel, SQLite)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/releases/latest) |
 | **O que construí** | Coleta automatizada (Python) → limpeza em modelo estrela (Pandas e Power Query) → banco relacional (SQL) → dashboard (Power BI, 55 medidas DAX) → análise estatística (regressão ponderada) → **site independente** com mapa de todos os municípios (JavaScript) |
 | **Resultado principal** | 2026 teve virada: Flavio Bolsonaro liderou o 1º turno (47,03%) e Lula venceu o 2º (51,79%); 212 municípios trocaram de vencedor entre os turnos, 211 deles para Lula (contagem estrita; [por que há 212, 213 e 215](docs/divulgacao-election-intelligence/09_FAQ.md)) |
-| **Qualidade** | Totais iguais aos do TSE nos 8 turnos; **340 de 340** indicadores do site iguais aos do Power BI; testes automatizados de pipeline, motor e interface (pytest e Vitest rodam no GitHub Actions) |
+| **Qualidade** | Totais iguais aos do TSE nos 8 turnos; **340 de 340** indicadores do site iguais aos do Power BI; testes automatizados de pipeline, motor e interface, todos rodando no GitHub Actions |
 
 ## Principais resultados
 
@@ -77,7 +78,7 @@ O link já traz o filtro: dá para mandar a mesma visão para outra pessoa.
 | Integridade | Soma dos votos dos candidatos = votos válidos, em cada zona (`v_integridade_zona`) e em cada município | Nenhuma divergência |
 | Reprodutibilidade | A CI roda `limpeza_dados.ipynb` e exige que `data/limpo/` saia idêntico ao versionado | Idêntico, byte a byte |
 | Site × Power BI | 340 indicadores calculados dentro do PBIX (PBIX-MCP) contra o motor JavaScript do site | 340 / 340, diferença 0 |
-| Testes | pytest (20, pipeline Python e números da divulgação), Vitest (36, motor, critérios de contagem e carregamento) e Playwright (113, desktop e celular, incluindo os 27 links por UF) | pytest e Vitest passam na CI; o Playwright roda localmente (`PW_CHANNEL=chrome npx playwright test`) |
+| Testes | pytest (20, pipeline Python e números da divulgação), Vitest (36, motor, critérios de contagem e carregamento) e Playwright (113, desktop e celular, incluindo os 27 links por UF) | Todos passam na CI (pytest no pipeline Python; Vitest e Playwright no workflow do site) |
 
 ## Decisões técnicas
 

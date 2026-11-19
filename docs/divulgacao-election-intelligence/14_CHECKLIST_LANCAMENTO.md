@@ -26,7 +26,7 @@ branch, entra no ar com o merge); **ação de Fernando**; **atenção** (problem
 | 2 | Site responsivo no celular | ok | As 8 páginas em 390 px, sem rolagem horizontal (`paginas.spec.js`, `mobile.spec.js`). Corrigido neste PR: a barra de filtros fixa ficava sob as abas ao rolar. |
 | 3 | Formulário quebrado ou sem teste de envio real | não se aplica / ação de Fernando | O site não tem formulário. O contato é um link `mailto:` com assunto, testado. Falta só um envio real: clique em "Escrever e-mail" na página Sobre e mande uma mensagem para você mesmo. Não fiz o envio (regra 1 do briefing). |
 | 4 | Política de privacidade quando exigida por lei | corrigido; depende do merge | Seção Privacidade na página Sobre e contato. Com o Google Analytics, o texto descreve cookies, o que é enviado, o IP e como mudar a escolha, e só há medição depois do aceite. Não é parecer jurídico: se quiser segurança sobre a LGPD, vale uma leitura de um advogado. |
-| 5 | Indexação no Google Search Console | ação de Fernando | Não verificável sem o seu acesso. Passos: em search.google.com/search-console, adicione a propriedade "Prefixo do URL" `https://eleicoes-presidenciais-br.vercel.app/` e verifique por **tag HTML**. Mande-me o código da tag `google-site-verification` que eu incluo no `index.html`. A verificação pelo Google Analytics não funciona aqui, porque o GA só carrega depois do aceite. |
+| 5 | Indexação no Google Search Console | depende do merge; depois, ação de Fernando | O arquivo de verificação `google18c225c689ba1d80.html` está em `election-intelligence/public/` e é servido na raiz do site (teste em `paginas.spec.js`). Depois do merge e do deploy, clique em **Verificar** no Search Console (método "Arquivo HTML"). A verificação pelo Google Analytics não funciona aqui, porque o GA só carrega depois do aceite. |
 | 6 | robots.txt bloqueando o rastreamento | corrigido; depende do merge | Em produção, `/robots.txt` dava 404, o que não bloqueia, mas também não indica o sitemap. Agora libera tudo (`Allow: /`) e aponta o sitemap. |
 | 7 | sitemap.xml ausente ou não enviado | corrigido; depende do merge; envio é ação de Fernando | Em produção dava 404. Criado com o endereço raiz (as rotas com `#` não são páginas separadas para o Google). Depois do merge, envie `sitemap.xml` no Search Console. |
 | 8 | HTTPS e conteúdo misto | ok | HTTP redireciona para HTTPS (308) e há HSTS (`max-age=63072000; preload`). Nenhuma requisição `http://` nas 9 rotas testadas. |
@@ -42,7 +42,7 @@ branch, entra no ar com o merge); **ação de Fernando**; **atenção** (problem
 
 1. Revisar e fazer o merge do PR #8.
 2. Criar a propriedade GA4, pôr o ID em `VITE_GA4_ID` na Vercel e conferir o Tempo real (item 11).
-3. Search Console: propriedade, tag de verificação e envio do sitemap (itens 5 e 7).
+3. Search Console: depois do merge, clicar em Verificar e enviar o sitemap (itens 5 e 7).
 4. Mandar um e-mail de teste para si mesmo pelo botão da página Sobre (item 3).
 5. Rodar de novo a verificação de lançamento contra a produção: o comando no topo, sem `BASE_URL`.
 6. Depois do merge, medir de novo o LCP em produção (o comando acima grava o resultado).
