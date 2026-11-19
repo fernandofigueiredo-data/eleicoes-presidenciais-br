@@ -1,0 +1,11 @@
+# O build na Vercel só precisa de package*.json, index.html, vite.config.js, src/ e public/.
+node_modules
+dist
+.vite
+test-results
+playwright-report
+data/raw
+data/geo_src
+data/metadata/report_definition
+docs
+tests

@@ -38,7 +38,7 @@ export function createApp(E, rootEl) {
   const main = h('<main id="conteudo" tabindex="-1"></main>');
   const footer = h(`<footer class="app-footer"><div class="app-footer__inner">
     <span><strong>ELECTION INTELLIGENCE</strong> · dados do TSE (CC-BY) e do IBGE, reconstruídos do relatório Power BI do projeto. Site independente do Power BI.</span>
-    <span><a href="#/sobre">Fontes, metodologia e conferência</a></span></div></footer>`);
+    <span class="footer-links"><a href="#/sobre">Fontes, metodologia e conferência</a><a href="https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br" target="_blank" rel="noopener">Código e documentação no GitHub</a></span></div></footer>`);
   rootEl.append(h('<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'), header, filterBar(E, store), main, footer);
 
   const palette = searchPalette(E, store);

@@ -72,6 +72,7 @@ main { max-width: var(--maxw); margin: 0 auto; padding: var(--sp-6) var(--sp-5) 
 div.section-gap:empty { margin-top: var(--gap-out); }
 
 .app-footer { border-top: 1px solid var(--border); background: var(--surface); }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 20px; }
 .app-footer__inner { max-width: var(--maxw); margin: 0 auto; padding: var(--sp-5); font-size: var(--fs-sm); color: var(--text-2); display: flex; flex-wrap: wrap; gap: var(--sp-4); justify-content: space-between; }
 
 @media (max-width: 1200px) {
