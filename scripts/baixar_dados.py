@@ -41,18 +41,26 @@ DATASETS_TSE = ("votacao_candidato_munzona", "detalhe_votacao_munzona", "consult
 
 # (arquivo de saída, URL, descrição)
 IBGE = [
-    ("ibge_municipios.json",
-     "https://servicodados.ibge.gov.br/api/v1/localidades/municipios?view=nivelado",
-     "Lista oficial de municípios, UF e região (API de Localidades)"),
-    ("sidra_4709_populacao_2022.json",
-     "https://apisidra.ibge.gov.br/values/t/4709/n6/all/v/93/p/2022",
-     "População residente, Censo 2022"),
-    ("sidra_5938_pib_municipal.json",
-     "https://apisidra.ibge.gov.br/values/t/5938/n6/all/v/37/p/2014,2018,2022,2023",
-     "PIB municipal a preços correntes (mil R$), anos de eleição + último disponível"),
-    ("sidra_9543_alfabetizacao_2022.json",
-     "https://apisidra.ibge.gov.br/values/t/9543/n6/all/v/2513/p/2022/c2/6794/c86/95251/c287/100362",
-     "Taxa de alfabetização 15+ anos, Censo 2022"),
+    (
+        "ibge_municipios.json",
+        "https://servicodados.ibge.gov.br/api/v1/localidades/municipios?view=nivelado",
+        "Lista oficial de municípios, UF e região (API de Localidades)",
+    ),
+    (
+        "sidra_4709_populacao_2022.json",
+        "https://apisidra.ibge.gov.br/values/t/4709/n6/all/v/93/p/2022",
+        "População residente, Censo 2022",
+    ),
+    (
+        "sidra_5938_pib_municipal.json",
+        "https://apisidra.ibge.gov.br/values/t/5938/n6/all/v/37/p/2014,2018,2022,2023",
+        "PIB municipal a preços correntes (mil R$), anos de eleição + último disponível",
+    ),
+    (
+        "sidra_9543_alfabetizacao_2022.json",
+        "https://apisidra.ibge.gov.br/values/t/9543/n6/all/v/2513/p/2022/c2/6794/c86/95251/c287/100362",
+        "Taxa de alfabetização 15+ anos, Censo 2022",
+    ),
 ]
 
 USER_AGENT = "eleicoes-br-sql/1.0 (projeto academico CS50 SQL)"
@@ -98,7 +106,7 @@ class ArquivoHttp:
             with urllib.request.urlopen(_req(self.url, Range=f"bytes={self.pos}-{fim}"), timeout=120) as r:
                 self._ini, self._dados = self.pos, r.read()
         i = self.pos - self._ini
-        out = self._dados[i:i + n]
+        out = self._dados[i : i + n]
         self.pos += len(out)
         return out
 
@@ -112,15 +120,17 @@ def sha256(caminho: Path) -> str:
 
 
 def registrar(linhas: list[dict], arquivo: Path, url: str, last_modified: str | None, fonte: str) -> None:
-    linhas.append({
-        "arquivo": arquivo.relative_to(RAIZ).as_posix(),
-        "url": url,
-        "sha256": sha256(arquivo),
-        "last_modified": last_modified or "",
-        "bytes": arquivo.stat().st_size,
-        "baixado_em": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
-        "fonte": fonte,
-    })
+    linhas.append(
+        {
+            "arquivo": arquivo.relative_to(RAIZ).as_posix(),
+            "url": url,
+            "sha256": sha256(arquivo),
+            "last_modified": last_modified or "",
+            "bytes": arquivo.stat().st_size,
+            "baixado_em": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S"),
+            "fonte": fonte,
+        }
+    )
     print(f"  ok  {arquivo.relative_to(RAIZ)}  ({arquivo.stat().st_size / 1e6:.1f} MB)")
 
 
@@ -167,9 +177,15 @@ def baixar(url: str, alvo: Path) -> str | None:
         if not isinstance(e.reason, ssl.SSLError) or not shutil.which("curl"):
             raise
         print("  (SSL falhou no Python; usando curl)")
-        cab = subprocess.run(["curl", "-fsSL", "-A", USER_AGENT, "-o", str(alvo), "-D", "-", url],
-                             check=True, capture_output=True, text=True).stdout
-        lm = [l.split(":", 1)[1].strip() for l in cab.splitlines() if l.lower().startswith("last-modified:")]
+        cab = subprocess.run(
+            ["curl", "-fsSL", "-A", USER_AGENT, "-o", str(alvo), "-D", "-", url],
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout
+        lm = [
+            linha.split(":", 1)[1].strip() for linha in cab.splitlines() if linha.lower().startswith("last-modified:")
+        ]
         return lm[-1] if lm else None
 
 
@@ -192,11 +208,15 @@ def baixar_ibge(url: str, alvo: Path) -> str | None:
         print(f"  ({e}; tentando com curl)")
     if not shutil.which("curl"):
         raise ValueError("a API devolveu uma resposta vazia ou que não é JSON")
-    cab = subprocess.run(["curl", "-fsSL", "--retry", "3", "-A", USER_AGENT, "-o", str(alvo), "-D", "-", url],
-                         check=True, capture_output=True, text=True).stdout
+    cab = subprocess.run(
+        ["curl", "-fsSL", "--retry", "3", "-A", USER_AGENT, "-o", str(alvo), "-D", "-", url],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
     if not json_valido(alvo):
         raise ValueError("a API devolveu uma resposta vazia ou que não é JSON")
-    lm = [l.split(":", 1)[1].strip() for l in cab.splitlines() if l.lower().startswith("last-modified:")]
+    lm = [linha.split(":", 1)[1].strip() for linha in cab.splitlines() if linha.lower().startswith("last-modified:")]
     return lm[-1] if lm else None
 
 
@@ -204,8 +224,7 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--anos", nargs="+", type=int, default=[2014, 2018, 2022, 2026])
     ap.add_argument("--zip-completo", action="store_true", help="baixa os ZIPs inteiros do TSE")
-    ap.add_argument("--sem-ibge", action="store_true",
-                    help="não baixa o IBGE; registra as cópias já em data/raw/ibge/")
+    ap.add_argument("--sem-ibge", action="store_true", help="não baixa o IBGE; registra as cópias já em data/raw/ibge/")
     args = ap.parse_args()
 
     linhas: list[dict] = []
@@ -274,7 +293,7 @@ def main() -> int:
         w = csv.DictWriter(f, fieldnames=list(linhas[0]))
         w.writeheader()
         w.writerows(linhas)
-    total = sum(l["bytes"] for l in linhas) / 1e6
+    total = sum(linha["bytes"] for linha in linhas) / 1e6
     print(f"\n{len(linhas)} arquivos, {total:.0f} MB. Manifesto: {MANIFESTO.relative_to(RAIZ)}")
     if faltando:
         print("\nA API do IBGE não respondeu (costuma bloquear servidores fora do Brasil, como o Codespace).")

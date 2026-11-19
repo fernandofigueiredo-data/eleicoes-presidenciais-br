@@ -139,7 +139,8 @@ export function mount(root, { E, store }) {
     const escopo = scopeLabel(E, { ...s, mun: null });
     const g = { turno: s.turno, ...geoCtx(s), mun: null, exterior: false };
     const top2 = ranking(E, g).filter((r) => r.votos).slice(0, 2);
-    const resumo = top2.map((r) => `<strong>${escapeHtml(r.c.nome)}</strong> venceu em <strong>${int(E.MunicipiosVencidos({ ...g, cand: { chaves: new Set([r.chave]) } }))}</strong> municípios`).join('; ');
+    const empates = E.selection(g).filter((i) => E.resumoMunicipios(s.turno)[i]?.vencedor?.includes(' / ')).length;
+    const resumo = top2.map((r) => `<strong>${escapeHtml(r.c.nome)}</strong> venceu em <strong>${int(E.MunicipiosVencidos({ ...g, cand: { chaves: new Set([r.chave]) } }))}</strong> municípios`).join('; ') + (empates ? ` (${empates === 1 ? 'o município empatado conta' : `os ${empates} municípios empatados contam`} para os dois)` : '');
     head.innerHTML = pageHead('Mapa dos vencedores', 'Onde cada candidato venceu', `${resumo}${escopo !== 'Brasil' ? ` ${escapeHtml(noEscopo(E, { ...s, mun: null }))}` : ''}.`, escapeHtml(E.turnoByKey.get(s.turno).rotulo), escapeHtml(escopo));
     pMap.setSub(modo === 'candidato' ? `% dos votos válidos de ${escapeHtml(E.candByKey.get(candAlvo)?.nome ?? '')} · escolha outro candidato no filtro` : modo === 'margem' ? 'Diferença entre 1º e 2º colocados, em % dos votos válidos' : 'Cor do partido vencedor; empates em cinza');
     map.update();

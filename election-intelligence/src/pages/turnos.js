@@ -9,6 +9,7 @@ import { dataTable } from '../components/tables/dataTable.js';
 import { downloadCSV } from '../utils/csv.js';
 import { geoCtx, scopeLabel, pageHead, municipioDetail, bindDetailActions, noEscopo } from './shared.js';
 
+const empate = (x) => !!x && x.includes(' / ');
 const cap = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 const GOLD = VIZ.changed, GRAY = VIZ.unchanged, NODATA = C.gray100;
 
@@ -76,7 +77,7 @@ export function mount(root, { E, store }) {
     const flips = [];
     const porDirecao = new Map();
     const ufC = new Map();
-    let validos = 0;
+    let validos = 0, porEmpate = 0;
     for (const i of sel) {
       const v = E.virouMun(ano, i);
       if (v == null) continue;
@@ -86,6 +87,7 @@ export function mount(root, { E, store }) {
       if (v) {
         u.n++;
         const v2 = E.vencedorTurnoMun(ano, 2, i);
+        if (empate(v2) || empate(E.vencedorTurnoMun(ano, 1, i))) porEmpate++;
         porDirecao.set(v2, (porDirecao.get(v2) || 0) + 1);
         flips.push({ tse: E.mun.tse[i], nome: E.mun.nome[i], uf, v1: E.vencedorTurnoMun(ano, 1, i), v2, m2: E.resumoMunicipios(t2)[i]?.margem, aptos: E.turnos[t2].comp.aptos[i] });
       }
@@ -94,14 +96,14 @@ export function mount(root, { E, store }) {
     const nVir = E.MunicipiosQueViraram(ctx) ?? 0;
     const direcoes = [...porDirecao.entries()].sort((a, b) => b[1] - a[1]);
     head.innerHTML = pageHead('1º e 2º turno', 'Onde o vencedor virou no 2º turno',
-      `${escapeHtml(cap(noEscopo(E, { ...s, mun: null })))}, <strong>${int(nVir)}</strong> municípios (${pct(E.PctMunicipiosQueViraram(ctx))}) trocaram de vencedor entre os turnos de ${ano}. ${direcoes.map(([n, c]) => `${escapeHtml(n)} virou em ${int(c)}`).join('; ')}.`,
+      `${escapeHtml(cap(noEscopo(E, { ...s, mun: null })))}, <strong>${int(nVir)}</strong> municípios (${pct(E.PctMunicipiosQueViraram(ctx))}) trocaram de vencedor entre os turnos de ${ano}. ${direcoes.map(([n, c]) => (empate(n) ? `em ${int(c)} o 2º turno empatou` : `${escapeHtml(n)} virou em ${int(c)}`)).join('; ')}.`,
       escapeHtml(E.turnoByKey.get(s.turno).rotulo), escapeHtml(escopo));
     const rowsCand = finalistas.map((c) => {
       const cc = { ...ctx, cand: { chaves: new Set([c.chave]) } };
       return { chave: c.chave, nome: c.nome, partido: c.partido, v1: E.Votos1T(cc), v2: E.Votos2T(cc), ganho: E.VotosGanhos2T(cc), p1: E.PctVotosValidos1T(cc), p2: E.PctVotosValidos2T(cc), var: E.VariacaoEntreTurnosPP(cc) };
     }).sort((a, b) => b.v2 - a.v2);
     kpis.innerHTML = [
-      kpi({ label: 'Municípios que viraram', value: int(nVir), foot: `de ${int(validos)} com resultado nos dois turnos`, hero: true }),
+      kpi({ label: 'Municípios que viraram', value: int(nVir), foot: `de ${int(validos)} com resultado nos dois turnos${porEmpate ? ` · ${int(nVir - porEmpate)} sem contar ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`}` : ''}`, hero: true }),
       kpi({ label: '% que viraram', value: pct(E.PctMunicipiosQueViraram(ctx)), foot: `${ano} · 1º → 2º turno` }),
       kpi({ label: 'Mantiveram o vencedor', value: int(validos - nVir), foot: pct(validos ? (validos - nVir) / validos : null) }),
       ...rowsCand.slice(0, 2).map((r) => kpi({ label: `Votos ganhos · ${r.nome}`, value: signedInt(r.ganho), foot: `${pct(r.p1)} → ${pct(r.p2)} (${pp(r.var)})`, swatch: E.corPartido(r.partido) })),

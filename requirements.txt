@@ -13,3 +13,4 @@ notebook>=7
 nbconvert>=7
 ipykernel>=6
 pytest>=8
+ruff>=0.6

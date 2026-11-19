@@ -21,6 +21,7 @@ Uso:
 from __future__ import annotations
 
 import argparse
+import contextlib
 import csv
 import json
 import sys
@@ -35,13 +36,28 @@ CSV_SAIDA = RAIZ / "data" / "eleicoes_presidente.csv"
 XLSX_SAIDA = RAIZ / "data" / "eleicoes_presidente.xlsx"
 
 COLUNAS = [
-    "ano", "nr_turno",
-    "sg_regiao", "sg_uf", "cd_municipio_tse", "cd_municipio_ibge", "municipio", "nr_zona",
-    "nr_candidato", "nm_urna", "sg_partido", "situacao_turno",
+    "ano",
+    "nr_turno",
+    "sg_regiao",
+    "sg_uf",
+    "cd_municipio_tse",
+    "cd_municipio_ibge",
+    "municipio",
+    "nr_zona",
+    "nr_candidato",
+    "nm_urna",
+    "sg_partido",
+    "situacao_turno",
     "qt_votos_nominais",
-    "zona_aptos", "zona_comparecimento", "zona_abstencoes",
-    "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos",
-    "populacao_2022", "alfabetizacao_2022", "pib_mil_reais",
+    "zona_aptos",
+    "zona_comparecimento",
+    "zona_abstencoes",
+    "zona_votos_validos",
+    "zona_votos_brancos",
+    "zona_votos_nulos",
+    "populacao_2022",
+    "alfabetizacao_2022",
+    "pib_mil_reais",
 ]
 
 # coluna do dataset -> coluna do detalhe_votacao_munzona
@@ -64,24 +80,25 @@ def ler_sidra(nome: str) -> dict[tuple[int, int], float]:
     """{(código IBGE, ano): valor}. O 1º elemento do JSON do SIDRA é o cabeçalho."""
     linhas = json.loads((RAW / "ibge" / nome).read_text(encoding="utf-8"))[1:]
     saida = {}
-    for l in linhas:
-        try:
-            saida[(int(l["D1C"]), int(l["D3C"]))] = float(l["V"])
-        except ValueError:  # '-', '...', 'X'
-            pass
+    for reg in linhas:
+        with contextlib.suppress(ValueError):  # o SIDRA usa '-', '...' e 'X' para valor ausente
+            saida[(int(reg["D1C"]), int(reg["D3C"]))] = float(reg["V"])
     return saida
 
 
 def montar_linhas() -> list[dict]:
     # municípios: código TSE -> (código IBGE, UF, nome IBGE, região)
-    ibge = {m["municipio-id"]: m for m in
-            json.loads((RAW / "ibge" / "ibge_municipios.json").read_text(encoding="utf-8"))}
+    ibge = {
+        m["municipio-id"]: m for m in json.loads((RAW / "ibge" / "ibge_municipios.json").read_text(encoding="utf-8"))
+    }
     municipios = {}
     for r in ler_csv(RAW / "tse" / "municipio_tse_ibge.csv"):
         cd_ibge = int(r["CD_MUNICIPIO_IBGE"])
         m = ibge.get(cd_ibge, {})
         municipios[int(r["CD_MUNICIPIO_TSE"])] = {
-            "sg_regiao": m.get("regiao-sigla"), "sg_uf": r["SG_UF"], "cd_municipio_ibge": cd_ibge,
+            "sg_regiao": m.get("regiao-sigla"),
+            "sg_uf": r["SG_UF"],
+            "cd_municipio_ibge": cd_ibge,
             "municipio": m.get("municipio-nome") or r["NM_MUNICIPIO_IBGE"],
         }
     pop = ler_sidra("sidra_4709_populacao_2022.json")
@@ -93,8 +110,12 @@ def montar_linhas() -> list[dict]:
         if cd not in municipios:
             if r["SG_UF"] != "ZZ":
                 raise ValueError(f"município {cd} ({r['NM_MUNICIPIO']}/{r['SG_UF']}) fora da tabela TSE x IBGE")
-            municipios[cd] = {"sg_regiao": None, "sg_uf": "ZZ", "cd_municipio_ibge": None,
-                              "municipio": r["NM_MUNICIPIO"].strip().title()}
+            municipios[cd] = {
+                "sg_regiao": None,
+                "sg_uf": "ZZ",
+                "cd_municipio_ibge": None,
+                "municipio": r["NM_MUNICIPIO"].strip().title(),
+            }
         return municipios[cd]
 
     linhas = []
@@ -132,18 +153,36 @@ def montar_linhas() -> list[dict]:
         for (turno, cd_tse, zona, nr), qt in votos.items():
             m = municipios[cd_tse]
             ci = m["cd_municipio_ibge"]
-            linhas.append({
-                "ano": ano, "nr_turno": turno, **m, "cd_municipio_tse": cd_tse, "nr_zona": zona,
-                "nr_candidato": nr, "nm_urna": candidato[nr][0], "sg_partido": candidato[nr][1],
-                "situacao_turno": situacao[(turno, nr)], "qt_votos_nominais": qt,
-                **zonas[(turno, cd_tse, zona)],
-                "populacao_2022": pop.get((ci, 2022)),
-                "alfabetizacao_2022": alf.get((ci, 2022)),
-                "pib_mil_reais": next((pib[(ci, a)] for a in pib_ano if (ci, a) in pib), None),
-            })
-        print(f"  {ano}: {sum(1 for l in linhas if l['ano'] == ano)} linhas")
+            linhas.append(
+                {
+                    "ano": ano,
+                    "nr_turno": turno,
+                    **m,
+                    "cd_municipio_tse": cd_tse,
+                    "nr_zona": zona,
+                    "nr_candidato": nr,
+                    "nm_urna": candidato[nr][0],
+                    "sg_partido": candidato[nr][1],
+                    "situacao_turno": situacao[(turno, nr)],
+                    "qt_votos_nominais": qt,
+                    **zonas[(turno, cd_tse, zona)],
+                    "populacao_2022": pop.get((ci, 2022)),
+                    "alfabetizacao_2022": alf.get((ci, 2022)),
+                    "pib_mil_reais": next((pib[(ci, a)] for a in pib_ano if (ci, a) in pib), None),
+                }
+            )
+        print(f"  {ano}: {sum(1 for reg in linhas if reg['ano'] == ano)} linhas")
 
-    linhas.sort(key=lambda l: (l["ano"], l["nr_turno"], l["sg_uf"], l["municipio"], l["nr_zona"], l["nr_candidato"]))
+    linhas.sort(
+        key=lambda reg: (
+            reg["ano"],
+            reg["nr_turno"],
+            reg["sg_uf"],
+            reg["municipio"],
+            reg["nr_zona"],
+            reg["nr_candidato"],
+        )
+    )
     return linhas
 
 
@@ -158,8 +197,8 @@ def gravar_csv(linhas: list[dict], destino: Path) -> None:
     with destino.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, delimiter=";")
         w.writerow(COLUNAS)
-        for l in linhas:
-            w.writerow(["" if l[c] is None else valor(l[c]) for c in COLUNAS])
+        for reg in linhas:
+            w.writerow(["" if reg[c] is None else valor(reg[c]) for c in COLUNAS])
 
 
 def _letra(i: int) -> str:
@@ -184,38 +223,48 @@ def gravar_xlsx(linhas: list[dict], destino: Path) -> None:
         return f'<c r="{ref}" t="inlineStr"><is><t>{escape(str(v))}</t></is></c>'
 
     with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr("[Content_Types].xml",
-                   '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-                   '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
-                   '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
-                   '<Default Extension="xml" ContentType="application/xml"/>'
-                   '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'
-                   '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
-                   '</Types>')
-        z.writestr("_rels/.rels",
-                   '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-                   '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-                   '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'
-                   '</Relationships>')
-        z.writestr("xl/workbook.xml",
-                   '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-                   '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
-                   'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
-                   '<sheets><sheet name="eleicoes_presidente" sheetId="1" r:id="rId1"/></sheets></workbook>')
-        z.writestr("xl/_rels/workbook.xml.rels",
-                   '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-                   '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
-                   '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'
-                   '</Relationships>')
+        z.writestr(
+            "[Content_Types].xml",
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
+            '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
+            '<Default Extension="xml" ContentType="application/xml"/>'
+            '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>'  # noqa: E501
+            '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'  # noqa: E501
+            "</Types>",
+        )
+        z.writestr(
+            "_rels/.rels",
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'  # noqa: E501
+            "</Relationships>",
+        )
+        z.writestr(
+            "xl/workbook.xml",
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
+            'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
+            '<sheets><sheet name="eleicoes_presidente" sheetId="1" r:id="rId1"/></sheets></workbook>',
+        )
+        z.writestr(
+            "xl/_rels/workbook.xml.rels",
+            '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+            '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
+            '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>'  # noqa: E501
+            "</Relationships>",
+        )
         with z.open("xl/worksheets/sheet1.xml", "w") as f:
-            f.write(b'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
-                    b'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
-                    b'<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" state="frozen"/>'
-                    b'</sheetView></sheetViews><sheetData>')
+            f.write(
+                b'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
+                b'<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
+                b'<sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" state="frozen"/>'
+                b"</sheetView></sheetViews><sheetData>"
+            )
             cab = "".join(celula(f"{letras[i]}1", c) for i, c in enumerate(COLUNAS))
             f.write(f'<row r="1">{cab}</row>'.encode())
-            for n, l in enumerate(linhas, start=2):
-                cels = "".join(celula(f"{letras[i]}{n}", l[c]) for i, c in enumerate(COLUNAS))
+            for n, reg in enumerate(linhas, start=2):
+                cels = "".join(celula(f"{letras[i]}{n}", reg[c]) for i, c in enumerate(COLUNAS))
                 f.write(f'<row r="{n}">{cels}</row>'.encode())
             f.write(b"</sheetData></worksheet>")
 
