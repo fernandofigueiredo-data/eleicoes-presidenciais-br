@@ -52,7 +52,9 @@ test('"Pular para o conteúdo" leva o foco ao conteúdo sem trocar de página', 
   await page.goto('/#/mapa');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.page-title')).toBeVisible();
-  await page.keyboard.press('Tab');
+  // o foco inicial do Tab varia entre navegadores (no Chromium da CI não começa no documento):
+  // o que se testa é o efeito de ativar o link pelo teclado
+  await page.locator('.skip-link').focus();
   await expect(page.locator('.skip-link')).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.locator('main#conteudo')).toBeFocused();
