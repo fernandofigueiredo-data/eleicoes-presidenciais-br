@@ -62,6 +62,8 @@ export function createApp(E, rootEl) {
     ev.preventDefault();
     store.set({ page: a.dataset.page, secao: null }, { push: true });
   });
+  // "Pular para o conteúdo" leva o foco ao conteúdo sem mudar o endereço (o roteador leria #conteudo como página inválida)
+  rootEl.querySelector('.skip-link').addEventListener('click', (ev) => { ev.preventDefault(); main.focus(); main.scrollIntoView(); });
   rootEl.addEventListener('click', (ev) => {
     const a = ev.target.closest('a[href^="#/"]');
     if (!a || a.closest('.tabs')) return;

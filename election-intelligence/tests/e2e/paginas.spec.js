@@ -47,3 +47,15 @@ for (const v of LARGURAS) {
     expect(Math.abs(filtros - cab)).toBeLessThanOrEqual(1);
   });
 }
+
+test('"Pular para o conteúdo" leva o foco ao conteúdo sem trocar de página', async ({ page }) => {
+  await page.goto('/#/mapa');
+  await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
+  await expect(page.locator('.page-title')).toBeVisible();
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.skip-link')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('main#conteudo')).toBeFocused();
+  await expect(page).toHaveURL(/#\/mapa$/);
+  await expect(page.locator('.tab[data-page="mapa"]')).toHaveAttribute('aria-current', 'page');
+});

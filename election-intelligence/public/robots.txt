@@ -1,0 +1,5 @@
+# ELECTION INTELLIGENCE: todo o site pode ser rastreado.
+User-agent: *
+Allow: /
+
+Sitemap: https://eleicoes-presidenciais-br.vercel.app/sitemap.xml
