@@ -8,6 +8,7 @@ import { filterBar } from './components/filters/filterBar.js';
 import { searchPalette } from './components/filters/searchPalette.js';
 import { toast } from './components/ui/ui.js';
 import { PROJETO, TSE, mailto } from './content/projeto.js';
+import { turnosNecessarios } from './services/requisitos.js';
 
 const LOADERS = {
   nacional: () => import('./pages/nacional.js'),
@@ -22,7 +23,7 @@ const LOADERS = {
 
 const LOGO = `<svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#009C3B"/><path d="M20 6 35 20 20 34 5 20Z" fill="#E3B505"/><circle cx="20" cy="20" r="7.5" fill="#002776"/><path d="M13 19.2c4.4-1.6 9.6-1.3 14 .9" stroke="#fff" stroke-width="1.6" fill="none"/></svg>`;
 
-export function createApp(E, rootEl) {
+export function createApp(E, rootEl, dados) {
   const store = createStore(E, { turno: '2026-2', regiao: null, uf: null, mun: null, cand: null, partido: null, modo: 'vencedor', cmpC: [], cmpT: [] });
 
   rootEl.innerHTML = '';
@@ -73,12 +74,43 @@ export function createApp(E, rootEl) {
   });
 
   let current = null, currentId = null, token = 0, navigated = false;
+  let primeira = true;
+  const fimPrimeira = () => {
+    if (!primeira) return;
+    primeira = false;
+    window.dispatchEvent(new CustomEvent('ei:primeira'));
+    // os turnos que a página não pediu vêm depois, sem disputar a rede com a primeira tela
+    setTimeout(() => dados.carregarRestante(), 300);
+  };
+  const erroDePagina = () => {
+    main.innerHTML = emptyState('Não foi possível abrir esta página.', 'A conexão pode ter caído no meio do carregamento.', { act: 'retry-page', label: 'Tentar de novo' });
+    main.querySelector('[data-act=retry-page]').addEventListener('click', () => { currentId = null; current = null; showPage(store.get()); });
+  };
+
   async function showPage(s) {
     const my = ++token;
     header.querySelectorAll('[data-page]').forEach((a) => {
       a.href = store.hrefFor(a.dataset.page);
       if (a.dataset.page === s.page) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
+    const mesma = currentId === s.page && current;
+    // nenhuma tela é montada ou atualizada sem os turnos de que precisa
+    const precisa = turnosNecessarios(s.page, s.turno, E.meta, s.mun);
+    if (!dados.tem(precisa)) {
+      main.setAttribute('aria-busy', 'true');
+      if (!mesma) { current?.destroy?.(); current = null; currentId = s.page; main.innerHTML = '<div class="skeleton" style="height:420px"></div>'; }
+      try {
+        await dados.garantir(precisa);
+      } catch (err) {
+        console.error(err);
+        if (my === token) { current?.destroy?.(); current = null; currentId = null; erroDePagina(); fimPrimeira(); }
+        return;
+      } finally {
+        main.removeAttribute('aria-busy');
+      }
+      if (my !== token) return;
+      s = store.get();
+    }
     if (currentId === s.page && current) { current.update(s); return; }
     current?.destroy?.();
     current = null; currentId = s.page;
@@ -87,7 +119,7 @@ export function createApp(E, rootEl) {
       const mod = await LOADERS[s.page]();
       if (my !== token) return;
       main.innerHTML = '';
-      current = mod.mount(main, { E, store });
+      current = mod.mount(main, { E, store, dados });
       current.update(store.get());
       document.title = `${PAGES.find((p) => p.id === s.page).label} · ELECTION INTELLIGENCE`;
       window.dispatchEvent(new CustomEvent('ei:pagina'));
@@ -97,10 +129,13 @@ export function createApp(E, rootEl) {
       header.querySelector(`[data-page="${s.page}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     } catch (err) {
       console.error(err);
-      main.innerHTML = emptyState('Não foi possível abrir esta página.', 'A conexão pode ter caído no meio do carregamento.', { act: 'retry-page', label: 'Tentar de novo' });
-      main.querySelector('[data-act=retry-page]').addEventListener('click', () => { currentId = null; showPage(store.get()); });
+      currentId = null;
+      erroDePagina();
     }
+    fimPrimeira();
   }
+  // quando os turnos de segundo plano chegam, a página aberta pode completar o que esperava
+  window.addEventListener('ei:dados', () => { if (dados.todos()) current?.aoCarregarTudo?.(store.get()); });
 
   let pending = 0;
   store.subscribe((s, prev) => {

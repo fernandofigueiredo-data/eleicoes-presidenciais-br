@@ -4,7 +4,7 @@ import './styles/tokens.css';
 import './styles/base.css';
 import './styles/layout.css';
 import './styles/components.css';
-import { loadAll } from './services/data.js';
+import { loadBase, criarCarregador } from './services/data.js';
 import { createEngine } from './services/engine.js';
 import { createApp } from './app.js';
 import { avisoConsentimento, paginaVista } from './services/medicao.js';
@@ -14,17 +14,20 @@ const bar = loader?.querySelector('.loader__bar span');
 const msg = loader?.querySelector('.loader__msg');
 const progress = (p, text) => { if (bar) bar.style.width = `${Math.round(p * 100)}%`; if (msg) msg.textContent = text; };
 
-loadAll(progress)
+loadBase(progress)
   .then((data) => {
-    progress(0.95, 'Preparando indicadores…');
     const E = createEngine(data);
-    const app = createApp(E, document.getElementById('app'));
-    window.__EI__ = { E, store: app.store }; // usado pelos testes de ponta a ponta
+    const dados = criarCarregador(data.meta, data.turnos, progress);
+    // a tela de carregamento sai quando a primeira página estiver montada com os dados dela
+    window.addEventListener('ei:primeira', () => {
+      progress(1, 'Pronto');
+      loader?.classList.add('is-done');
+      setTimeout(() => loader?.remove(), 400);
+      avisoConsentimento();
+    }, { once: true });
     window.addEventListener('ei:pagina', () => paginaVista());
-    avisoConsentimento();
-    progress(1, 'Pronto');
-    loader?.classList.add('is-done');
-    setTimeout(() => loader?.remove(), 400);
+    const app = createApp(E, document.getElementById('app'), dados);
+    window.__EI__ = { E, store: app.store, dados }; // usado pelos testes de ponta a ponta
   })
   .catch((err) => {
     console.error(err);

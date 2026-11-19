@@ -172,3 +172,25 @@ describe('Vídeo e imagens (T4): números e legendas', () => {
     expect(readFileSync(join(repo, 'docs/divulgacao-election-intelligence/assets/video/legendas_pt-BR.srt'), 'utf8')).toBe(srt());
   });
 });
+
+describe('Carregamento sob demanda dos turnos', () => {
+  it('cada página pede só os turnos de que precisa', async () => {
+    const { turnosNecessarios } = await import('../src/services/requisitos.js');
+    const meta = j('public/data/meta.json');
+    expect(turnosNecessarios('nacional', '2026-2', meta)).toEqual(['2026-1', '2026-2']);
+    expect(turnosNecessarios('turnos', '2026-2', meta)).toEqual(['2026-1', '2026-2']);
+    expect(turnosNecessarios('turnos', '2026-2', meta, 31054)).toEqual(['2026-1', '2026-2', '2022-1', '2022-2']);
+    expect(turnosNecessarios('mudancas', '2026-1', meta)).toEqual(['2026-1', '2026-2', '2022-1', '2022-2']);
+    expect(turnosNecessarios('mudancas', '2014-1', meta)).toEqual(['2014-1', '2014-2']);
+    expect(turnosNecessarios('sobre', '2026-2', meta)).toHaveLength(8);
+    expect(turnosNecessarios('participacao', '2014-1', meta)).toHaveLength(8);
+  });
+  it('com só os turnos pedidos, a página dá os mesmos números que com todos', () => {
+    const meta = j('public/data/meta.json');
+    const parcial = { '2026-1': j('public/data/turnos/2026-1.json'), '2026-2': j('public/data/turnos/2026-2.json') };
+    const P = createEngine({ meta, mun: j('public/data/municipios.json'), turnos: parcial });
+    const ctx = { turno: '2026-2', uf: 'MG', exterior: false };
+    for (const f of ['Aptos', 'Comparecimento', 'VotosValidos', 'PctAbstencao', 'MunicipiosQueViraram', 'PctMunicipiosQueViraram']) expect(P[f](ctx)).toBe(E[f](ctx));
+    expect(P.Vencedor({ turno: '2026-2' })).toBe(E.Vencedor({ turno: '2026-2' }));
+  });
+});

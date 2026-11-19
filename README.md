@@ -77,7 +77,7 @@ O link já traz o filtro: dá para mandar a mesma visão para outra pessoa.
 | Integridade | Soma dos votos dos candidatos = votos válidos, em cada zona (`v_integridade_zona`) e em cada município | Nenhuma divergência |
 | Reprodutibilidade | A CI roda `limpeza_dados.ipynb` e exige que `data/limpo/` saia idêntico ao versionado | Idêntico, byte a byte |
 | Site × Power BI | 340 indicadores calculados dentro do PBIX (PBIX-MCP) contra o motor JavaScript do site | 340 / 340, diferença 0 |
-| Testes | pytest (20, pipeline Python e números da divulgação), Vitest (34, motor e critérios de contagem) e Playwright (105, desktop e celular, incluindo os 27 links por UF) | pytest e Vitest passam na CI; o Playwright roda localmente (`PW_CHANNEL=chrome npx playwright test`) |
+| Testes | pytest (20, pipeline Python e números da divulgação), Vitest (36, motor, critérios de contagem e carregamento) e Playwright (113, desktop e celular, incluindo os 27 links por UF) | pytest e Vitest passam na CI; o Playwright roda localmente (`PW_CHANNEL=chrome npx playwright test`) |
 
 ## Decisões técnicas
 

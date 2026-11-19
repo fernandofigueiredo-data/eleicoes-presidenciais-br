@@ -12,7 +12,7 @@ export function filterBar(E, store) {
   const anos = [...new Set(E.meta.turnos.map((t) => t.ano))];
 
   const ano = selectField({ label: 'Eleição', allLabel: null, options: anos.map((a) => ({ value: String(a), label: String(a) })), value: String(E.anoDe(store.get().turno)),
-    onChange: (v) => { const nr = E.nrDe(store.get().turno); const k = E.hasTurno(`${v}-${nr}`) ? `${v}-${nr}` : `${v}-1`; store.set({ turno: k }); } });
+    onChange: (v) => { const nr = E.nrDe(store.get().turno); const k = E.turnoByKey.has(`${v}-${nr}`) ? `${v}-${nr}` : `${v}-1`; /* pelos metadados: o arquivo do turno pode ainda não ter chegado */ store.set({ turno: k }); } });
   ano.el.classList.add('filter-field--primary-a');
 
   const turnoWrap = h('<div class="filter-field"><span class="label" id="lbl-turno">Turno</span></div>');

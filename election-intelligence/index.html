@@ -19,6 +19,11 @@
     <meta property="og:image:alt" content="Mapa do Brasil por município com o vencedor do 2º turno de 2026: vermelho para Lula, azul para Flavio Bolsonaro." />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml" />
+    <!-- dados da primeira tela (eleição padrão, 2026): descem junto com o JavaScript, e não depois dele -->
+    <link rel="preload" href="./data/meta.json" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="./data/municipios.json" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="./data/turnos/2026-2.json" as="fetch" crossorigin="anonymous" />
+    <link rel="preload" href="./data/turnos/2026-1.json" as="fetch" crossorigin="anonymous" />
   </head>
   <body>
     <div id="loader" class="loader" role="status" aria-live="polite">

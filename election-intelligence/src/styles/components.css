@@ -285,3 +285,5 @@ details.dax summary small { color: var(--text-3); font-weight: 400; margin-left:
 .consent { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 60; max-width: 720px; margin: 0 auto; background: var(--surface); color: var(--text); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); box-shadow: var(--shadow-pop); padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: center; font-size: var(--fs-sm); }
 .consent p { margin: 0; flex: 1 1 320px; line-height: 1.5; }
 .consent__acoes { display: flex; gap: 8px; }
+.chart-wait { position: absolute; inset: 40% 0 auto; text-align: center; color: var(--text-2); font-size: var(--fs-sm); }
+.panel__body:has(> .chart-wait) { position: relative; }
