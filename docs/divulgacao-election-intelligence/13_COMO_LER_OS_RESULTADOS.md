@@ -1,79 +1,86 @@
 # 13. Como ler os resultados da campanha (UTM)
 
-Campanha: `lancamento-2026-11`, de 27/11 a 18/12/2026. Links prontos em [`utm_links.csv`](utm_links.csv),
+Campanha: `lancamento-2026-11`, de 27/11 a 18/12/2026. Ferramenta: Google Analytics 4, só com consentimento. Links prontos em [`utm_links.csv`](utm_links.csv),
 gerados por `python3 tools/gerar_utm.py` a partir de [`prospects_utm.csv`](prospects_utm.csv).
 
-## 1. Situação hoje (19/11/2026)
+## 1. Decisão de Fernando (19/11/2026): Google Analytics 4
 
-- **O site não mede acessos.** Não há ferramenta de análise instalada, nem cookies, nem nada gravado
-  no navegador (o teste `links-uf.spec.js` confere `localStorage`, `sessionStorage` e cookies vazios).
-- **Os links com UTM funcionam.** Os parâmetros ficam antes do `#`, e o roteador os tolera: rota,
-  filtro por UF, recarga e troca de página continuam funcionando (testado em MG, RJ, DF, SP e BA, na
-  página nacional e em `#/mudancas`).
-- **O botão Compartilhar tira os `utm_*`.** Se a pessoa que recebeu o link o repassar, o acesso novo
-  não é atribuído a ela.
-- **A integração está pronta e desligada**: `src/services/medicao.js`, ligada por `MEDICAO.ativa` em
-  `src/content/projeto.js`. O texto de privacidade da página Sobre muda sozinho quando ela é ligada.
+Fernando escolheu o **Google Analytics 4 (GA4)**. O GA4 grava cookies e um identificador aleatório do
+navegador, o que contraria a regra 10 do briefing ("sem cookies e sem identificar o visitante"). Para
+ficar o mais perto possível dela e da LGPD, a implementação é:
 
-## 2. Decisão pendente de Fernando: qual medição usar
+- **Só com consentimento** (modo básico do Google): na primeira visita aparece um aviso com "Aceitar"
+  e "Recusar". A tag do Google só é carregada depois de "Aceitar". Quem recusa não envia nada ao
+  Google, "nem mesmo o status do consentimento" ([consent mode](https://developers.google.com/tag-platform/security/concepts/consent-mode)).
+- **Só a rota e os `utm_*`**: a página vista vai como `https://.../turnos?utm_source=...`, sem os
+  filtros (UF, município, candidato) nem outros parâmetros.
+- **Sem publicidade**: `ad_storage`, `ad_user_data` e `ad_personalization` ficam negados; Google
+  signals e personalização de anúncios desligados no código.
+- **Cookie de no máximo 13 meses** (o padrão do Google é 2 anos).
+- **A escolha fica só no navegador** (`localStorage`, chave `ei-consentimento-medicao`) e pode ser
+  mudada no botão "Preferências de medição" da seção Privacidade. Recusar depois de aceitar apaga os
+  cookies `_ga` do site.
+- **IP:** o Google declara que não registra IP de usuários da União Europeia, da Suíça e do Reino
+  Unido ([IP no GA4](https://support.google.com/analytics/answer/12017362)); a documentação lida não
+  diz o mesmo para o Brasil. O texto de privacidade diz que o Google recebe o IP e que o projeto não o
+  vê nem guarda.
 
-O que a documentação oficial da Vercel diz (consultada em 19/11/2026):
+Custo da escolha: quem recusar ou ignorar o aviso não aparece nos números. Numa campanha de 17
+destinatários, contagens de 0 a 5 acessos por prospect são esperadas; leia-as como sinal, não como
+medida.
 
-- Web Analytics não usa cookies; identifica a visita por um hash da requisição, descartado em 24 horas
-  ([privacidade](https://vercel.com/docs/analytics/privacy-policy)).
-- No plano **Hobby** (gratuito): 50.000 eventos por mês, sem compra de eventos extras; relatórios de
-  **1 mês**; **sem painel de UTM** e **sem eventos personalizados**. O painel de UTM exige o add-on
-  Web Analytics Plus (US$ 10 por mês, só para times no plano Pro)
-  ([limites e preços](https://vercel.com/docs/analytics/limits-and-pricing),
-  [filtros](https://vercel.com/docs/analytics/filtering)).
-- O painel **Pages** mostra o caminho da página **sem a query string**
-  ([uso](https://vercel.com/docs/analytics/using-web-analytics)). O script aceita uma função
-  `beforeSend` que pode reescrever o endereço antes do envio ([pacote](https://vercel.com/docs/analytics/package)).
+Código: [`election-intelligence/src/services/medicao.js`](../../election-intelligence/src/services/medicao.js).
+Testes: `election-intelligence/tests/e2e/medicao.spec.js` (com ID de teste e as chamadas ao Google
+interceptadas) e `tests/divulgacao.test.js`.
 
-| Opção | Custo | O que mede | Recomendação |
-|---|---|---|---|
-| **A. Vercel Web Analytics (Hobby) com o endereço reescrito** | gratuito | Acessos por `utm_source` no painel Pages (`/campanha/<slug>/<rota>`), país, dispositivo, origem | **Recomendada** |
-| B. Vercel Web Analytics Plus | Pro + US$ 10/mês | Painel de UTM nativo, 24 meses de histórico | Só se a campanha crescer |
-| C. Sem medição | gratuito | Nada; resultado só pelas respostas no CRM | Não recomendada: perde-se a métrica pedida |
+## 2. Como ligar (passos de Fernando)
 
-Por que A: já é o provedor que hospeda o site (não entra terceiro novo), não usa cookies nem grava
-nada no navegador, e a reescrita leva só a rota e os `utm_*` (filtros,
-município e qualquer outro parâmetro são descartados). Ressalva: a Vercel não documenta se o script
-registra as trocas de rota por `#`; conte com a **primeira página aberta**, que é a que importa para
-saber a origem.
+1. Em [analytics.google.com](https://analytics.google.com), crie uma propriedade GA4 e um fluxo de
+   dados da Web para `https://eleicoes-presidenciais-br.vercel.app`. Copie o **ID da métrica**
+   (formato `G-XXXXXXXXXX`).
+2. No fluxo de dados, em **Medição otimizada**, abra a engrenagem e **desligue "Mudanças de página
+   com base em eventos do histórico de navegação"**. O site já envia uma página vista a cada troca de
+   rota; deixar ligado contaria em dobro.
+3. Em **Administrador → Coleta e retenção de dados**: deixe **Google signals desligado** e a
+   retenção de dados em **2 meses** (o mínimo; basta para a campanha, desde que você exporte os números
+   toda semana).
+4. Na Vercel: projeto → **Settings → Environment Variables** → `VITE_GA4_ID` = o ID do passo 1, para
+   **Production** e **Preview**. Depois, um novo deploy (o ID entra no build).
+5. Confira no preview: na primeira visita aparece o aviso; ao aceitar, o relatório **Tempo real** do
+   GA4 mostra a visita em até 1 minuto. Abra um link de teste (`utm_source=teste`) da coluna
+   `url_recomendada` do `utm_links.csv`.
 
-## 3. Como ligar (se Fernando escolher a opção A)
+Sem a variável `VITE_GA4_ID`, o site continua sem medição, sem aviso e com o texto "não mede acessos".
 
-1. No painel da Vercel: projeto `eleicoes-presidenciais-br` → **Analytics** → **Enable**. Anote o
-   caminho do script que o painel mostrar (o padrão é `/_vercel/insights/script.js`).
-2. Em `election-intelligence/src/content/projeto.js`, troque `ativa: false` por `ativa: true` (e o
-   `script`, se o caminho do painel for outro).
-3. Rode `npm test` e `PW_CHANNEL=chrome npx playwright test`. O script só é carregado em endereços
-   `*.vercel.app`; em `localhost` e no GitHub Pages nada muda.
-4. Abra um pull request e, no preview da Vercel, confira no console do navegador que
-   `/_vercel/insights/script.js` carrega sem erro 404 (sinal de que o passo 1 foi feito). Depois, o merge.
-5. Teste no ar: abra um link da coluna `url_recomendada` do `utm_links.csv` com `utm_source=teste` e,
-   alguns minutos depois, procure `/campanha/teste/` no painel Pages.
+## 3. Onde ver os acessos por `utm_source`
 
-## 4. Onde ver os acessos por `utm_source`
+1. GA4 → **Relatórios → Aquisição → Aquisição de tráfego**.
+2. Troque a dimensão principal para **Origem da sessão** (`utm_source`) ou **Origem/mídia da sessão**
+   (`utm_source / utm_medium`). Filtre **Campanha da sessão** = `lancamento-2026-11`.
+3. O código da ficha (`utm_content`, por exemplo `a1`) aparece em **Conteúdo do anúncio manual da
+   sessão**, em **Explorar** → exploração livre.
+4. A página de entrada aparece em **Engajamento → Páginas e telas**, por caminho (`/turnos`,
+   `/nacional`, `/mudancas`). Os UTM não aparecem no caminho, e sim na dimensão "Local da página".
+5. **Exporte toda semana** (botão compartilhar → baixar arquivo) e copie para a planilha do CRM o
+   número de usuários e de sessões de cada `utm_source`, com a data.
 
-1. Vercel → projeto → **Analytics**. Escolha o período (no Hobby, no máximo os últimos 30 dias).
-2. No painel **Pages**, procure os caminhos que começam com `/campanha/`. Cada um é
-   `/campanha/<utm_source>/<rota>`, por exemplo `/campanha/nicolau/nacional` ou `/campanha/briso/turnos`.
-3. Clique num caminho para filtrar o painel inteiro por ele (país, dispositivo, origem).
-4. **Exporte toda semana** (o Hobby só guarda 1 mês): copie o número de visitantes de cada
-   `/campanha/<slug>/` para a planilha do CRM, com a data.
+## 4. Limitações
+
+- Robôs de pré-visualização de e-mail e de redes sociais não aceitam o aviso, então não contam.
+- Um acesso não identifica a pessoa: o mesmo link pode ser aberto por colegas do prospect.
+- O botão Compartilhar do site tira os `utm_*`, para que o repasse do link não seja atribuído a quem
+  o recebeu primeiro.
 
 ## 5. Como cruzar com o CRM
 
 | Coluna do CRM (Status) | O que olhar na medição | Leitura |
 |---|---|---|
-| Primeiro contato enviado / Aguardando resposta | visitantes em `/campanha/<slug>/` | 1 ou mais: a mensagem foi aberta e o link clicado |
+| Primeiro contato enviado / Aguardando resposta | usuários com Origem da sessão = `<slug>` | 1 ou mais: o link foi clicado (e o aviso, aceito) |
 | Follow-up 1 | visitantes antes e depois do follow-up | o follow-up gerou clique? |
-| Respondeu / Interessado | visitantes em várias rotas do mesmo slug | a pessoa explorou o site |
-| Divulgação confirmada | acessos **sem** `/campanha/` no mesmo dia, com origem (Referrers) no veículo | efeito da publicação: o link publicado não tem UTM do prospect |
+| Respondeu / Interessado | páginas por sessão do mesmo `<slug>` | a pessoa explorou o site |
+| Divulgação confirmada | sessões com origem no domínio do veículo (sem UTM do prospect) no dia da publicação | efeito da publicação |
 
-Cuidados: um clique não é uma pessoa identificada (o mesmo slug pode ser aberto por colegas do
+Cuidados: só conta quem aceitou o aviso; um clique não é uma pessoa identificada (o mesmo slug pode ser aberto por colegas do
 prospect); números pequenos (1 a 5) não permitem comparar canais; e robôs de pré-visualização de
 e-mail e redes sociais podem gerar acessos que não são humanos.
 

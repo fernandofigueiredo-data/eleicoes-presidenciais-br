@@ -88,6 +88,7 @@ export function createApp(E, rootEl) {
       current = mod.mount(main, { E, store });
       current.update(store.get());
       document.title = `${PAGES.find((p) => p.id === s.page).label} · ELECTION INTELLIGENCE`;
+      window.dispatchEvent(new CustomEvent('ei:pagina'));
       // navegação entre páginas: leva o foco ao conteúdo (leitores de tela anunciam a página nova)
       if (navigated) main.focus({ preventScroll: true });
       navigated = true;

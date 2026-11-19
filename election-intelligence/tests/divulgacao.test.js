@@ -117,29 +117,26 @@ describe('Documentos de divulgação espelhados', () => {
   });
 });
 
-describe('Medição de acessos (T5)', () => {
-  it('leva utm_source ao caminho e descarta filtros e outros parâmetros', async () => {
+describe('Medição de acessos (Google Analytics 4)', () => {
+  it('envia só a rota e os utm_* do link, sem filtros nem outros parâmetros', async () => {
     const { urlMedida } = await import('../src/services/medicao.js');
     expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11&utm_content=a1&fbclid=x#/turnos?uf=MG&m=123'))
-      .toBe('https://eleicoes-presidenciais-br.vercel.app/campanha/nicolau/turnos?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11&utm_content=a1');
+      .toBe('https://eleicoes-presidenciais-br.vercel.app/turnos?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11&utm_content=a1');
     expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=citar')).toBe('https://eleicoes-presidenciais-br.vercel.app/sobre');
     expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/?utm_source=a%40b.com#/nacional')).toBe('https://eleicoes-presidenciais-br.vercel.app/nacional');
   });
-  it('desligada, não carrega script nem cria nada no navegador', async () => {
-    const { iniciarMedicao } = await import('../src/services/medicao.js');
-    const win = { location: { hostname: 'eleicoes-presidenciais-br.vercel.app' } };
-    expect(iniciarMedicao({ ativa: false }, null, win)).toBe(false);
-    expect(win.va).toBeUndefined();
-    expect(iniciarMedicao({ ativa: true }, null, { location: { hostname: 'localhost' } })).toBe(false);
+  it('sem ID válido do GA4, a medição fica desligada', async () => {
+    const { idGa4, medicaoAtiva, avisoConsentimento } = await import('../src/services/medicao.js');
+    expect(medicaoAtiva({})).toBe(false);
+    expect(idGa4({ __EI_GA4_ID__: 'UA-123' })).toBe('');
+    expect(idGa4({ __EI_GA4_ID__: 'G-ABC1234' })).toBe('G-ABC1234');
+    expect(avisoConsentimento(null, {})).toBeNull();
   });
-  it('ligada, registra o beforeSend antes de carregar o script', async () => {
-    const { iniciarMedicao } = await import('../src/services/medicao.js');
-    const win = { location: { hostname: 'eleicoes-presidenciais-br.vercel.app' } }, head = [];
-    const doc = { createElement: () => ({}), head: { appendChild: (s) => head.push(s) } };
-    expect(iniciarMedicao({ ativa: true, script: '/_vercel/insights/script.js' }, doc, win)).toBe(true);
-    expect(win.vaq[0][0]).toBe('beforeSend');
-    expect(win.vaq[0][1]({ url: 'https://x.app/?utm_source=cbn#/nacional' }).url).toBe('https://x.app/campanha/cbn/nacional?utm_source=cbn');
-    expect(head[0].src).toBe('/_vercel/insights/script.js');
+  it('o texto de privacidade muda com a medição ligada e descreve o que é enviado', async () => {
+    const { textoPrivacidade } = await import('../src/content/projeto.js');
+    expect(textoPrivacidade(false).join(' ')).toContain('não mede acessos');
+    const t = textoPrivacidade(true).join(' ');
+    for (const trecho of ['se você aceitar', 'Google Analytics 4', 'cookies', '13 meses', 'sem os filtros', 'parâmetros utm', 'endereço IP', 'Preferências de medição']) expect(t.toLowerCase()).toContain(trecho.toLowerCase());
   });
 });
 

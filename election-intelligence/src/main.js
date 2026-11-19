@@ -7,9 +7,7 @@ import './styles/components.css';
 import { loadAll } from './services/data.js';
 import { createEngine } from './services/engine.js';
 import { createApp } from './app.js';
-import { iniciarMedicao } from './services/medicao.js';
-
-iniciarMedicao();
+import { avisoConsentimento, paginaVista } from './services/medicao.js';
 
 const loader = document.getElementById('loader');
 const bar = loader?.querySelector('.loader__bar span');
@@ -22,6 +20,8 @@ loadAll(progress)
     const E = createEngine(data);
     const app = createApp(E, document.getElementById('app'));
     window.__EI__ = { E, store: app.store }; // usado pelos testes de ponta a ponta
+    window.addEventListener('ei:pagina', () => paginaVista());
+    avisoConsentimento();
     progress(1, 'Pronto');
     loader?.classList.add('is-done');
     setTimeout(() => loader?.remove(), 400);

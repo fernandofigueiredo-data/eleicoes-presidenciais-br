@@ -7,6 +7,7 @@ import { dataTable } from '../components/tables/dataTable.js';
 import { buildCases } from '../services/validation.js';
 import { pageHead } from './shared.js';
 import { PROJETO, TSE, AVISO, O_QUE_E, citacoes, mailto, textoPrivacidade } from '../content/projeto.js';
+import { medicaoAtiva, avisoConsentimento, escolhaAtual } from '../services/medicao.js';
 import { FAQ } from '../content/faq.js';
 
 const BASE = `${import.meta.env.BASE_URL}data/`;
@@ -121,7 +122,11 @@ export function mount(root, { E }) {
     <li><strong>Dados do TSE:</strong> Portal de Dados Abertos, licença CC-BY. Cite o TSE.</li>
     <li><strong>Dados do IBGE:</strong> dados públicos. Cite o IBGE como fonte.</li></ul></div>`;
   const pPriv = panel({ title: 'Privacidade', id: 'sec-privacidade' });
-  pPriv.body.innerHTML = `<div class="prose" data-testid="privacidade">${textoPrivacidade().map((p) => `<p>${escapeHtml(p)}</p>`).join('')}</div>`;
+  const ativa = medicaoAtiva();
+  const estado = { aceito: 'Você aceitou a medição neste navegador.', recusado: 'Você recusou a medição neste navegador.' }[escolhaAtual()] ?? 'Você ainda não escolheu.';
+  pPriv.body.innerHTML = `<div class="prose" data-testid="privacidade">${textoPrivacidade(ativa).map((p) => `<p>${escapeHtml(p)}</p>`).join('')}
+    ${ativa ? `<p class="panel__note">${escapeHtml(estado)}</p><button class="btn" type="button" data-act="preferencias">Preferências de medição</button>` : ''}</div>`;
+  pPriv.body.querySelector('[data-act=preferencias]')?.addEventListener('click', () => avisoConsentimento(document, window, { forcar: true })?.querySelector('button')?.focus());
   g2.append(pLic.el, pPriv.el);
 
   const pConf = panel({ title: 'Conferência com o TSE', id: 'sec-conferencia', sub: 'Calculada ao vivo no navegador: comparecimento = válidos + brancos + nulos; soma dos candidatos = válidos' });

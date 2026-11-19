@@ -44,13 +44,11 @@ export function citacoes(hoje = new Date(), p = PROJETO) {
 }
 
 /**
- * Medição de acessos. Desligada até Fernando escolher a ferramenta (ver 13_COMO_LER_OS_RESULTADOS.md).
- * Quando ligada, a página de privacidade troca de texto automaticamente.
+ * Texto de privacidade. `ativa`: há ID do Google Analytics configurado (src/services/medicao.js).
+ * Descreve exatamente o que é medido; o teste da página Sobre confere os dois estados.
  */
-export const MEDICAO = { ativa: false, ferramenta: 'Vercel Web Analytics', script: '/_vercel/insights/script.js' };
-
-export function textoPrivacidade(m = MEDICAO) {
-  if (!m.ativa) {
+export function textoPrivacidade(ativa = false) {
+  if (!ativa) {
     return [
       'Este site não usa cookies, não guarda nada no seu navegador e, no momento, não mede acessos.',
       'Os filtros que você escolhe ficam só no endereço (URL) da página, para que o link possa ser compartilhado.',
@@ -58,8 +56,10 @@ export function textoPrivacidade(m = MEDICAO) {
     ];
   }
   return [
-    `Este site conta visitas com o ${m.ferramenta}, sem cookies e sem guardar nada no seu navegador.`,
-    'Cada visita registra: a página aberta, o site de onde veio o link, o parâmetro utm_source do link (quando houver, para saber de qual divulgação veio o acesso), o país, o tipo de dispositivo, o navegador e o sistema operacional.',
-    'Não registramos endereço IP, nome, e-mail ou qualquer dado que identifique você. A ferramenta usa um identificador anônimo, que é descartado em até 24 horas. Os filtros que você escolhe não são registrados.',
+    'O site só mede acessos se você aceitar, no aviso que aparece na primeira visita. Se recusar, o Google Analytics nem é carregado e nada é enviado ao Google.',
+    'Se aceitar, usamos o Google Analytics 4, do Google, que grava cookies próprios no seu navegador, com um identificador aleatório e validade de até 13 meses. A cada página aberta, enviamos: a página (sem os filtros que você escolheu), os parâmetros utm do link que você recebeu (para saber de qual divulgação veio o acesso), o site de onde veio o link e dados técnicos que o Google coleta para estatística, como tipo de dispositivo, navegador, idioma e localização aproximada.',
+    'Não enviamos nome, e-mail nem os municípios ou filtros consultados. Os recursos de publicidade e o Google signals ficam desligados. Como em qualquer acesso a um serviço na internet, o Google recebe o endereço IP do seu dispositivo; o projeto não vê nem guarda esse endereço.',
+    'Sua escolha fica guardada só neste navegador e pode ser mudada a qualquer momento no botão "Preferências de medição", abaixo. Se você recusar depois de ter aceitado, os cookies do Google Analytics deste site são apagados.',
+    'Os filtros ficam só no endereço (URL) da página. O site é hospedado na Vercel, que processa as requisições para entregar as páginas.',
   ];
 }
