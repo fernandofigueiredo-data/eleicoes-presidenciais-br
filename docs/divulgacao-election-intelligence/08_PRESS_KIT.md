@@ -8,8 +8,8 @@ Texto do item 8 do plano de divulgação, com o e-mail do projeto e os números 
 ## 8.1. Apresentação institucional (uma página)
 
 - **Projeto:** ELECTION INTELLIGENCE, Análise Eleitoral Brasileira.
-- **Link:** https://eleicoes-presidenciais-br.vercel.app/#/nacional
-- **Sobre, como citar e contato:** https://eleicoes-presidenciais-br.vercel.app/#/sobre
+- **Link:** https://eleicoes-presidenciais-br.vercel.app/
+- **Sobre, como citar e contato:** https://eleicoes-presidenciais-br.vercel.app/sobre
 - **Natureza:** projeto independente de análise e visualização de dados. Não é fonte oficial do
   Tribunal Superior Eleitoral (TSE) nem do IBGE. Para resultados oficiais, consulte o TSE
   (https://resultados.tse.jus.br/).
@@ -47,7 +47,7 @@ O site tem oito páginas, filtros gravados no link e exportação em CSV. Não �
 Indicadores municipais não permitem inferir o comportamento individual do eleitor, e as limitações
 estão documentadas no repositório.
 
-Acesso: https://eleicoes-presidenciais-br.vercel.app/#/nacional · Código:
+Acesso: https://eleicoes-presidenciais-br.vercel.app/ · Código:
 https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br · Contato: Fernando Figueiredo ·
 fernandofigueiredo123@gmail.com
 
@@ -58,7 +58,7 @@ presidente nos dois turnos de 2014, 2018, 2022 e 2026, com os resultados do TSE 
 alfabetização e PIB do IBGE. No mapa, dá para ver onde o vencedor mudou entre os turnos (212
 municípios em 2026, pela contagem estrita), comparar a abstenção entre estados e observar o voto por
 faixa de renda. Os filtros ficam no link, as listas podem ser exportadas em CSV e os totais foram
-conferidos com os do TSE. Não é fonte oficial. https://eleicoes-presidenciais-br.vercel.app/#/nacional
+conferidos com os do TSE. Não é fonte oficial. https://eleicoes-presidenciais-br.vercel.app/
 
 ## 8.4. Roteiro de demonstração (75 segundos)
 
@@ -67,11 +67,11 @@ Ajustado na T4: o original dizia "2.876 contra 2.695", que mistura dois critéri
 
 | Tempo | Tela | Locução |
 |---|---|---|
-| 0 a 8 s | #/nacional | "Como o Brasil votou para presidente, cidade por cidade, de 2014 a 2026." |
-| 8 a 20 s | #/mapa, 2º turno de 2026 | "No 2º turno de 2026, Lula venceu em 2.875 municípios; Flavio Bolsonaro, em 2.695. Um município empatou." |
-| 20 a 38 s | #/turnos?uf=MG | "Em Minas, 76 cidades trocaram de vencedor entre os turnos. As maiores ficam na Grande BH." |
-| 38 a 50 s | #/participacao (abstenção) | "No 2º turno, a abstenção foi de 13,89% no Ceará a 26,08% no Acre." |
-| 50 a 63 s | #/perfil | "Com alfabetização e região no modelo, o efeito da renda cai de 8,8 para 1,7 ponto. Associação, não causalidade." |
+| 0 a 8 s | / | "Como o Brasil votou para presidente, cidade por cidade, de 2014 a 2026." |
+| 8 a 20 s | /mapa, 2º turno de 2026 | "No 2º turno de 2026, Lula venceu em 2.875 municípios; Flavio Bolsonaro, em 2.695. Um município empatou." |
+| 20 a 38 s | /turnos?uf=MG | "Em Minas, 76 cidades trocaram de vencedor entre os turnos. As maiores ficam na Grande BH." |
+| 38 a 50 s | /participacao (abstenção) | "No 2º turno, a abstenção foi de 13,89% no Ceará a 26,08% no Acre." |
+| 50 a 63 s | /perfil | "Com alfabetização e região no modelo, o efeito da renda cai de 8,8 para 1,7 ponto. Associação, não causalidade." |
 | 63 a 75 s | Link e CSV; quadro final | "Todo filtro vira um link. Dados do TSE e do IBGE, conferidos. Projeto aberto, não oficial." |
 
 Texto institucional de 100 palavras (usado na página Sobre e contato):
@@ -104,7 +104,7 @@ Texto institucional de 100 palavras (usado na página Sobre e contato):
 - Ficha A1: se citar o intervalo de confiança, usar o agrupado por UF (−4,0 a +0,6; p = 0,15), que
   inclui o zero, e não o HC1 (−3,3 a −0,1).
 - Ficha A3: o texto sobre 212, 213 e 215 está certo; pode apontar para a nota do FAQ no site:
-  https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=faq
+  https://eleicoes-presidenciais-br.vercel.app/sobre?s=faq
 - Assinatura de todas as fichas: "Fernando Figueiredo · ELECTION INTELLIGENCE ·
   fernandofigueiredo123@gmail.com · github.com/fernandofigueiredo-data".
 - Todos os links: usar a coluna `url_recomendada` de `utm_links.csv`.

@@ -4,11 +4,11 @@ import { readFileSync } from 'node:fs';
 
 const PAGES = ['nacional', 'mapa', 'participacao', 'mudancas', 'turnos', 'perfil', 'comparar', 'sobre'];
 
-async function open(page, hash = '#/nacional') {
+async function open(page, rota = '') {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  await page.goto('/' + hash);
+  await page.goto('/' + rota);
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.page-title')).toBeVisible();
   return errors;
@@ -66,16 +66,16 @@ test('filtros em cascata: região → UF → município', async ({ page }) => {
 });
 
 test('navegação preserva filtros e a URL restaura o estado', async ({ page }) => {
-  await open(page, '#/nacional?t=2018-2&uf=SP');
+  await open(page, '?t=2018-2&uf=SP');
   await expect(page.locator('.page-kicker')).toContainText('Eleição presidencial · 2018 · 2º turno');
   for (const p of PAGES.slice(1)) {
     await page.locator(`.tab[data-page="${p}"]`).click();
-    await expect(page).toHaveURL(new RegExp(`#/${p}\\?.*t=2018-2`));
+    await expect(page).toHaveURL(new RegExp(`/${p}\\?.*t=2018-2`));
     await expect(page).toHaveURL(/uf=SP/);
     await expect(page.locator('.page-title')).toBeVisible();
   }
   await page.goBack();
-  await expect(page).toHaveURL(/#\/comparar/);
+  await expect(page).toHaveURL(/\/comparar\?/);
 });
 
 test('todas as páginas abrem sem erros no console', async ({ page }) => {
@@ -90,7 +90,7 @@ test('todas as páginas abrem sem erros no console', async ({ page }) => {
 });
 
 test('mapa: tooltip, clique seleciona município, migalhas e voltar ao Brasil', async ({ page }) => {
-  await open(page, '#/mapa');
+  await open(page, 'mapa');
   const canvas = page.locator('.map-wrap canvas').first();
   await expect(page.locator('.map-wrap .skeleton')).toHaveCount(0);
   await canvas.scrollIntoViewIfNeeded();
@@ -121,7 +121,7 @@ test('mapa: tooltip, clique seleciona município, migalhas e voltar ao Brasil', 
 });
 
 test('tabela: ordenação e exportação CSV', async ({ page }) => {
-  await open(page, '#/mapa');
+  await open(page, 'mapa');
   const uf = page.locator('.panel', { hasText: 'Resultado por UF' });
   await expect(uf.locator('tbody tr')).toHaveCount(27);
   await uf.getByRole('button', { name: 'UF', exact: true }).click();
@@ -160,7 +160,7 @@ test('seleção cruzada: clicar no candidato destaca e filtra', async ({ page })
 });
 
 test('mudanças e viradas conferem com o PBIX-MCP', async ({ page }) => {
-  await open(page, '#/mudancas');
+  await open(page, 'mudancas');
   await expect(kpiValue(page, 'Mudaram de partido vencedor')).toHaveText('716');
   await expect(kpiValue(page, '% que mudaram')).toHaveText('12,85%');
   await page.locator('.tab[data-page="turnos"]').click();
@@ -172,7 +172,7 @@ test('mudanças e viradas conferem com o PBIX-MCP', async ({ page }) => {
 });
 
 test('comparação de candidatos e territórios', async ({ page }) => {
-  await open(page, '#/comparar');
+  await open(page, 'comparar');
   await expect(page.locator('.chip')).toHaveCount(5); // 2 candidatos + 3 territórios padrão
   await page.getByLabel('Eleição', { exact: true }).selectOption('2026');
   await page.getByRole('button', { name: '1º turno' }).click();
@@ -188,7 +188,7 @@ test('comparação de candidatos e territórios', async ({ page }) => {
 });
 
 test('Sobre os dados: validação ao vivo contra o PBIX-MCP sem divergências', async ({ page }) => {
-  await open(page, '#/sobre');
+  await open(page, 'sobre');
   await expect(page.getByTestId('val-ok')).toHaveText('340 / 340');
   await expect(page.getByTestId('val-bad')).toHaveText('0');
   await expect(page.locator('.panel', { hasText: 'Conferência com o TSE' }).locator('.badge--ok')).toHaveCount(8);
@@ -197,11 +197,11 @@ test('Sobre os dados: validação ao vivo contra o PBIX-MCP sem divergências', 
 
 test('link de compartilhamento contém os filtros', async ({ page, context }) => {
   await context.grantPermissions(['clipboard-read', 'clipboard-write']);
-  await open(page, '#/participacao?uf=AC');
+  await open(page, 'participacao?uf=AC');
   await page.getByRole('button', { name: /Copiar link/ }).click();
   await expect(page.locator('.toast')).toContainText('Link copiado');
   const clip = await page.evaluate(() => navigator.clipboard.readText());
-  expect(clip).toMatch(/#\/participacao\?.*uf=AC/);
+  expect(clip).toMatch(/^http:\/\/localhost:4173\/participacao\?.*uf=AC$/);
 });
 
 test('acessibilidade: contraste mínimo dos textos e alvos de toque', async ({ page }) => {
@@ -237,7 +237,7 @@ test('acessibilidade: contraste mínimo dos textos e alvos de toque', async ({ p
 });
 
 test('teclado: mapa responde a setas e +/−; busca devolve o foco', async ({ page }) => {
-  await open(page, '#/mapa');
+  await open(page, 'mapa');
   await expect(page.locator('.map-wrap .skeleton')).toHaveCount(0);
   const canvas = page.locator('.map-wrap canvas').first();
   await canvas.focus();

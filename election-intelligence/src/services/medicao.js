@@ -10,6 +10,7 @@
  * - A escolha do visitante fica só neste navegador (localStorage, chave CHAVE_CONSENTIMENTO).
  */
 import { h } from '../utils/dom.js';
+import { lerEndereco } from '../state/store.js';
 
 export const CHAVE_CONSENTIMENTO = 'ei-consentimento-medicao';
 const UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
@@ -27,7 +28,7 @@ export const medicaoAtiva = (win = window) => !!idGa4(win);
 /** Endereço enviado ao GA4: só a rota e os utm_* do link (sem filtros nem outros parâmetros). */
 export function urlMedida(href) {
   const u = new URL(href);
-  const rota = (u.hash.match(/^#\/([a-z]+)/) || [])[1] || 'nacional';
+  const rota = lerEndereco(href)?.page || 'nacional'; // endereço atual (/turnos) ou antigo (/#/turnos)
   const q = new URLSearchParams();
   for (const k of UTM) {
     const v = (u.searchParams.get(k) || '').toLowerCase();

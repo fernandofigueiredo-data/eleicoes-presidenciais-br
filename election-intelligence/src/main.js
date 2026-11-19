@@ -6,7 +6,7 @@ import './styles/layout.css';
 import './styles/components.css';
 import { loadBase, criarCarregador } from './services/data.js';
 import { createEngine } from './services/engine.js';
-import { createApp } from './app.js';
+import { createApp, precarregarPagina } from './app.js';
 import { avisoConsentimento, paginaVista } from './services/medicao.js';
 
 const loader = document.getElementById('loader');
@@ -14,6 +14,7 @@ const bar = loader?.querySelector('.loader__bar span');
 const msg = loader?.querySelector('.loader__msg');
 const progress = (p, text) => { if (bar) bar.style.width = `${Math.round(p * 100)}%`; if (msg) msg.textContent = text; };
 
+precarregarPagina();
 loadBase(progress)
   .then((data) => {
     const E = createEngine(data);

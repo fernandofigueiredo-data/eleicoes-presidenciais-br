@@ -32,12 +32,12 @@ def test_gera_dois_links_por_prospect_e_27_de_teste(pasta):
     a1 = next(x for x in prospects if x["ficha"] == "A1")
     assert a1["url_nacional"] == (
         "https://eleicoes-presidenciais-br.vercel.app/?utm_source=nicolau&utm_medium=substack"
-        "&utm_campaign=lancamento-2026-11&utm_content=a1#/nacional"
+        "&utm_campaign=lancamento-2026-11&utm_content=a1"
     )
     a5 = next(x for x in prospects if x["ficha"] == "A5")
-    assert a5["url_recomendada"].endswith("utm_content=a5#/turnos?uf=MG")
+    assert a5["url_recomendada"].endswith("utm_content=a5&uf=MG")
     b5 = next(x for x in prospects if x["ficha"] == "B5")
-    assert b5["url_recomendada"].endswith("#/mudancas")
+    assert b5["url_recomendada"].startswith("https://eleicoes-presidenciais-br.vercel.app/mudancas?")
 
 
 def test_utm_fica_antes_do_hash_e_sem_dado_pessoal(pasta):

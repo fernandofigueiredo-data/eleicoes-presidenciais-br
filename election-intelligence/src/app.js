@@ -1,16 +1,17 @@
 /**
- * Shell da aplicação: cabeçalho, abas, filtros, roteamento por hash e ciclo de vida das páginas.
+ * Shell da aplicação: cabeçalho, abas, filtros, roteamento por caminho (/mapa, /turnos...) e ciclo de vida das páginas.
  * Cada página é carregada sob demanda (code splitting do Vite).
  */
 import { h, ICONS, emptyState } from './utils/dom.js';
-import { createStore, PAGES } from './state/store.js';
+import { createStore, PAGES, BASE, caminhoDe, lerEndereco } from './state/store.js';
+import { aplicarMetadados } from './services/seo.js';
 import { filterBar } from './components/filters/filterBar.js';
 import { searchPalette } from './components/filters/searchPalette.js';
 import { toast } from './components/ui/ui.js';
 import { PROJETO, TSE, mailto } from './content/projeto.js';
 import { turnosNecessarios } from './services/requisitos.js';
 
-const LOADERS = {
+export const LOADERS = {
   nacional: () => import('./pages/nacional.js'),
   mapa: () => import('./pages/mapa.js'),
   participacao: () => import('./pages/participacao.js'),
@@ -21,6 +22,12 @@ const LOADERS = {
   sobre: () => import('./pages/sobre.js'),
 };
 
+/** Pede o código da página do endereço atual já na carga, em paralelo com os dados (antes só vinha depois deles). */
+export function precarregarPagina(href = location.href) {
+  const page = lerEndereco(href)?.page || 'nacional';
+  LOADERS[page]().catch(() => {}); // a falha aparece (e é tratada) quando a página for montada
+}
+
 const LOGO = `<svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#009C3B"/><path d="M20 6 35 20 20 34 5 20Z" fill="#E3B505"/><circle cx="20" cy="20" r="7.5" fill="#002776"/><path d="M13 19.2c4.4-1.6 9.6-1.3 14 .9" stroke="#fff" stroke-width="1.6" fill="none"/></svg>`;
 
 export function createApp(E, rootEl, dados) {
@@ -29,19 +36,19 @@ export function createApp(E, rootEl, dados) {
   rootEl.innerHTML = '';
   const header = h(`<header class="app-header">
     <div class="app-header__bar">
-      <a class="brand" href="#/nacional" aria-label="ELECTION INTELLIGENCE — início">${LOGO}<span class="brand__text"><span class="brand__name">ELECTION INTELLIGENCE</span><span class="brand__sub">Análise Eleitoral Brasileira · Presidente 2014–2026</span></span></a>
+      <a class="brand" href="${BASE}" aria-label="ELECTION INTELLIGENCE — início">${LOGO}<span class="brand__text"><span class="brand__name">ELECTION INTELLIGENCE</span><span class="brand__sub">Análise Eleitoral Brasileira · Presidente 2014–2026</span></span></a>
       <div class="header-actions">
         <button class="header-btn" type="button" data-act="search" aria-label="Buscar (Ctrl+K)">${ICONS.search}<span class="label">Buscar</span><kbd>Ctrl K</kbd></button>
         <button class="header-btn" type="button" data-act="share" aria-label="Copiar link com os filtros atuais">${ICONS.link}<span class="label">Compartilhar</span></button>
       </div>
     </div>
-    <nav class="tabs" aria-label="Páginas"><div class="tabs__inner">${PAGES.map((p) => `<a class="tab" data-page="${p.id}" href="#/${p.id}">${p.label}</a>`).join('')}</div></nav>
+    <nav class="tabs" aria-label="Páginas"><div class="tabs__inner">${PAGES.map((p) => `<a class="tab" data-page="${p.id}" href="${caminhoDe(p.id)}">${p.label}</a>`).join('')}</div></nav>
   </header>`);
   const main = h('<main id="conteudo" tabindex="-1"></main>');
   const footer = h(`<footer class="app-footer"><div class="app-footer__inner">
     <div class="footer-about"><strong>ELECTION INTELLIGENCE</strong> · projeto independente, não oficial. Dados do TSE (CC-BY) e do IBGE.
       Para resultados oficiais, consulte o <a href="${TSE.resultados}" target="_blank" rel="noopener">TSE</a>.</div>
-    <nav class="footer-links" aria-label="Rodapé"><a href="#/sobre">Sobre e contato</a><a href="#/sobre?s=citar">Como citar</a><a href="#/sobre?s=faq">Perguntas frequentes</a><a href="${mailto()}">${PROJETO.email}</a><a href="${PROJETO.repositorio}" target="_blank" rel="noopener">Código no GitHub</a></nav></div></footer>`);
+    <nav class="footer-links" aria-label="Rodapé"><a href="${BASE}sobre">Sobre e contato</a><a href="${BASE}sobre?s=citar">Como citar</a><a href="${BASE}sobre?s=faq">Perguntas frequentes</a><a href="${mailto()}">${PROJETO.email}</a><a href="${PROJETO.repositorio}" target="_blank" rel="noopener">Código no GitHub</a></nav></div></footer>`);
   rootEl.append(h('<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'), header, filterBar(E, store), main, footer);
 
   // a barra de filtros fixa fica logo abaixo do cabeçalho inteiro (faixa azul + abas), cuja altura muda no celular
@@ -63,14 +70,18 @@ export function createApp(E, rootEl, dados) {
     ev.preventDefault();
     store.set({ page: a.dataset.page, secao: null }, { push: true });
   });
-  // "Pular para o conteúdo" leva o foco ao conteúdo sem mudar o endereço (o roteador leria #conteudo como página inválida)
+  // "Pular para o conteúdo" leva o foco ao conteúdo sem acrescentar #conteudo ao endereço compartilhável
   rootEl.querySelector('.skip-link').addEventListener('click', (ev) => { ev.preventDefault(); main.focus(); main.scrollIntoView(); });
   rootEl.addEventListener('click', (ev) => {
-    const a = ev.target.closest('a[href^="#/"]');
-    if (!a || a.closest('.tabs')) return;
+    // links internos para páginas do site (não para arquivos de dados): navegação sem recarregar
+    const a = ev.target.closest('a[href]');
+    if (!a || a.closest('.tabs') || a.target || a.hasAttribute('download') || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return;
+    const r = lerEndereco(url.href);
+    if (!r) return;
     ev.preventDefault();
-    const [page, qs] = a.getAttribute('href').slice(2).split('?');
-    store.set({ page, secao: new URLSearchParams(qs || '').get('s') }, { push: true });
+    store.set({ page: r.page, secao: r.q.get('s') }, { push: true });
   });
 
   let current = null, currentId = null, token = 0, navigated = false;
@@ -121,7 +132,7 @@ export function createApp(E, rootEl, dados) {
       main.innerHTML = '';
       current = mod.mount(main, { E, store, dados });
       current.update(store.get());
-      document.title = `${PAGES.find((p) => p.id === s.page).label} · ELECTION INTELLIGENCE`;
+      aplicarMetadados(s.page);
       window.dispatchEvent(new CustomEvent('ei:pagina'));
       // navegação entre páginas: leva o foco ao conteúdo (leitores de tela anunciam a página nova)
       if (navigated) main.focus({ preventScroll: true });
@@ -145,7 +156,7 @@ export function createApp(E, rootEl, dados) {
     pending = setTimeout(() => showPage(store.get()), 0);
   });
   window.addEventListener('popstate', () => store.syncFromUrl());
-  window.addEventListener('hashchange', () => store.syncFromUrl());
+  window.addEventListener('hashchange', () => { if (location.hash.startsWith('#/')) store.syncFromUrl(); }); // links antigos (#/turnos)
   store.syncFromUrl();
   return { store };
 }

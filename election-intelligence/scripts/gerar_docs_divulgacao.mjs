@@ -35,7 +35,7 @@ export const htmlParaMd = (s) => s
 export function faqMarkdown() {
   const out = ['# 09. Perguntas frequentes (FAQ)', '',
     'Espelho da seção "Perguntas frequentes" da página Sobre e contato do site',
-    `(${PROJETO.site}#/sobre?s=faq). Gerado por \`npm run docs:divulgacao\` a partir de`,
+    `(${PROJETO.site}sobre?s=faq). Gerado por \`npm run docs:divulgacao\` a partir de`,
     '`election-intelligence/src/content/faq.js`: edite lá, não aqui. As contagens de viradas são',
     'recalculadas pelo teste `election-intelligence/tests/divulgacao.test.js`.', ''];
   for (const q of FAQ) {

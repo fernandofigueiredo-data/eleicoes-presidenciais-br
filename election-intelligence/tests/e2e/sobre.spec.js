@@ -1,14 +1,14 @@
-// Página "Sobre e contato" (#/sobre): aviso, contato, como citar e perguntas frequentes.
+// Página "Sobre e contato" (/sobre): aviso, contato, como citar e perguntas frequentes.
 import { test, expect } from '@playwright/test';
 
 const EMAIL = 'fernandofigueiredo123@gmail.com';
 const SITE = 'https://eleicoes-presidenciais-br.vercel.app/';
 
-async function abrir(page, hash = '#/sobre') {
+async function abrir(page, rota = 'sobre') {
   const erros = [];
   page.on('pageerror', (e) => erros.push(e.message));
   page.on('console', (m) => { if (m.type() === 'error') erros.push(m.text()); });
-  await page.goto('/' + hash);
+  await page.goto('/' + rota);
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.page-title')).toBeVisible();
   return erros;
@@ -56,7 +56,7 @@ test.describe('contato e citação', () => {
 
   test('os três formatos de citação existem e copiam o texto esperado, com a data de acesso do visitante', async ({ page }) => {
     await page.clock.setFixedTime(new Date('2026-11-27T10:00:00'));
-    await abrir(page, '#/sobre?s=citar');
+    await abrir(page, 'sobre?s=citar');
     const esperado = {
       fonte: `Fonte: TSE e IBGE. Elaboração: ELECTION INTELLIGENCE (${SITE}).`,
       abnt: `FIGUEIREDO, Fernando. ELECTION INTELLIGENCE: análise eleitoral brasileira. [S. l.], 2026. Disponível em: ${SITE}. Acesso em: 27 nov. 2026.`,
@@ -83,7 +83,7 @@ test.describe('contato e citação', () => {
 });
 
 test('FAQ: nota sobre 212, 213 e 215 aberta, com tabela e CSV para baixar', async ({ page }) => {
-  await abrir(page, '#/sobre?s=faq');
+  await abrir(page, 'sobre?s=faq');
   const nota = page.locator('#faq-viradas');
   await expect(nota).toHaveAttribute('open', '');
   await expect(nota).toContainText('212 municípios trocaram de vencedor entre os turnos');
@@ -97,9 +97,9 @@ test('FAQ: nota sobre 212, 213 e 215 aberta, com tabela e CSV para baixar', asyn
 });
 
 test('o link do rodapé leva à seção de citação e o menu mostra "Sobre e contato"', async ({ page }) => {
-  await abrir(page, '#/mapa');
+  await abrir(page, 'mapa');
   await page.locator('footer').getByRole('link', { name: 'Como citar' }).click();
-  await expect(page).toHaveURL(/#\/sobre\?s=citar/);
+  await expect(page).toHaveURL(/\/sobre\?s=citar$/);
   await expect(page.locator('#sec-citar')).toBeInViewport();
   await page.locator('.tab[data-page="nacional"]').click();
   await expect(page).not.toHaveURL(/s=citar/);

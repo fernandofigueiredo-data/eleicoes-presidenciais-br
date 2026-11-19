@@ -16,7 +16,7 @@ const GOLD = VIZ.changed, GRAY = VIZ.unchanged, NODATA = C.gray100;
 export function mount(root, { E, store }) {
   root.innerHTML = '';
   const head = h('<div></div>');
-  const note = h('<p class="callout"><strong>Como ler:</strong> compara o vencedor de cada município no 1º e no 2º turno do mesmo ano. O cartão, o mapa e a lista usam a <strong>regra do DAX</strong> (a do Power BI): empate em um dos turnos conta como virada. A <strong>contagem estrita</strong>, sem os empates, aparece no rodapé do cartão. Ao citar, informe o critério: <a href="#/sobre?s=faq" data-testid="link-faq-viradas">entenda as contagens 212, 213 e 215</a>. Municípios no exterior ficam de fora. Os números são agregados: não mostram para onde foi o voto de cada eleitor.</p>');
+  const note = h(`<p class="callout"><strong>Como ler:</strong> compara o vencedor de cada município no 1º e no 2º turno do mesmo ano. O cartão, o mapa e a lista usam a <strong>regra do DAX</strong> (a do Power BI): empate em um dos turnos conta como virada. A <strong>contagem estrita</strong>, sem os empates, aparece no rodapé do cartão. Ao citar, informe o critério: <a href="${import.meta.env.BASE_URL}sobre?s=faq" data-testid="link-faq-viradas">entenda as contagens 212, 213 e 215</a>. Municípios no exterior ficam de fora. Os números são agregados: não mostram para onde foi o voto de cada eleitor.</p>`);
   const kpis = h('<section class="grid grid--kpis" aria-label="Indicadores de virada"></section>');
   const pCand = panel({ title: 'Candidatos no 2º turno', sub: 'Votos e % dos válidos nos dois turnos (sem exterior)' });
   const g1 = h('<div class="grid grid--map section-gap"></div>');

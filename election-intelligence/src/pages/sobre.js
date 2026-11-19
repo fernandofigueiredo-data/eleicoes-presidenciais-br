@@ -58,7 +58,7 @@ export function mount(root, { E }) {
       <p>${escapeHtml(AVISO)}</p>
       <p class="aviso__links">Resultados oficiais: <a href="${TSE.resultados}" target="_blank" rel="noopener">resultados.tse.jus.br</a> · Dados abertos do TSE: <a href="${TSE.dadosAbertos}" target="_blank" rel="noopener">dadosabertos.tse.jus.br</a></p>
     </aside>
-    <nav class="sobre-index" aria-label="Nesta página">${INDICE.map(([id, l]) => `<a href="#/sobre?s=${id}">${l}</a>`).join('')}</nav>
+    <nav class="sobre-index" aria-label="Nesta página">${INDICE.map(([id, l]) => `<a href="${import.meta.env.BASE_URL}sobre?s=${id}">${l}</a>`).join('')}</nav>
   </div>`));
 
   const g1 = h('<div class="grid grid--2"></div>');
@@ -89,7 +89,7 @@ export function mount(root, { E }) {
       <li>Cite o TSE e o IBGE como fontes dos dados e o ELECTION INTELLIGENCE como ferramenta de análise.</li>
       <li>Confirme os números oficiais no <a href="${TSE.resultados}" target="_blank" rel="noopener">portal de resultados do TSE</a> antes de publicar.</li>
       <li>Para reproduzir um recorte, copie o link da página com os filtros: eles ficam gravados no endereço. O botão Compartilhar, no topo, faz isso.</li>
-      <li>Ao citar viradas entre turnos, informe o critério (veja <a href="#/sobre?s=faq">Perguntas frequentes</a>).</li>
+      <li>Ao citar viradas entre turnos, informe o critério (veja <a href="${import.meta.env.BASE_URL}sobre?s=faq">Perguntas frequentes</a>).</li>
     </ul></div>`;
 
   const pMet = panel({ title: 'Metodologia e limitações', id: 'sec-metodologia' });
