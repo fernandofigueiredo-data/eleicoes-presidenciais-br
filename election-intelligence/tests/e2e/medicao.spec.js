@@ -60,7 +60,7 @@ test('com aceite: consentimento, configuração sem publicidade e página vista 
 
 test('privacidade descreve a medição e permite mudar a escolha; recusar depois apaga os cookies _ga', async ({ page, context }) => {
   await preparar(page);
-  await carregar(page, '/#/sobre?s=privacidade');
+  await carregar(page, '/sobre?s=privacidade');
   await page.getByRole('button', { name: 'Aceitar' }).click();
   const priv = page.getByTestId('privacidade');
   await expect(priv).toContainText('Google Analytics 4');
@@ -75,7 +75,7 @@ test('privacidade descreve a medição e permite mudar a escolha; recusar depois
 test('o aviso de medição cabe no celular e não cobre o aviso de projeto não oficial', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await preparar(page);
-  await carregar(page, '/#/sobre');
+  await carregar(page, '/sobre');
   const consent = await page.getByRole('region', { name: 'Medição de acessos' }).boundingBox();
   const aviso = await page.locator('#sec-aviso').boundingBox();
   expect(consent.y).toBeGreaterThan(aviso.y + aviso.height);

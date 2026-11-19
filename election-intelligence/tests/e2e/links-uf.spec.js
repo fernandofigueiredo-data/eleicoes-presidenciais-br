@@ -1,5 +1,5 @@
-// T3: os 27 links por UF (#/turnos?uf=XX), em contexto novo, em 1440 px e 390 px.
-// T5: os mesmos links com parâmetros UTM antes do "#".
+// T3: os 27 links por UF (/turnos?uf=XX), em contexto novo, em 1440 px e 390 px.
+// T5: os mesmos links com parâmetros UTM; e os links antigos por hash (/#/turnos?uf=XX), que continuam valendo.
 // Cada teste grava seu resultado em test-status/links-uf/, que `npm run docs:divulgacao` junta em links_uf.csv.
 import { test, expect } from '@playwright/test';
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -65,7 +65,7 @@ for (const vp of [{ largura: '1440', width: 1440, height: 900 }, { largura: '390
             await page.screenshot({ path: join(SHOTS, `${u.uf}.jpg`), type: 'jpeg', quality: 50, fullPage: true, clip: { x: 0, y: Math.max(0, topo.y - 16), width: vp.width, height: mapa.y + mapa.height - topo.y + 32 } });
           }
           await page.reload();
-          await expect(page).toHaveURL(new RegExp(`#/turnos\\?(r=[A-Z]+&)?uf=${u.uf}$`));
+          await expect(page).toHaveURL(new RegExp(`/turnos\\?(r=[A-Z]+&)?uf=${u.uf}$`));
           await conferir(page, u);
           expect(erros).toEqual([]);
           ok = true;
@@ -81,57 +81,79 @@ for (const vp of [{ largura: '1440', width: 1440, height: 900 }, { largura: '390
   });
 }
 
-test.describe('UTM antes do "#" (T5)', () => {
+test.describe('links com UTM (T5)', () => {
   for (const uf of ['MG', 'RJ', 'DF', 'SP', 'BA']) {
     test(`${uf} com UTM: rota, filtro e recarga funcionam; o link compartilhado sai sem UTM`, async ({ page, context }) => {
       await context.grantPermissions(['clipboard-read', 'clipboard-write']);
       const u = UFS.find((x) => x.uf === uf);
       const erros = vigiar(page);
-      await page.goto(`/${UTM}${ROTA_UF(uf)}`);
+      await page.goto(`/${ROTA_UF(uf)}`.replace('?', `${UTM}&`));
       await conferir(page, u);
       expect(new URL(page.url()).searchParams.get('utm_source')).toBe('teste');
       await page.reload();
       await conferir(page, u);
-      expect(new URL(page.url()).search).toBe(UTM);
+      expect(new URL(page.url()).search).toMatch(new RegExp(`^\\${UTM}&(r=[A-Z]+&)?uf=${uf}$`));
       // navegar para outra página mantém o UTM na URL (não quebra o roteador) e mantém o filtro
       await page.locator('.tab[data-page="nacional"]').click();
-      await page.waitForURL(/#\/nacional/);
-      expect(page.url()).toContain(`${UTM}#/nacional?`);
+      await page.waitForURL((url) => url.pathname === '/');
+      expect(page.url()).toContain(`/${UTM}&`);
       expect(page.url()).toMatch(new RegExp(`uf=${uf}$`));
       await page.getByRole('button', { name: 'Copiar link com os filtros atuais' }).click();
       const copiado = await page.evaluate(() => navigator.clipboard.readText());
       expect(copiado).not.toContain('utm_');
-      expect(copiado).toMatch(new RegExp(`/#/nacional\\?(r=[A-Z]+&)?uf=${uf}$`));
+      expect(copiado).toMatch(new RegExp(`^https?://[^/]+/\\?(r=[A-Z]+&)?uf=${uf}$`));
       expect(erros).toEqual([]);
     });
   }
 
   test('página nacional com UTM abre sem erro e não grava nada no navegador', async ({ page }) => {
     const erros = vigiar(page);
-    await page.goto('/?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11#/nacional');
+    await page.goto('/?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11');
     await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
     await expect(page.locator('.page-title')).toHaveText('Lula vence com 51,79% dos votos válidos');
-    await expect(page).toHaveURL(/\?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11#\/nacional$/);
+    await expect(page).toHaveURL(/\/\?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11$/);
     const armazenado = await page.evaluate(() => [localStorage.length, sessionStorage.length, document.cookie]);
     expect(armazenado).toEqual([0, 0, '']);
     expect(erros).toEqual([]);
   });
 
-  test('rota #/mudancas com UTM (ficha B5)', async ({ page }) => {
+  test('rota /mudancas com UTM (ficha B5)', async ({ page }) => {
     const erros = vigiar(page);
-    await page.goto('/?utm_source=braga&utm_medium=email&utm_campaign=lancamento-2026-11#/mudancas');
+    await page.goto('/mudancas?utm_source=braga&utm_medium=email&utm_campaign=lancamento-2026-11');
     await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
     await expect(kpi(page, 'Mudaram de partido vencedor').locator('.kpi__value')).toHaveText('716');
     expect(erros).toEqual([]);
   });
 });
 
+test.describe('links antigos por hash continuam valendo', () => {
+  for (const uf of ['MG', 'SP']) {
+    test(`/#/turnos?uf=${uf} com UTM vira /turnos?utm...&uf=${uf}`, async ({ page }) => {
+      const u = UFS.find((x) => x.uf === uf);
+      const erros = vigiar(page);
+      await page.goto(`/${UTM}#/turnos?uf=${uf}`);
+      await conferir(page, u);
+      const url = new URL(page.url());
+      expect(url.hash).toBe('');
+      expect(url.pathname).toBe('/turnos');
+      expect(url.search).toMatch(new RegExp(`^\\${UTM}&(r=[A-Z]+&)?uf=${uf}$`));
+      expect(erros).toEqual([]);
+    });
+  }
+  test('/#/sobre?s=citar abre a seção de citação em /sobre', async ({ page }) => {
+    await page.goto('/#/sobre?s=citar');
+    await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
+    await expect(page).toHaveURL(/\/sobre\?s=citar$/);
+    await expect(page.locator('#sec-citar')).toBeInViewport();
+  });
+});
+
 test('a nota da página 1º e 2º turno leva ao FAQ das viradas', async ({ page }) => {
-  await page.goto('/#/turnos');
+  await page.goto('/turnos');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(kpi(page, 'Municípios que viraram (regra DAX)').locator('.kpi__value')).toHaveText('215');
   await expect(kpi(page, 'Municípios que viraram').getByTestId('viradas-estrita')).toHaveText('contagem estrita: 212');
   await page.getByTestId('link-faq-viradas').click();
-  await expect(page).toHaveURL(/#\/sobre\?s=faq$/);
+  await expect(page).toHaveURL(/\/sobre\?s=faq$/);
   await expect(page.locator('#faq-viradas')).toHaveAttribute('open', '');
 });

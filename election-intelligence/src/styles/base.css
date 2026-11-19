@@ -30,3 +30,10 @@ button { cursor: pointer; }
 }
 main:focus { outline: none; }
 small { font-size: max(var(--fs-xs), 0.85em); }
+
+/* Resumo em HTML estático (scripts/prerender.mjs): o que buscadores e robôs leem; o painel o substitui ao carregar */
+.estatico { max-width: 960px; margin: 0 auto; padding: 24px 16px; line-height: 1.55; }
+.estatico nav ul { display: flex; flex-wrap: wrap; gap: 8px 16px; list-style: none; padding: 0; }
+.estatico table { border-collapse: collapse; margin: 16px 0; width: 100%; }
+.estatico caption { text-align: left; font-weight: 600; padding-bottom: 6px; }
+.estatico th, .estatico td { border-bottom: 1px solid #d0d5dd; padding: 6px 8px; text-align: left; vertical-align: top; }

@@ -16,7 +16,7 @@
 
 **▶ [Abrir o site interativo](https://eleicoes-presidenciais-br.vercel.app)** · [Dashboard no Power BI](https://app.powerbi.com/view?r=eyJrIjoiNjlmZGIxNmItMDU5Yy00MzQ2LWE2YTYtYWMyZTE0OTRhMzM2IiwidCI6IjI2MGZmOWM5LTM4OGYtNDdiYi04NjlhLTc3YTk1N2JmNzA4MiJ9) · [Cópia no GitHub Pages](https://fernandofigueiredo-data.github.io/eleicoes-presidenciais-br/)
 
-[![Mapa dos vencedores por município, 2º turno de 2026](election-intelligence/docs/prints/02_mapa.png)](https://eleicoes-presidenciais-br.vercel.app/#/mapa)
+[![Mapa dos vencedores por município, 2º turno de 2026](election-intelligence/docs/prints/02_mapa.png)](https://eleicoes-presidenciais-br.vercel.app/mapa)
 
 ## Em 30 segundos
 
@@ -61,7 +61,7 @@ de Flavio Bolsonaro, 22) e por isso conta 213 viradas; ver [`sql/README.md`](sql
 Minas foi o estado mais apertado de 2026: Flavio Bolsonaro venceu lá no 1º turno, com Lula em 43,33%,
 e Lula venceu o 2º com 50,43%, por 0,87 ponto. Para saber onde a virada aconteceu:
 
-1. Abra a página [1º e 2º turno filtrada por Minas Gerais](https://eleicoes-presidenciais-br.vercel.app/#/turnos?uf=MG).
+1. Abra a página [1º e 2º turno filtrada por Minas Gerais](https://eleicoes-presidenciais-br.vercel.app/turnos?uf=MG).
 2. O cartão mostra **76 dos 853 municípios** (8,9%) que trocaram de vencedor, todos de Flavio Bolsonaro
    para Lula; o mapa mostra onde eles ficam.
 3. Ordene a lista por eleitores aptos: os maiores são Ribeirão das Neves, Santa Luzia, Ibirité, Sabará
@@ -113,7 +113,7 @@ ficam no link. Funciona no celular. Detalhes: [`election-intelligence/README.md`
 
 | Visão nacional | Mudanças entre eleições | Celular |
 |---|---|---|
-| [![Visão nacional](election-intelligence/docs/prints/01_nacional.png)](https://eleicoes-presidenciais-br.vercel.app/#/nacional) | [![Mudanças entre eleições](election-intelligence/docs/prints/04_mudancas.png)](https://eleicoes-presidenciais-br.vercel.app/#/mudancas) | [![Celular](election-intelligence/docs/prints/mobile_nacional.png)](https://eleicoes-presidenciais-br.vercel.app) |
+| [![Visão nacional](election-intelligence/docs/prints/01_nacional.png)](https://eleicoes-presidenciais-br.vercel.app/) | [![Mudanças entre eleições](election-intelligence/docs/prints/04_mudancas.png)](https://eleicoes-presidenciais-br.vercel.app/mudancas) | [![Celular](election-intelligence/docs/prints/mobile_nacional.png)](https://eleicoes-presidenciais-br.vercel.app) |
 
 O dashboard original em Power BI tem 7 páginas: prints em [`prints/`](prints/), vídeo em
 [`prints/demo_dashboard.mov`](prints/demo_dashboard.mov) e passo a passo em
@@ -243,7 +243,7 @@ oficial do Tribunal Superior Eleitoral (TSE) nem do IBGE.** Para resultados ofic
 [portal de resultados do TSE](https://resultados.tse.jus.br/).
 
 **Como citar** (os três formatos, com botão de copiar, estão em
-[Sobre e contato](https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=citar)):
+[Sobre e contato](https://eleicoes-presidenciais-br.vercel.app/sobre?s=citar)):
 
 - Fonte em matéria ou gráfico: `Fonte: TSE e IBGE. Elaboração: ELECTION INTELLIGENCE (https://eleicoes-presidenciais-br.vercel.app/).`
 - Referência (ABNT): `FIGUEIREDO, Fernando. ELECTION INTELLIGENCE: análise eleitoral brasileira. [S. l.], 2026. Disponível em: https://eleicoes-presidenciais-br.vercel.app/. Acesso em: <data>.`

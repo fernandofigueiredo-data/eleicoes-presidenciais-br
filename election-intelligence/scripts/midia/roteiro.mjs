@@ -6,12 +6,12 @@ export const FPS = 30;
 
 /** Cenas: rota gravada, início e fim (s). */
 export const CENAS = [
-  { id: 's1', rota: '#/nacional', ini: 0, fim: 8 },
-  { id: 's2', rota: '#/mapa', ini: 8, fim: 20 },
-  { id: 's3', rota: '#/turnos?uf=MG', ini: 20, fim: 38 },
-  { id: 's4', rota: '#/participacao', ini: 38, fim: 50 },
-  { id: 's5', rota: '#/perfil', ini: 50, fim: 63 },
-  { id: 's6', rota: '#/turnos?uf=MG', ini: 63, fim: 71 },
+  { id: 's1', rota: '', ini: 0, fim: 8 },
+  { id: 's2', rota: 'mapa', ini: 8, fim: 20 },
+  { id: 's3', rota: 'turnos?uf=MG', ini: 20, fim: 38 },
+  { id: 's4', rota: 'participacao', ini: 38, fim: 50 },
+  { id: 's5', rota: 'perfil', ini: 50, fim: 63 },
+  { id: 's6', rota: 'turnos?uf=MG', ini: 63, fim: 71 },
   { id: 'final', rota: null, ini: 71, fim: 75 },
 ];
 
@@ -39,27 +39,27 @@ export const FINAL = { endereco: 'eleicoes-presidenciais-br.vercel.app', aviso: 
 /** Textos das 4 imagens (1200×630 e 1080×1350). Legenda: [chave da cor, rótulo]. */
 export const IMAGENS = {
   '1_mapa_nacional_2026': {
-    rota: '#/mapa', alvo: '.map-wrap', kicker: 'Eleição para presidente · 2º turno de 2026',
+    rota: 'mapa', alvo: '.map-wrap', kicker: 'Eleição para presidente · 2º turno de 2026',
     titulo: 'Quem venceu em cada município',
     linha: 'Lula venceu em 2.875 municípios e Flavio Bolsonaro em 2.695; 1 empatou.',
     legenda: [['lula', 'Lula (PT)'], ['flavio', 'Flavio Bolsonaro (PL)'], ['empate', 'Empate']],
     nota: 'Cor mais forte, vitória mais folgada.',
   },
   '2_minas_gerais_viradas': {
-    rota: '#/turnos?uf=MG', alvo: '.map-wrap', kicker: 'Minas Gerais · 1º e 2º turno de 2026',
+    rota: 'turnos?uf=MG', alvo: '.map-wrap', kicker: 'Minas Gerais · 1º e 2º turno de 2026',
     titulo: '76 dos 853 municípios trocaram de vencedor entre os turnos',
     linha: 'Todos de Flavio Bolsonaro para Lula. Os maiores ficam na Grande BH.',
     legenda: [['virou', 'Trocou de vencedor'], ['manteve', 'Manteve o vencedor']],
     nota: 'Nenhum dos 76 envolve empate.',
   },
   '3_abstencao_2026': {
-    rota: '#/participacao', alvo: { panel: 'Abstenção por UF' }, kicker: 'Abstenção no 2º turno de 2026',
+    rota: 'participacao', alvo: { panel: 'Abstenção por UF' }, kicker: 'Abstenção no 2º turno de 2026',
     titulo: 'De 13,89% no Ceará a 26,08% no Acre',
     linha: 'Parcela dos eleitores aptos que não votou, por UF. No Brasil, 19,22%.',
     legenda: [], nota: 'Linha amarela: média do Brasil, sem o exterior.',
   },
   '4_renda_e_voto': {
-    rota: '#/perfil', alvo: { panel: 'Votos por faixa de PIB per capita' }, kicker: 'Renda e voto · 2º turno de 2026',
+    rota: 'perfil', alvo: { panel: 'Votos por faixa de PIB per capita' }, kicker: 'Renda e voto · 2º turno de 2026',
     titulo: 'Lula teve 73,9% no quarto de municípios de menor PIB per capita e 44,1% no de maior',
     linha: 'Com alfabetização e região no modelo, o efeito de dobrar o PIB per capita cai de 8,8 para 1,7 ponto.',
     legenda: [['lula', 'Lula (PT)'], ['flavio', 'Flavio Bolsonaro (PL)']],
@@ -74,5 +74,5 @@ const hms = (s) => {
 };
 export const srt = () => LEGENDAS.map((l, i) => `${i + 1}\n${hms(l.ini)} --> ${hms(l.fim)}\n${l.texto}\n`).join('\n');
 export const txt = () => ['Locução do vídeo de 75 segundos (ELECTION INTELLIGENCE)', 'Grave em ritmo calmo; os tempos são o início e o fim de cada frase.', '',
-  ...CENAS.filter((c) => c.rota).map((c) => `${c.ini} a ${c.fim === 71 ? 75 : c.fim} s · tela ${c.rota}`),
+  ...CENAS.filter((c) => c.rota).map((c) => `${c.ini} a ${c.fim === 71 ? 75 : c.fim} s · tela /${c.rota}`),
   '', ...LEGENDAS.map((l) => `[${l.ini.toFixed(1)} s a ${l.fim.toFixed(1)} s] ${l.texto}`), ''].join('\n');

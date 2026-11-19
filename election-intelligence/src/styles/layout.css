@@ -50,6 +50,8 @@
 
 /* ---------- Conteúdo ---------- */
 main { max-width: var(--maxw); margin: 0 auto; padding: var(--sp-6) var(--sp-5) var(--sp-8); }
+/* reserva a altura da tela para o conteúdo: o rodapé não sobe e depois desce enquanto a página carrega (CLS) */
+#conteudo { min-height: calc(100vh - var(--sticky-top, 0px)); }
 .page-head { margin-bottom: var(--sp-5); max-width: 980px; }
 .page-kicker { font-size: var(--fs-sm); color: var(--green-700); font-weight: 600; margin-bottom: var(--sp-2); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: center; }
 .page-kicker > span + span::before { content: '·'; color: var(--gray-400); margin-right: 10px; }

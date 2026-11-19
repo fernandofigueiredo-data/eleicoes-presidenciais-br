@@ -19,7 +19,7 @@ async function paginas(page, baseURL) {
   page.on('request', (r) => { if (r.url().startsWith('http://') && !r.url().startsWith('http://localhost')) misto.push(r.url()); });
   const links = new Set(), suspeitos = [], noindex = [];
   for (const rota of ROTAS) {
-    const resp = await page.goto(`/#/${rota}`);
+    const resp = await page.goto(rota === 'nacional' ? '/' : `/${rota}`);
     if (rota === 'nacional') {
       const xr = resp.headers()['x-robots-tag'];
       if (xr) noindex.push(`X-Robots-Tag: ${xr}`);
@@ -48,7 +48,7 @@ async function links(page, request, baseURL) {
   for (const href of resultado.links || []) {
     const u = new URL(href);
     if (u.protocol === 'mailto:') { if (!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(decodeURIComponent(u.pathname))) quebrados.push(`mailto inválido: ${href}`); continue; }
-    if (u.origin === new URL(baseURL).origin && u.hash.startsWith('#/')) {
+    if (u.origin === new URL(baseURL).origin && !/^\/(data|assets|og|geo)\//.test(u.pathname) && !/\.[a-z0-9]+$/i.test(u.pathname)) {
       await page.goto(href);
       const ok = await page.locator('.page-title').waitFor({ state: 'visible', timeout: 30_000 }).then(() => true).catch(() => false);
       if (!ok) quebrados.push(`rota interna sem conteúdo: ${href}`);
@@ -80,7 +80,7 @@ async function lcp(browser, perfil) {
     new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
   });
   const t0 = Date.now();
-  await page.goto('/#/nacional');
+  await page.goto('/');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 120_000 });
   const pronto = (Date.now() - t0) / 1000;
   await page.waitForTimeout(1500);

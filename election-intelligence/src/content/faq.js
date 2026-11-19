@@ -1,5 +1,5 @@
 /**
- * Perguntas frequentes. Fonte única: a página Sobre e contato (#/sobre?s=faq) e o documento
+ * Perguntas frequentes. Fonte única: a página Sobre e contato (/sobre?s=faq) e o documento
  * docs/divulgacao-election-intelligence/09_FAQ.md (gerado por scripts/gerar_docs_divulgacao.mjs).
  *
  * As contagens de FAQ_VIRADAS são recalculadas pelo teste tests/divulgacao.test.js:

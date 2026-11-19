@@ -1,7 +1,7 @@
 # 09. Perguntas frequentes (FAQ)
 
 Espelho da seção "Perguntas frequentes" da página Sobre e contato do site
-(https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=faq). Gerado por `npm run docs:divulgacao` a partir de
+(https://eleicoes-presidenciais-br.vercel.app/sobre?s=faq). Gerado por `npm run docs:divulgacao` a partir de
 `election-intelligence/src/content/faq.js`: edite lá, não aqui. As contagens de viradas são
 recalculadas pelo teste `election-intelligence/tests/divulgacao.test.js`.
 

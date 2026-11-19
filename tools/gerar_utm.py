@@ -49,8 +49,13 @@ def url(source: str, medium: str, rota: str, uf: str = "", content: str = "") ->
     params = {"utm_source": source, "utm_medium": medium, "utm_campaign": CAMPANHA}
     if content:
         params["utm_content"] = content.lower()
-    hash_ = f"#/{rota}" + (f"?uf={uf}" if uf else "")
-    return f"{SITE}?{urlencode(params)}{hash_}"
+    # endereço por caminho (/turnos?...), o mesmo que os buscadores indexam; a Visão Nacional é a raiz
+    caminho = "" if rota == "nacional" else rota
+    return f"{SITE}{caminho}?{urlencode(params)}" + (f"&uf={uf}" if uf else "")
+
+
+def rota_de(rota: str, uf: str = "") -> str:
+    return ("/" if rota == "nacional" else f"/{rota}") + (f"?uf={uf}" if uf else "")
 
 
 def validar(prospects: list[dict], ufs: list[str]) -> None:
@@ -98,7 +103,7 @@ def gerar(pasta: Path = PASTA) -> list[dict]:
                 "utm_source": slug,
                 "utm_medium": canal,
                 "uf": uf,
-                "rota_recomendada": f"#/{rota}" + (f"?uf={uf}" if uf else ""),
+                "rota_recomendada": rota_de(rota, uf),
                 "url_nacional": nacional,
                 "url_recomendada": url(slug, canal, rota, uf, ficha),
             }
@@ -112,7 +117,7 @@ def gerar(pasta: Path = PASTA) -> list[dict]:
                 "utm_source": "teste",
                 "utm_medium": "email",
                 "uf": uf,
-                "rota_recomendada": f"#/turnos?uf={uf}",
+                "rota_recomendada": rota_de("turnos", uf),
                 "url_nacional": url("teste", "email", "nacional"),
                 "url_recomendada": url("teste", "email", "turnos", uf),
             }

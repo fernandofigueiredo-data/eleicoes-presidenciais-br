@@ -5,7 +5,7 @@
 import { classificarViradas } from './viradas.js';
 import { PROJETO } from '../content/projeto.js';
 
-export const ROTA_UF = (uf) => `#/turnos?uf=${uf}`;
+export const ROTA_UF = (uf) => `turnos?uf=${uf}`;
 
 export function linksUf(E, ano = 2026, site = PROJETO.site) {
   const siglas = [...new Set(E.mun.uf.filter((u, i) => !E.mun.exterior[i]))].sort();

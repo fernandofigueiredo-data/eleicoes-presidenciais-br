@@ -12,7 +12,7 @@ test('Visão Nacional: abre com 2 turnos, completa o gráfico histórico depois,
   const n = contar(page);
   const turnosNaAbertura = [];
   page.on('request', (r) => { if (r.url().includes('/data/turnos/')) turnosNaAbertura.push({ arq: new URL(r.url()).pathname.split('/').pop() }); });
-  await page.goto('/#/nacional');
+  await page.goto('/');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.page-title')).toHaveText('Lula vence com 51,79% dos votos válidos');
   const painel = page.locator('.panel', { hasText: 'Participação ao longo das eleições' });
@@ -25,7 +25,7 @@ test('Visão Nacional: abre com 2 turnos, completa o gráfico histórico depois,
 test('1º e 2º turno com município selecionado: o detalhe espera a eleição anterior e mostra a variação', async ({ page }) => {
   const erros = [];
   page.on('pageerror', (e) => erros.push(e.message));
-  await page.goto('/#/turnos?uf=MG&m=50911');
+  await page.goto('/turnos?uf=MG&m=50911');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.detail__name')).toContainText('Ribeirão das Neves');
   const abst = page.locator('.detail__grid div', { hasText: 'Abstenção' }).locator('dd');
@@ -35,7 +35,7 @@ test('1º e 2º turno com município selecionado: o detalhe espera a eleição a
 
 test('trocar de eleição antes de o segundo plano terminar espera os dados e não mostra "não está na base"', async ({ page }) => {
   await page.route('**/data/turnos/2014-*.json', async (route) => { await new Promise((r) => setTimeout(r, 1500)); await route.continue(); });
-  await page.goto('/#/participacao');
+  await page.goto('/participacao');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await page.getByLabel('Eleição', { exact: true }).selectOption('2018');
   await expect(page.locator('.page-kicker')).toContainText('2018');

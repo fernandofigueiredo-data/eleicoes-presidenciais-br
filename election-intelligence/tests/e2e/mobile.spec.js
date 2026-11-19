@@ -4,10 +4,10 @@ import { test, expect } from '@playwright/test';
 const PAGES = ['nacional', 'mapa', 'participacao', 'mudancas', 'turnos', 'perfil', 'comparar', 'sobre'];
 
 test('todas as páginas cabem na largura do celular', async ({ page }) => {
-  await page.goto('/#/nacional');
+  await page.goto('/');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   for (const p of PAGES) {
-    await page.goto(`/#/${p}`);
+    await page.goto(p === 'nacional' ? '/' : `/${p}`);
     await expect(page.locator('.page-title')).toBeVisible();
     await page.waitForTimeout(500);
     const [sw, cw] = await page.evaluate(() => [document.documentElement.scrollWidth, document.documentElement.clientWidth]);
@@ -16,7 +16,7 @@ test('todas as páginas cabem na largura do celular', async ({ page }) => {
 });
 
 test('filtros recolhidos abrem com "Mais filtros"', async ({ page }) => {
-  await page.goto('/#/nacional');
+  await page.goto('/');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.getByLabel('Região', { exact: true })).toBeHidden();
   await page.getByRole('button', { name: /Mais filtros/ }).click();
@@ -26,7 +26,7 @@ test('filtros recolhidos abrem com "Mais filtros"', async ({ page }) => {
 });
 
 test('mapa responde ao toque no celular', async ({ page }) => {
-  await page.goto('/#/mapa');
+  await page.goto('/mapa');
   await expect(page.locator('.map-wrap .skeleton')).toHaveCount(0, { timeout: 30_000 });
   const canvas = page.locator('.map-wrap canvas').first();
   await canvas.scrollIntoViewIfNeeded();
