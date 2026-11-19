@@ -32,6 +32,9 @@ for (const vp of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
       expect(ids.slice(0, 9)).toEqual(['sec-aviso', 'sec-o-que-e', 'sec-contato', 'sec-dados', 'sec-citar', 'sec-metodologia', 'sec-faq', 'sec-licencas', 'sec-privacidade']);
       // hierarquia de títulos: um h1, seções em h2
       await expect(page.locator('main h1')).toHaveCount(1);
+      // privacidade descreve o que é medido (hoje: nada)
+      await expect(page.getByTestId('privacidade')).toContainText('não usa cookies');
+      await expect(page.getByTestId('privacidade')).toContainText('não mede acessos');
       expect(await page.locator('main h2').count()).toBeGreaterThan(8);
       expect(erros).toEqual([]);
     });

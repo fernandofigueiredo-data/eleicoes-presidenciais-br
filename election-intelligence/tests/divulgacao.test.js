@@ -116,3 +116,29 @@ describe('Documentos de divulgação espelhados', () => {
     expect(csv).toHaveLength(28);
   });
 });
+
+describe('Medição de acessos (T5)', () => {
+  it('leva utm_source ao caminho e descarta filtros e outros parâmetros', async () => {
+    const { urlMedida } = await import('../src/services/medicao.js');
+    expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11&utm_content=a1&fbclid=x#/turnos?uf=MG&m=123'))
+      .toBe('https://eleicoes-presidenciais-br.vercel.app/campanha/nicolau/turnos?utm_source=nicolau&utm_medium=substack&utm_campaign=lancamento-2026-11&utm_content=a1');
+    expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=citar')).toBe('https://eleicoes-presidenciais-br.vercel.app/sobre');
+    expect(urlMedida('https://eleicoes-presidenciais-br.vercel.app/?utm_source=a%40b.com#/nacional')).toBe('https://eleicoes-presidenciais-br.vercel.app/nacional');
+  });
+  it('desligada, não carrega script nem cria nada no navegador', async () => {
+    const { iniciarMedicao } = await import('../src/services/medicao.js');
+    const win = { location: { hostname: 'eleicoes-presidenciais-br.vercel.app' } };
+    expect(iniciarMedicao({ ativa: false }, null, win)).toBe(false);
+    expect(win.va).toBeUndefined();
+    expect(iniciarMedicao({ ativa: true }, null, { location: { hostname: 'localhost' } })).toBe(false);
+  });
+  it('ligada, registra o beforeSend antes de carregar o script', async () => {
+    const { iniciarMedicao } = await import('../src/services/medicao.js');
+    const win = { location: { hostname: 'eleicoes-presidenciais-br.vercel.app' } }, head = [];
+    const doc = { createElement: () => ({}), head: { appendChild: (s) => head.push(s) } };
+    expect(iniciarMedicao({ ativa: true, script: '/_vercel/insights/script.js' }, doc, win)).toBe(true);
+    expect(win.vaq[0][0]).toBe('beforeSend');
+    expect(win.vaq[0][1]({ url: 'https://x.app/?utm_source=cbn#/nacional' }).url).toBe('https://x.app/campanha/cbn/nacional?utm_source=cbn');
+    expect(head[0].src).toBe('/_vercel/insights/script.js');
+  });
+});

@@ -7,6 +7,9 @@ import './styles/components.css';
 import { loadAll } from './services/data.js';
 import { createEngine } from './services/engine.js';
 import { createApp } from './app.js';
+import { iniciarMedicao } from './services/medicao.js';
+
+iniciarMedicao();
 
 const loader = document.getElementById('loader');
 const bar = loader?.querySelector('.loader__bar span');

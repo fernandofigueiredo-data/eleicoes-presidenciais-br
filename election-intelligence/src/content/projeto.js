@@ -47,7 +47,7 @@ export function citacoes(hoje = new Date(), p = PROJETO) {
  * Medição de acessos. Desligada até Fernando escolher a ferramenta (ver 13_COMO_LER_OS_RESULTADOS.md).
  * Quando ligada, a página de privacidade troca de texto automaticamente.
  */
-export const MEDICAO = { ativa: false, ferramenta: 'Vercel Web Analytics' };
+export const MEDICAO = { ativa: false, ferramenta: 'Vercel Web Analytics', script: '/_vercel/insights/script.js' };
 
 export function textoPrivacidade(m = MEDICAO) {
   if (!m.ativa) {
