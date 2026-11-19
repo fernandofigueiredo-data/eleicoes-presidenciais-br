@@ -10,10 +10,21 @@ export const PAGES = [
   { id: 'turnos', n: '05', label: '1º e 2º Turno' },
   { id: 'perfil', n: '06', label: 'Perfil Socioeconômico' },
   { id: 'comparar', n: '07', label: 'Comparar' },
-  { id: 'sobre', n: '08', label: 'Sobre os Dados' },
+  { id: 'sobre', n: '08', label: 'Sobre e contato' },
 ];
 
-const KEYS = { turno: 't', regiao: 'r', uf: 'uf', mun: 'm', cand: 'c', partido: 'p', modo: 'modo', cmpC: 'cc', cmpT: 'ct' };
+const KEYS = { turno: 't', regiao: 'r', uf: 'uf', mun: 'm', cand: 'c', partido: 'p', modo: 'modo', cmpC: 'cc', cmpT: 'ct', secao: 's' };
+
+/** Seções da página Sobre e contato que aceitam link direto (#/sobre?s=citar). */
+export const SECOES_SOBRE = ['aviso', 'o-que-e', 'dados', 'citar', 'metodologia', 'faq', 'licencas', 'contato', 'privacidade', 'conferencia'];
+
+/** Endereço sem parâmetros de campanha (utm_*), para que o link compartilhado não herde a origem de quem o recebeu. */
+export function semUtm(href) {
+  const [base, ...hash] = href.split('#');
+  const u = new URL(base);
+  for (const k of [...u.searchParams.keys()]) if (/^utm_/i.test(k)) u.searchParams.delete(k);
+  return u.toString() + (hash.length ? '#' + hash.join('#') : '');
+}
 
 export function createStore(E, defaults) {
   const listeners = new Set();
@@ -27,6 +38,7 @@ export function createStore(E, defaults) {
     const n = { ...s };
     if (!PAGES.some((p) => p.id === n.page)) n.page = 'nacional';
     if (!validTurno(n.turno)) n.turno = defaults.turno;
+    if (n.page !== 'sobre' || !SECOES_SOBRE.includes(n.secao)) n.secao = null;
     if (n.regiao && !E.meta.regioes[n.regiao]) n.regiao = null;
     if (n.uf && !E.meta.ufs.some((u) => u.sigla === n.uf)) n.uf = null;
     if (n.mun != null) {
@@ -105,6 +117,6 @@ export function createStore(E, defaults) {
     },
     clearFilters() { this.set({ regiao: null, uf: null, mun: null, cand: null, partido: null }); },
     hrefFor(page, patch = {}) { return toHash(normalize({ ...state, ...patch, page })); },
-    shareUrl() { return location.href.split('#')[0] + toHash(state); },
+    shareUrl() { return semUtm(location.href.split('#')[0]) + toHash(state); },
   };
 }

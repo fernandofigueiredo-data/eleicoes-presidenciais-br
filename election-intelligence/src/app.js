@@ -7,6 +7,7 @@ import { createStore, PAGES } from './state/store.js';
 import { filterBar } from './components/filters/filterBar.js';
 import { searchPalette } from './components/filters/searchPalette.js';
 import { toast } from './components/ui/ui.js';
+import { PROJETO, TSE, mailto } from './content/projeto.js';
 
 const LOADERS = {
   nacional: () => import('./pages/nacional.js'),
@@ -37,8 +38,9 @@ export function createApp(E, rootEl) {
   </header>`);
   const main = h('<main id="conteudo" tabindex="-1"></main>');
   const footer = h(`<footer class="app-footer"><div class="app-footer__inner">
-    <span><strong>ELECTION INTELLIGENCE</strong> · dados do TSE (CC-BY) e do IBGE, reconstruídos do relatório Power BI do projeto. Site independente do Power BI.</span>
-    <span class="footer-links"><a href="#/sobre">Fontes, metodologia e conferência</a><a href="https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br" target="_blank" rel="noopener">Código e documentação no GitHub</a></span></div></footer>`);
+    <div class="footer-about"><strong>ELECTION INTELLIGENCE</strong> · projeto independente, não oficial. Dados do TSE (CC-BY) e do IBGE.
+      Para resultados oficiais, consulte o <a href="${TSE.resultados}" target="_blank" rel="noopener">TSE</a>.</div>
+    <nav class="footer-links" aria-label="Rodapé"><a href="#/sobre">Sobre e contato</a><a href="#/sobre?s=citar">Como citar</a><a href="#/sobre?s=faq">Perguntas frequentes</a><a href="${mailto()}">${PROJETO.email}</a><a href="${PROJETO.repositorio}" target="_blank" rel="noopener">Código no GitHub</a></nav></div></footer>`);
   rootEl.append(h('<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'), header, filterBar(E, store), main, footer);
 
   const palette = searchPalette(E, store);
@@ -53,14 +55,14 @@ export function createApp(E, rootEl) {
     const a = ev.target.closest('[data-page]');
     if (!a) return;
     ev.preventDefault();
-    store.set({ page: a.dataset.page }, { push: true });
+    store.set({ page: a.dataset.page, secao: null }, { push: true });
   });
   rootEl.addEventListener('click', (ev) => {
     const a = ev.target.closest('a[href^="#/"]');
     if (!a || a.closest('.tabs')) return;
     ev.preventDefault();
-    const page = a.getAttribute('href').slice(2).split('?')[0];
-    store.set({ page }, { push: true });
+    const [page, qs] = a.getAttribute('href').slice(2).split('?');
+    store.set({ page, secao: new URLSearchParams(qs || '').get('s') }, { push: true });
   });
 
   let current = null, currentId = null, token = 0, navigated = false;
