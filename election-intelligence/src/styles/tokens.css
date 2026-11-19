@@ -1,0 +1,82 @@
+/* ELECTION INTELLIGENCE — design tokens (fonte única; ver DESIGN.md e src/styles/tokens.js) */
+:root {
+  /* Marca (relatório original) */
+  --navy-900: #001a4f;
+  --navy-800: #002776;
+  --navy-700: #12398f;
+  --navy-100: #e6ecf7;
+  --green-700: #007a2e;
+  --green-600: #009c3b;
+  --green-100: #e3f4ea;
+  --gold-500: #e3b505;
+  --gold-100: #fbf3d2;
+  --white: #ffffff;
+
+  /* Neutros levemente azulados (harmonizam com o navy) */
+  --gray-950: #0c1524;
+  --gray-900: #172133;
+  --gray-700: #3d4859;
+  --gray-600: #5b6676; /* 5,8:1 sobre branco */
+  --gray-500: #5f6978; /* 5,2:1 sobre o fundo — menor contraste permitido para texto */
+  --gray-400: #a3abb7; /* só traços e ícones, nunca texto */
+  --gray-300: #c9ced6;
+  --gray-200: #e3e6eb;
+  --gray-100: #eef0f3;
+  --gray-50: #f6f7f9;
+
+  /* Papéis */
+  --bg: var(--gray-50);
+  --surface: var(--white);
+  --surface-2: var(--gray-100);
+  --text: var(--gray-950);
+  --text-2: var(--gray-600);
+  --text-3: var(--gray-500);
+  --border: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --accent: var(--navy-800);
+  --highlight: var(--gold-500);
+  --positive: #0a7d3b;
+  --negative: #b42318;
+  --focus: #2f6fed;
+  --no-data: #dfe3e8;
+
+  /* Tipografia — escala ~1,2 a partir de 16px */
+  --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --fs-xs: 0.75rem;   /* 12 — menor tamanho de texto da interface */
+  --fs-sm: 0.875rem;  /* 14 — tabelas, controles, notas */
+  --fs-md: 1rem;      /* 16 — corpo */
+  --fs-lg: 1.125rem;  /* 18 — linha fina */
+  --fs-xl: 1.375rem;  /* 22 */
+  --fs-2xl: 1.75rem;  /* 28 */
+  --fs-3xl: 2.5rem;   /* 40 — título de página */
+
+  /* Espaçamento — escala de 4px */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --gap-in: var(--sp-4);   /* dentro de um grupo */
+  --gap-out: var(--sp-6);  /* entre grupos */
+
+  /* Forma */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --shadow-pop: 0 8px 24px rgba(12, 21, 36, 0.14), 0 2px 6px rgba(12, 21, 36, 0.08); /* só camadas flutuantes */
+  --target: 36px;      /* altura mínima de controle no desktop */
+  --target-touch: 44px;
+
+  /* Movimento */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+
+  --header-h: 64px;
+  --maxw: 1440px;
+  color-scheme: light;
+}

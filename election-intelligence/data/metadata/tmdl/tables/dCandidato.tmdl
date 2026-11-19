@@ -1,0 +1,51 @@
+table 'dCandidato'
+	lineageTag: 812cb133-7551-4010-962b-759ef5501a46
+
+	column 'ano'
+		dataType: int64
+		sourceColumn: ano
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		lineageTag: 68ad4acb-874c-456f-9f92-82f2bba5ca21
+
+	column 'nr_candidato'
+		dataType: int64
+		sourceColumn: nr_candidato
+		formatString: 0
+		summarizeBy: none
+		lineageTag: 8b246760-98e5-4e8b-880e-f1dace28a50d
+
+	column 'nm_urna'
+		dataType: string
+		sourceColumn: nm_urna
+		lineageTag: acbcc888-0ce1-4670-979e-997c85e254fd
+
+	column 'sg_partido'
+		dataType: string
+		sourceColumn: sg_partido
+		lineageTag: ba1eb324-c232-4cc5-9a02-78f2f70f0020
+
+	column 'partido_atual'
+		dataType: string
+		sourceColumn: partido_atual
+		lineageTag: f11ea418-bb01-44db-a68c-2fe60c713ac7
+
+	column 'chave_candidato'
+		dataType: string
+		sourceColumn: chave_candidato
+		lineageTag: 28426457-5d48-4913-a3d3-491f8e617966
+
+	partition 'dCandidato' = m
+		mode: import
+		source =
+				let
+				    Fonte = Eleicoes,
+				    Colunas = Table.SelectColumns(
+				        Fonte, {"chave_candidato", "ano", "nr_candidato", "nm_urna", "sg_partido", "partido_atual"}
+				    ),
+				    Unicos = Table.Distinct(Colunas),
+				    Ordenado = Table.Sort(Unicos, {{"ano", Order.Ascending}, {"nr_candidato", Order.Ascending}})
+				in
+				    Ordenado
+

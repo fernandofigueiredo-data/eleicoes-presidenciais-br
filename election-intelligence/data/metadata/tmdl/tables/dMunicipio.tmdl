@@ -1,0 +1,157 @@
+table 'dMunicipio'
+	lineageTag: dcb8c6db-49b0-4e93-90ca-388b1ddaff8f
+
+	column 'cd_municipio_tse'
+		dataType: int64
+		sourceColumn: cd_municipio_tse
+		formatString: 0
+		summarizeBy: none
+		lineageTag: cfc172de-040b-4166-a691-8631ee1269d9
+
+	column 'cd_municipio_ibge'
+		dataType: int64
+		sourceColumn: cd_municipio_ibge
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: 11b94908-9ea7-464e-9744-2b06cf2b0a8b
+
+	column 'municipio'
+		dataType: string
+		sourceColumn: municipio
+		lineageTag: 96781d13-f13a-4d36-86f6-cca9f3f3703b
+
+	column 'municipio_uf'
+		dataType: string
+		sourceColumn: municipio_uf
+		lineageTag: 75bf2db1-e48f-404a-ab83-bb9b8cc20c45
+
+	column 'sg_uf'
+		dataType: string
+		sourceColumn: sg_uf
+		lineageTag: a7d0512a-f7fd-4e23-aa62-ca3932a4ab61
+
+	column 'sg_uf_nome'
+		dataType: string
+		sourceColumn: sg_uf_nome
+		dataCategory: StateOrProvince
+		lineageTag: 7cadbd23-54c2-445f-80d9-f2abe6f9f97b
+
+	column 'sg_regiao'
+		dataType: string
+		sourceColumn: sg_regiao
+		lineageTag: 7e4f20c4-fe54-4265-9b3b-7126c79fb046
+
+	column 'sg_regiao_nome'
+		dataType: string
+		sourceColumn: sg_regiao_nome
+		lineageTag: 3a06d453-ad11-4bd8-aec7-771f9a7409ac
+
+	column 'exterior'
+		dataType: boolean
+		sourceColumn: exterior
+		formatString: "TRUE";"TRUE";"FALSE"
+		lineageTag: ccaee597-e7d8-400c-8188-2090c7c102f2
+
+	column 'populacao_2022'
+		dataType: int64
+		sourceColumn: populacao_2022
+		formatString: #,0
+		summarizeBy: sum
+		lineageTag: 2bde472e-1782-4c57-afbb-f6637f09f9a1
+
+	column 'alfabetizacao_2022'
+		dataType: double
+		sourceColumn: alfabetizacao_2022
+		summarizeBy: sum
+		lineageTag: 77fd71ed-f99a-432c-9bda-1dc0eea478f1
+
+	column 'pib_mil_reais'
+		dataType: double
+		sourceColumn: pib_mil_reais
+		formatString: 0.00
+		summarizeBy: sum
+		lineageTag: fb213d62-0a62-42ad-b7dd-68dd67b7ca18
+
+	column 'pib_per_capita'
+		dataType: double
+		sourceColumn: pib_per_capita
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		summarizeBy: sum
+		lineageTag: 661c9a0b-9a3c-4d35-8039-513cb0d73a2e
+
+	column 'faixa_populacao'
+		dataType: string
+		sourceColumn: faixa_populacao
+		sortByColumn: 'ordem_faixa_populacao'
+		lineageTag: 5f824a1a-8cf8-4324-9e45-6204081d8c5a
+
+	column 'ordem_faixa_populacao'
+		dataType: int64
+		sourceColumn: ordem_faixa_populacao
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: 55e4c12c-b57d-4b0c-ac81-456efdf829b7
+
+	column 'local_mapa'
+		dataType: string
+		sourceColumn: local_mapa
+		dataCategory: Place
+		lineageTag: 93188d04-6ed3-4e25-9ea9-e95e746c7aa2
+
+	column 'Quartil PIB per capita' =
+			VAR valor = dMunicipio[pib_per_capita]
+			VAR q1 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.25 )
+			VAR q2 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.50 )
+			VAR q3 = PERCENTILE.INC ( dMunicipio[pib_per_capita], 0.75 )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( valor ), "Sem dado",
+			        valor <= q1, "1º quartil (menor PIB)",
+			        valor <= q2, "2º quartil",
+			        valor <= q3, "3º quartil",
+			        "4º quartil (maior PIB)"
+			    )
+		dataType: string
+		lineageTag: 99168fed-4d5e-4b80-b71c-00e0a0f4fec5
+
+	column 'Quartil Alfabetização' =
+			VAR valor = dMunicipio[alfabetizacao_2022]
+			VAR q1 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.25 )
+			VAR q2 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.50 )
+			VAR q3 = PERCENTILE.INC ( dMunicipio[alfabetizacao_2022], 0.75 )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        ISBLANK ( valor ), "Sem dado",
+			        valor <= q1, "1º quartil (menor alfabetização)",
+			        valor <= q2, "2º quartil",
+			        valor <= q3, "3º quartil",
+			        "4º quartil (maior alfabetização)"
+			    )
+		dataType: string
+		lineageTag: 76514b78-d03d-43b4-9703-aa505072eda7
+
+	partition 'dMunicipio' = m
+		mode: import
+		source =
+				let
+				    Fonte = Eleicoes,
+				    #"Coluna Condicional Adicionada" = Table.AddColumn(Fonte, "pib_ref", each if [ano] >= 2022 then [pib_mil_reais] else null, type nullable number),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Coluna Condicional Adicionada", each true),
+				    #"Linhas Agrupadas" = Table.Group(#"Linhas Filtradas", {"cd_municipio_tse", "cd_municipio_ibge", "municipio", "municipio_uf", "sg_uf", "sg_uf_nome", "sg_regiao", "sg_regiao_nome", "exterior", "populacao_2022", "alfabetizacao_2022"}, {{"pib_mil_reais", each List.Max([pib_ref]), type nullable number}}),
+				    #"Tipo PIB" = Table.TransformColumnTypes(#"Linhas Agrupadas", {{"pib_mil_reais", type number}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo PIB", "pip_per_capita", each if [pib_mil_reais] = null or [populacao_2022] = null then null else [pib_mil_reais] * 1000 / [populacao_2022]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Personalização Adicionada",{{"pip_per_capita", type number}}),
+				    #"Coluna Condicional Adicionada1" = Table.AddColumn(#"Tipo Alterado", "faixa_populacao", each if [populacao_2022] = null then "Sem dado" else if [populacao_2022] <= 5000 then "Até 5 mil" else if [populacao_2022] <= 20000 then "5 a 20 mil" else if [populacao_2022] <= 100000 then "20 a 100 mil" else if [populacao_2022] <= 500000 then "100 a 500 mil" else "Mais de 500 mil"),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada1",{{"faixa_populacao", type text}}),
+				    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado1",{{"faixa_populacao", Text.Trim, type text}}),
+				    #"Coluna Condicional Adicionada2" = Table.AddColumn(#"Texto Aparado", "ordem_faixa_populacao", each if [populacao_2022] = null then 0 else if [populacao_2022] <= 5000 then 1 else if [populacao_2022] <= 20000 then 2 else if [populacao_2022] <= 100000 then 3 else if [populacao_2022] <= 500000 then 4 else 5),
+				    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada2",{{"ordem_faixa_populacao", Int64.Type}}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado2", "local_mapa", each if [exterior] then [municipio] else [municipio] & ", " & [sg_uf_nome] & ", Brasil"),
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"local_mapa", type text}}),
+				    #"Colunas Renomeadas" = Table.RenameColumns(#"Tipo Alterado3",{{"pip_per_capita", "pib_per_capita"}})
+				in
+				    #"Colunas Renomeadas"
+

@@ -1,0 +1,51 @@
+table 'dTurno'
+	lineageTag: 8e4fa649-0c82-4aa9-bf7b-ab0f01ad25a9
+
+	column 'ano'
+		dataType: int64
+		sourceColumn: ano
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: a68cd93d-fbc8-4203-8dac-092d6e659a03
+
+	column 'nr_turno'
+		dataType: int64
+		sourceColumn: nr_turno
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: c7d9d64d-a864-418b-ba4f-c43bfbcda94b
+
+	column 'chave_turno'
+		dataType: string
+		sourceColumn: chave_turno
+		lineageTag: fcbeaa97-343d-4b94-bbed-09862eb052cf
+
+	column 'rotulo_turno'
+		dataType: string
+		sourceColumn: rotulo_turno
+		sortByColumn: 'ordem_turno'
+		lineageTag: b243939d-151e-47ec-8b1c-2d2794416a50
+
+	column 'ordem_turno'
+		dataType: int64
+		sourceColumn: ordem_turno
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: 130ade94-bada-4701-ac5e-2c2ab05e8c7d
+
+	partition 'dTurno' = m
+		mode: import
+		source =
+				let
+				    Fonte = Eleicoes,
+				    Colunas = Table.SelectColumns(Fonte, {"chave_turno", "ano", "nr_turno"}),
+				    Unicos = Table.Distinct(Colunas),
+				    Rotulo = Table.AddColumn(
+				        Unicos, "rotulo_turno", each Text.From([ano]) & " · " & Text.From([nr_turno]) & "º turno", type text
+				    ),
+				    Ordem = Table.AddColumn(Rotulo, "ordem_turno", each [ano] * 10 + [nr_turno], Int64.Type),
+				    Ordenado = Table.Sort(Ordem, {{"ordem_turno", Order.Ascending}})
+				in
+				    Ordenado
+

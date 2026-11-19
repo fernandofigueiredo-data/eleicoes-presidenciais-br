@@ -1,0 +1,60 @@
+table 'fVotos'
+	lineageTag: f5cb0d31-d570-45c2-af38-0725361c3b9b
+
+	column 'chave_turno'
+		dataType: string
+		sourceColumn: chave_turno
+		isHidden
+		lineageTag: bde59eab-3634-4bf6-af6c-ceda296a37f6
+
+	column 'ano'
+		dataType: int64
+		sourceColumn: ano
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: e1fbd537-d5d8-4c82-bf42-f0a3a35981fb
+
+	column 'nr_turno'
+		dataType: int64
+		sourceColumn: nr_turno
+		isHidden
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: 3efb3a0b-20f9-4315-9c49-3a03cb04df7a
+
+	column 'cd_municipio_tse'
+		dataType: int64
+		sourceColumn: cd_municipio_tse
+		isHidden
+		formatString: 0
+		summarizeBy: none
+		lineageTag: a227dae4-1ac8-4d1e-aa16-6d245cd672f4
+
+	column 'chave_candidato'
+		dataType: string
+		sourceColumn: chave_candidato
+		isHidden
+		lineageTag: 209ef861-7b1b-4c32-9a9c-873613a11268
+
+	column 'situacao_turno'
+		dataType: string
+		sourceColumn: situacao_turno
+		lineageTag: 1ce8a9e6-0884-4de7-ba7a-1ce105b32b65
+
+	column 'qt_votos_nominais'
+		dataType: double
+		sourceColumn: qt_votos_nominais
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 2cf237a1-12f0-4865-a6c9-2689b3c6d4e3
+
+	partition 'fVotos' = m
+		mode: import
+		source =
+				let
+				    Fonte = Eleicoes,
+				    #"Linhas Agrupadas" = Table.Group(Fonte, {"chave_turno", "ano", "nr_turno", "cd_municipio_tse", "chave_candidato", "situacao_turno"}, {{"qt_votos_nominais", each List.Sum([qt_votos_nominais]), type nullable number}})
+				in
+				    #"Linhas Agrupadas"
+
