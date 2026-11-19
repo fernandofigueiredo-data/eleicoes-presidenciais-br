@@ -66,7 +66,7 @@ O build usa caminhos relativos (`base: './'`): a mesma pasta `dist/` funciona em
   testa, valida, gera o build e publica a cada push na `main`. Em *Settings → Pages*, escolha
   *Source: GitHub Actions*.
 - **Netlify:** *Base directory* `election-intelligence`; o resto está em `netlify.toml`.
-- **Vercel:** *Root Directory* `election-intelligence`; o resto está em `vercel.json`.
+- **Vercel:** *Root Directory* `election-intelligence`; o resto está em `vercel.json`. Neste repositório o projeto está ligado ao GitHub: cada push na `main` publica em produção, e cada PR ganha um link de pré-visualização. Sem o *Root Directory*, a Vercel constrói na raiz do repositório e falha com `Could not read package.json`.
 - **Qualquer servidor estático:** `npm run build` e copie `dist/`.
 
 ## Atualizar os dados sem mexer no frontend
