@@ -117,7 +117,7 @@ export function mount(root, { E, store }) {
     const parCand = [...paresCand.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
     const ctx = { turno: s.turno, ...g };
     kpis.innerHTML = [
-      kpi({ label: 'Mudaram de partido vencedor', value: int(E.MunicipiosQueMudaram(ctx)), foot: `de ${int(total)} municípios comparáveis${porEmpate ? ` · ${int((E.MunicipiosQueMudaram(ctx) ?? 0) - porEmpate)} sem contar ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`}` : ''}`, hero: true }),
+      kpi({ label: 'Mudaram de partido vencedor (regra DAX)', value: int(E.MunicipiosQueMudaram(ctx)), foot: `de ${int(total)} municípios comparáveis${porEmpate ? ` · contagem estrita: ${int((E.MunicipiosQueMudaram(ctx) ?? 0) - porEmpate)} (sem ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`})` : ''}`, hero: true, title: 'Regra do DAX: um empate em qualquer eleição conta como mudança. A contagem estrita deixa os empates de fora.' }),
       kpi({ label: '% que mudaram', value: pct(E.PctMunicipiosQueMudaram(ctx)), foot: `${ano - 4} → ${ano} · 1º turno` }),
       kpi({ label: 'Continuidade partidária', value: int(total - (E.MunicipiosQueMudaram(ctx) ?? 0)), foot: pct(total ? 1 - (E.MunicipiosQueMudaram(ctx) ?? 0) / total : null) }),
       kpi({ label: 'Mudaram de candidato vencedor', value: int(E.MunicipiosQueMudaramCandidato(ctx)), foot: '<span class="tag-derived">derivado</span> não está no PBIX' }),
