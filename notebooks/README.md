@@ -1,3 +1,12 @@
+# Notebooks
+
+| Notebook | O que faz |
+|---|---|
+| [`limpeza_dados.ipynb`](limpeza_dados.ipynb) | Limpeza e modelo estrela (abaixo) |
+| [`analise_perfil.ipynb`](analise_perfil.ipynb) | O voto acompanha a renda do município? Spearman e regressão ponderada com controles de alfabetização e região, 2026 e 2022 |
+
+Os dois rodam do início ao fim na CI (`.github/workflows/python-pipeline.yml`), e a limpeza precisa reproduzir `data/limpo/` byte a byte.
+
 # Limpeza dos dados em Python
 
 ## Resumo
@@ -26,7 +35,7 @@ estrela com 2 fatos e 3 dimensões. É a mesma limpeza feita no Power Query
 ## Como executar
 
 ```bash
-pip install pandas jupyter
+pip install -r requirements.txt
 jupyter notebook notebooks/limpeza_dados.ipynb
 ```
 
@@ -39,4 +48,4 @@ Execute todas as células em ordem. O notebook lê `data/eleicoes_presidente.csv
 ![Pandas](https://img.shields.io/badge/Pandas-150458?style=flat&logo=pandas&logoColor=white)
 ![Jupyter](https://img.shields.io/badge/Jupyter-F37626?style=flat&logo=jupyter&logoColor=white)
 
-- Python 3.10+, Pandas, Jupyter Notebook
+- Python 3.10+, Pandas, Jupyter Notebook; statsmodels, SciPy e Matplotlib na análise do perfil

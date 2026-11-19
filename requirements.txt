@@ -1,3 +1,15 @@
-# Dependências Python do projeto (os scripts em scripts/ usam só a biblioteca padrão)
+# Dependências Python do projeto.
+# Os scripts em scripts/ usam só a biblioteca padrão; estas são para os notebooks e os testes.
+
+# notebooks/limpeza_dados.ipynb
 pandas>=2.2
+# notebooks/analise_perfil.ipynb
+numpy>=1.26
+scipy>=1.11
+statsmodels>=0.14
+matplotlib>=3.8
+# executar notebooks e testes
 notebook>=7
+nbconvert>=7
+ipykernel>=6
+pytest>=8
