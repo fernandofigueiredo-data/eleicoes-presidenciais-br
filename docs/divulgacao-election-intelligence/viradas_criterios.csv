@@ -1,0 +1,216 @@
+﻿ano;municipio;uf;codigo_ibge;codigo_tse;vencedor_1t;vencedor_2t;empate;empate_1t;empate_2t;contagem_estrita;regra_dax;regra_sql
+2026;Barra de São Miguel;AL;2700607;27111;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Coruripe;AL;2702306;27456;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Flexeiras;AL;2702801;27553;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Novo Lino;AL;2705606;28118;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Porto de Pedras;AL;2707404;28479;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Luís do Quitunde;AL;2708501;28690;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Miguel dos Campos;AL;2708600;28711;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Canutama;AM;1300904;2194;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Japurá;AM;1302108;2453;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tapauá;AM;1304104;2798;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ferreira Gomes;AP;1600238;6114;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Macapá;AP;1600303;6050;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Morrinhos;CE;2308906;14796;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Apiacá;ES;3200508;56090;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Mimoso do Sul;ES;3203403;56677;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Vila Valério;ES;3205176;56227;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Alvorada do Norte;GO;5200803;92150;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Aurilândia;GO;5202601;92517;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bonópolis;GO;5203575;93408;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Crixás;GO;5206404;93297;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Davinópolis;GO;5206909;93394;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Gouvelândia;GO;5209150;92266;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Maurilândia;GO;5213004;94579;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Paranaiguara;GO;5216304;94552;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Pilar de Goiás;GO;5216908;95354;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Planaltina;GO;5217609;95958;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santa Terezinha de Goiás;GO;5219704;95893;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Simão;GO;5220405;96059;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Três Ranchos;GO;5221304;96237;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Turvelândia;GO;5221551;92800;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Uirapuru;GO;5221577;93246;Lula;Flavio Bolsonaro;não;não;não;sim;sim;sim
+2026;Estreito;MA;2104057;9636;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Aguanil;MG;3100807;40150;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Aiuruoca;MG;3101201;40231;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Astolfo Dutra;MG;3104601;40916;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Baldim;MG;3105004;40991;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bambuí;MG;3105103;41017;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Belo Oriente;MG;3106309;41254;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cabo Verde;MG;3109501;41890;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cachoeira da Prata;MG;3109600;41912;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cambuquira;MG;3110707;42137;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cana Verde;MG;3111903;42374;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Capelinha;MG;3112307;42455;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Capinópolis;MG;3112604;42510;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Carandaí;MG;3113206;42633;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Carrancas;MG;3114600;42919;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Carvalhos;MG;3114808;42951;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Caxambu;MG;3115508;43095;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Chalé;MG;3116001;43192;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Conceição das Alagoas;MG;3117306;43451;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Congonhas;MG;3118007;43591;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Conquista;MG;3118205;43630;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Curvelo;MG;3120904;44172;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Desterro do Melo;MG;3121506;44296;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Divisa Nova;MG;3122405;44474;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Entre Folhas;MG;3123858;40185;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Espera Feliz;MG;3124203;44830;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Florestal;MG;3126000;45195;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Fronteira;MG;3127008;45390;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Galiléia;MG;3127305;45454;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Guaxupé;MG;3128709;45730;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Heliodora;MG;3129202;45837;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ibirité;MG;3129806;45950;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Iguatama;MG;3130309;46051;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ijaci;MG;3130408;46078;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Indianópolis;MG;3130705;46132;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Itabirito;MG;3131901;46370;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Itumirim;MG;3134301;46850;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Iturama;MG;3134400;46876;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jaboticatubas;MG;3134608;46914;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jequitibá;MG;3135704;47139;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;João Monlevade;MG;3136207;47236;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Juatuba;MG;3136652;40320;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Limeira do Oeste;MG;3138625;40363;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Manhumirim;MG;3139508;47899;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Marliéria;MG;3140308;48054;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Matozinhos;MG;3141108;48216;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Moeda;MG;3142304;48453;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Monte Alegre de Minas;MG;3142809;48550;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Nanuque;MG;3144300;48852;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Nova Lima;MG;3144805;48950;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Oliveira;MG;3145604;49115;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ouro Branco;MG;3145901;49174;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Passa Quatro;MG;3147600;49514;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Periquito;MG;3149952;40568;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Pompéu;MG;3152006;50393;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Reduto;MG;3154150;41424;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Resende Costa;MG;3154200;50830;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ribeirão das Neves;MG;3154606;50911;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Rochedo de Minas;MG;3156205;51233;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Sabará;MG;3156700;51330;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santa Luzia;MG;3157807;51551;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santa Margarida;MG;3157906;51578;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santana da Vargem;MG;3158300;51659;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Bento Abade;MG;3160801;52159;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Gonçalo do Rio Abaixo;MG;3161908;52370;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São João do Paraíso;MG;3162708;52531;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São João Nepomuceno;MG;3162906;52574;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Joaquim de Bicas;MG;3162922;41629;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Sebastião do Rio Preto;MG;3164803;52957;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Tiago;MG;3165008;52990;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Serrania;MG;3166907;53376;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tiradentes;MG;3168804;53759;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tocantins;MG;3169000;53791;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Três Pontas;MG;3169406;53872;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tupaciguara;MG;3169604;53910;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ubá;MG;3169901;53970;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Várzea da Palma;MG;3170800;54151;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Corumbá;MS;5003207;90638;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Itaquiraí;MS;5004601;98078;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Selvíria;MS;5007802;98116;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Taquarussu;MS;5007976;98175;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Acorizal;MT;5100102;90018;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Nortelândia;MT;5106000;91197;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ananindeua;PA;1500800;4154;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bom Jesus do Tocantins;PA;1501576;4049;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jacareacanga;PA;1503754;4200;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jacundá;PA;1503804;4758;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Nova Esperança do Piriá;PA;1504950;4480;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Altamira do Paraná;PR;4100459;84557;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ampére;PR;4101002;74179;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bom Sucesso;PR;4103206;74616;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cantagalo;PR;4104451;84514;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Corumbataí do Sul;PR;4106555;75280;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Doutor Ulysses;PR;4128633;74942;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Enéas Marques;PR;4107405;75450;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Laranjeiras do Sul;PR;4113304;76597;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Marquinho;PR;4115457;75485;Flavio Bolsonaro;Flavio Bolsonaro / Lula;sim;não;sim;não;sim;sim
+2026;Nova Esperança do Sudoeste;PR;4116950;75027;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Palmas;PR;4117602;77330;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Paranacity;PR;4118105;77437;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Planaltina do Paraná;PR;4119707;77739;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Presidente Castelo Branco;PR;4120408;77879;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Querência do Norte;PR;4121000;77976;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ramilândia;PR;4121257;74705;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santa Maria do Oeste;PR;4123857;74802;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São José das Palmeiras;PR;4125456;84719;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Saudade do Iguaçu;PR;4126272;75060;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Turvo;PR;4127965;84530;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Uniflor;PR;4128302;79391;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Barra do Piraí;RJ;3300308;58050;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Carmo;RJ;3301207;58238;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Mendes;RJ;3302809;58556;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Piraí;RJ;3304003;58793;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Rio Claro;RJ;3304409;58874;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Rio de Janeiro;RJ;3304557;60011;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Santa Maria Madalena;RJ;3304607;58912;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Trajano de Moraes;RJ;3305901;59170;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Três Rios;RJ;3306008;59196;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Galinhos;RN;2404101;16799;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Alegrete;RS;4300406;85073;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Alvorada;RS;4300604;85111;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bagé;RS;4301602;85316;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Barra do Quaraí;RS;4301875;88625;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cidreira;RS;4305454;85804;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Dezesseis de Novembro;RS;4306353;85049;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Esteio;RS;4307708;86517;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Guaíba;RS;4309308;86851;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jóia;RS;4311155;98299;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Lajeado do Bugre;RS;4311429;86860;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Rosário do Sul;RS;4316402;88315;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Borja;RS;4318002;88633;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Jerônimo;RS;4318408;88714;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São José das Missões;RS;4318457;87769;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São José do Norte;RS;4318507;88730;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Pedro das Missões;RS;4319364;89486;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Sepé;RS;4319604;88951;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Sapucaia do Sul;RS;4320008;89010;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tunas;RS;4322152;84840;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Lebon Régis;SC;4209706;81914;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Araraquara;SP;3503208;61638;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Barrinha;SP;3505609;62111;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Boa Esperança do Sul;SP;3506706;62332;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Cotia;SP;3513009;63614;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Dobrada;SP;3514007;63819;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Embu-Guaçu;SP;3515103;64033;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Estrela do Norte;SP;3515301;64076;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Guarani d'Oeste;SP;3518008;64610;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Guatapará;SP;3518859;61107;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Iaras;SP;3519253;61085;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ipuã;SP;3521309;65277;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Itirapuã;SP;3523701;65757;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Jandira;SP;3525003;66010;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Júlio Mesquita;SP;3525805;66176;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Mongaguá;SP;3531100;67237;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Motuca;SP;3532058;61069;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Nova Europa;SP;3532900;67598;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Osasco;SP;3534401;67890;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Pedregulho;SP;3537008;68411;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Pirapora do Bom Jesus;SP;3539103;68837;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Poá;SP;3539806;68977;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Queluz;SP;3541901;69396;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ribeirão Grande;SP;3543253;61700;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Ribeirão Pires;SP;3543303;69671;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Rincão;SP;3543709;69752;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São João das Duas Pontes;SP;3549201;70858;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São João do Pau d'Alho;SP;3549300;70874;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São José da Bela Vista;SP;3549508;70912;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;São Vicente;SP;3551009;71218;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Sarutaiá;SP;3551207;71250;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tarabai;SP;3553906;71790;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Trabiju;SP;3554755;62448;Flavio Bolsonaro / Lula;Lula;sim;sim;não;não;sim;não
+2026;Turmalina;SP;3555307;72079;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Abreulândia;TO;1700251;73008;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Arapoema;TO;1702307;92452;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Bom Jesus do Tocantins;TO;1703305;73121;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Brasilândia do Tocantins;TO;1703602;73245;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Caseara;TO;1703909;92088;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Crixás do Tocantins;TO;1706258;73555;Flavio Bolsonaro / Lula;Lula;sim;sim;não;não;sim;não
+2026;Divinópolis do Tocantins;TO;1707108;92185;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Itaporã do Tocantins;TO;1711100;94170;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Novo Acordo;TO;1715101;94994;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Oliveira de Fátima;TO;1715507;73466;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Presidente Kennedy;TO;1718402;96296;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim
+2026;Tabocão;TO;1708254;73199;Flavio Bolsonaro;Lula;não;não;não;sim;sim;sim

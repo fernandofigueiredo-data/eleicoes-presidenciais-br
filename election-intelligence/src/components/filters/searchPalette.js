@@ -10,7 +10,7 @@ export function searchPalette(E, store) {
   for (const p of PAGES) index.push({ g: 'Páginas', label: p.label, hint: p.n, s: norm(p.label), act: () => store.set({ page: p.id }, { push: true }) });
   for (const c of E.meta.candidatos) {
     index.push({ g: 'Candidatos', label: c.nome, hint: `${c.partido} · ${c.ano}`, color: E.corPartido(c.partido), s: norm(`${c.nome} ${c.partido} ${c.ano}`),
-      act: () => { const nr = E.nrDe(store.get().turno); const has2 = E.turnos[`${c.ano}-2`]?.votos[c.chave]; const t = nr === 2 && has2 ? `${c.ano}-2` : `${c.ano}-1`; store.set({ turno: t, cand: c.chave }); } });
+      act: () => { const nr = E.nrDe(store.get().turno); const has2 = E.meta.situacao?.[`${c.ano}-1`]?.[c.chave] === '2º Turno'; const t = nr === 2 && has2 ? `${c.ano}-2` : `${c.ano}-1`; store.set({ turno: t, cand: c.chave }); } });
   }
   for (const p of [...new Set(E.meta.candidatos.map((c) => c.partido))].sort()) {
     const anos = [...new Set(E.meta.candidatos.filter((c) => c.partido === p).map((c) => c.ano))].join(', ');

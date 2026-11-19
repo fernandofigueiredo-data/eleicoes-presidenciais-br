@@ -7,6 +7,8 @@ import { createStore, PAGES } from './state/store.js';
 import { filterBar } from './components/filters/filterBar.js';
 import { searchPalette } from './components/filters/searchPalette.js';
 import { toast } from './components/ui/ui.js';
+import { PROJETO, TSE, mailto } from './content/projeto.js';
+import { turnosNecessarios } from './services/requisitos.js';
 
 const LOADERS = {
   nacional: () => import('./pages/nacional.js'),
@@ -21,7 +23,7 @@ const LOADERS = {
 
 const LOGO = `<svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#009C3B"/><path d="M20 6 35 20 20 34 5 20Z" fill="#E3B505"/><circle cx="20" cy="20" r="7.5" fill="#002776"/><path d="M13 19.2c4.4-1.6 9.6-1.3 14 .9" stroke="#fff" stroke-width="1.6" fill="none"/></svg>`;
 
-export function createApp(E, rootEl) {
+export function createApp(E, rootEl, dados) {
   const store = createStore(E, { turno: '2026-2', regiao: null, uf: null, mun: null, cand: null, partido: null, modo: 'vencedor', cmpC: [], cmpT: [] });
 
   rootEl.innerHTML = '';
@@ -37,9 +39,15 @@ export function createApp(E, rootEl) {
   </header>`);
   const main = h('<main id="conteudo" tabindex="-1"></main>');
   const footer = h(`<footer class="app-footer"><div class="app-footer__inner">
-    <span><strong>ELECTION INTELLIGENCE</strong> · dados do TSE (CC-BY) e do IBGE, reconstruídos do relatório Power BI do projeto. Site independente do Power BI.</span>
-    <span class="footer-links"><a href="#/sobre">Fontes, metodologia e conferência</a><a href="https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br" target="_blank" rel="noopener">Código e documentação no GitHub</a></span></div></footer>`);
+    <div class="footer-about"><strong>ELECTION INTELLIGENCE</strong> · projeto independente, não oficial. Dados do TSE (CC-BY) e do IBGE.
+      Para resultados oficiais, consulte o <a href="${TSE.resultados}" target="_blank" rel="noopener">TSE</a>.</div>
+    <nav class="footer-links" aria-label="Rodapé"><a href="#/sobre">Sobre e contato</a><a href="#/sobre?s=citar">Como citar</a><a href="#/sobre?s=faq">Perguntas frequentes</a><a href="${mailto()}">${PROJETO.email}</a><a href="${PROJETO.repositorio}" target="_blank" rel="noopener">Código no GitHub</a></nav></div></footer>`);
   rootEl.append(h('<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'), header, filterBar(E, store), main, footer);
+
+  // a barra de filtros fixa fica logo abaixo do cabeçalho inteiro (faixa azul + abas), cuja altura muda no celular
+  const alturaCabecalho = () => document.documentElement.style.setProperty('--sticky-top', `${header.offsetHeight}px`);
+  new ResizeObserver(alturaCabecalho).observe(header);
+  alturaCabecalho();
 
   const palette = searchPalette(E, store);
   header.querySelector('[data-act=search]').addEventListener('click', () => palette.open());
@@ -53,23 +61,56 @@ export function createApp(E, rootEl) {
     const a = ev.target.closest('[data-page]');
     if (!a) return;
     ev.preventDefault();
-    store.set({ page: a.dataset.page }, { push: true });
+    store.set({ page: a.dataset.page, secao: null }, { push: true });
   });
+  // "Pular para o conteúdo" leva o foco ao conteúdo sem mudar o endereço (o roteador leria #conteudo como página inválida)
+  rootEl.querySelector('.skip-link').addEventListener('click', (ev) => { ev.preventDefault(); main.focus(); main.scrollIntoView(); });
   rootEl.addEventListener('click', (ev) => {
     const a = ev.target.closest('a[href^="#/"]');
     if (!a || a.closest('.tabs')) return;
     ev.preventDefault();
-    const page = a.getAttribute('href').slice(2).split('?')[0];
-    store.set({ page }, { push: true });
+    const [page, qs] = a.getAttribute('href').slice(2).split('?');
+    store.set({ page, secao: new URLSearchParams(qs || '').get('s') }, { push: true });
   });
 
   let current = null, currentId = null, token = 0, navigated = false;
+  let primeira = true;
+  const fimPrimeira = () => {
+    if (!primeira) return;
+    primeira = false;
+    window.dispatchEvent(new CustomEvent('ei:primeira'));
+    // os turnos que a página não pediu vêm depois, sem disputar a rede com a primeira tela
+    setTimeout(() => dados.carregarRestante(), 300);
+  };
+  const erroDePagina = () => {
+    main.innerHTML = emptyState('Não foi possível abrir esta página.', 'A conexão pode ter caído no meio do carregamento.', { act: 'retry-page', label: 'Tentar de novo' });
+    main.querySelector('[data-act=retry-page]').addEventListener('click', () => { currentId = null; current = null; showPage(store.get()); });
+  };
+
   async function showPage(s) {
     const my = ++token;
     header.querySelectorAll('[data-page]').forEach((a) => {
       a.href = store.hrefFor(a.dataset.page);
       if (a.dataset.page === s.page) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
+    const mesma = currentId === s.page && current;
+    // nenhuma tela é montada ou atualizada sem os turnos de que precisa
+    const precisa = turnosNecessarios(s.page, s.turno, E.meta, s.mun);
+    if (!dados.tem(precisa)) {
+      main.setAttribute('aria-busy', 'true');
+      if (!mesma) { current?.destroy?.(); current = null; currentId = s.page; main.innerHTML = '<div class="skeleton" style="height:420px"></div>'; }
+      try {
+        await dados.garantir(precisa);
+      } catch (err) {
+        console.error(err);
+        if (my === token) { current?.destroy?.(); current = null; currentId = null; erroDePagina(); fimPrimeira(); }
+        return;
+      } finally {
+        main.removeAttribute('aria-busy');
+      }
+      if (my !== token) return;
+      s = store.get();
+    }
     if (currentId === s.page && current) { current.update(s); return; }
     current?.destroy?.();
     current = null; currentId = s.page;
@@ -78,19 +119,23 @@ export function createApp(E, rootEl) {
       const mod = await LOADERS[s.page]();
       if (my !== token) return;
       main.innerHTML = '';
-      current = mod.mount(main, { E, store });
+      current = mod.mount(main, { E, store, dados });
       current.update(store.get());
       document.title = `${PAGES.find((p) => p.id === s.page).label} · ELECTION INTELLIGENCE`;
+      window.dispatchEvent(new CustomEvent('ei:pagina'));
       // navegação entre páginas: leva o foco ao conteúdo (leitores de tela anunciam a página nova)
       if (navigated) main.focus({ preventScroll: true });
       navigated = true;
       header.querySelector(`[data-page="${s.page}"]`)?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     } catch (err) {
       console.error(err);
-      main.innerHTML = emptyState('Não foi possível abrir esta página.', 'A conexão pode ter caído no meio do carregamento.', { act: 'retry-page', label: 'Tentar de novo' });
-      main.querySelector('[data-act=retry-page]').addEventListener('click', () => { currentId = null; showPage(store.get()); });
+      currentId = null;
+      erroDePagina();
     }
+    fimPrimeira();
   }
+  // quando os turnos de segundo plano chegam, a página aberta pode completar o que esperava
+  window.addEventListener('ei:dados', () => { if (dados.todos()) current?.aoCarregarTudo?.(store.get()); });
 
   let pending = 0;
   store.subscribe((s, prev) => {

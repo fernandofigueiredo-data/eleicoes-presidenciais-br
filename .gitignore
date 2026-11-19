@@ -51,3 +51,7 @@ powerbi/backups/
 # ─── Databricks ──────────────────────────────────────────────────
 # Guia de uso pessoal, fora do repositório.
 databricks/guia_databricks.html
+
+# ─── Divulgação ──────────────────────────────────────────────────
+# versões de teste com voz sintética: só para avaliação local, fora do git
+docs/divulgacao-election-intelligence/assets/video/*_voz_sintetica_teste.mp4

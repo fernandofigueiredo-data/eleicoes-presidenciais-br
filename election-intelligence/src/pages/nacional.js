@@ -10,7 +10,7 @@ import { downloadCSV } from '../utils/csv.js';
 import { geoCtx, ranking, scopeLabel, pageHead, winnerColor, noEscopo } from './shared.js';
 import { isDark } from '../utils/colors.js';
 
-export function mount(root, { E, store }) {
+export function mount(root, { E, store, dados }) {
   root.innerHTML = '';
   const head = h('<div></div>');
   const lede = h('<section class="lede" aria-label="Resumo do resultado"></section>');
@@ -29,6 +29,7 @@ export function mount(root, { E, store }) {
   const elV = h('<div class="chart chart--tall"></div>'); pVotos.body.appendChild(elV);
   const elM = h('<div class="chart chart--tall"></div>'); pMun.body.appendChild(elM);
   const elP = h('<div class="chart"></div>'); pPart.body.appendChild(elP);
+  const espera = h('<div class="chart-wait" role="status">Carregando os resultados dos outros turnos…</div>'); pPart.body.prepend(espera);
   const elU = h('<div></div>'); pUF.body.appendChild(elU);
 
   const toggleCand = (chave) => { const s = store.get(); store.set({ cand: s.cand === chave ? null : chave }); };
@@ -123,10 +124,14 @@ export function mount(root, { E, store }) {
       series: [{ type: 'bar', barMaxWidth: 26, data: munRows.map((r) => ({ value: r.mv, chave: r.chave, r, itemStyle: itemStyle(r) })), label: { show: true, position: 'right', formatter: (p) => int(p.value), fontSize: 11, color: C.gray700 } }],
     });
 
-    // participação (não filtrada por turno — interação NoFilter no PBIX)
-    partRows = E.meta.turnos.map((t) => { const c = { ...g, turno: t.chave }; return { chave: t.chave, rotulo: t.rotulo, abst: E.PctAbstencao(c), br: E.PctBrancos(c), nu: E.PctNulos(c) }; });
+    // participação (não filtrada por turno — interação NoFilter no PBIX). Usa os 8 turnos: espera todos chegarem.
+    const completo = !dados || dados.todos();
+    espera.hidden = completo;
+    elP.style.visibility = completo ? 'visible' : 'hidden';
+    pPart.tools.querySelector('[data-action=csv]').disabled = !completo;
+    if (completo) partRows = E.meta.turnos.map((t) => { const c = { ...g, turno: t.chave }; return { chave: t.chave, rotulo: t.rotulo, abst: E.PctAbstencao(c), br: E.PctBrancos(c), nu: E.PctNulos(c) }; });
     const cur = (k) => partRows.map((r) => ({ value: r[k], itemStyle: { opacity: r.chave === s.turno ? 1 : 0.55 } }));
-    cP.set({
+    if (completo) cP.set({
       grid: { left: 8, right: 8, top: 36, bottom: 8, containLabel: true },
       legend: { top: 0, left: 0 },
       xAxis: { type: 'category', data: partRows.map((r) => r.rotulo.replace(' · ', '\n')) },
@@ -154,5 +159,5 @@ export function mount(root, { E, store }) {
     table.update(rows, { selectedKey: s.cand });
   }
 
-  return { update, destroy() { cV.destroy(); cM.destroy(); cP.destroy(); } };
+  return { update, aoCarregarTudo: update, destroy() { cV.destroy(); cM.destroy(); cP.destroy(); } };
 }

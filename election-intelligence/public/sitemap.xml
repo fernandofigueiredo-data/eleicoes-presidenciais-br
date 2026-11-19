@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- As páginas do site são rotas por hash (#/mapa, #/turnos...), que os buscadores tratam como um só endereço. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://eleicoes-presidenciais-br.vercel.app/</loc>
+    <lastmod>2026-11-19</lastmod>
+  </url>
+</urlset>

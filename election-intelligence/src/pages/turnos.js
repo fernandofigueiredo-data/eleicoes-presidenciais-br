@@ -16,19 +16,19 @@ const GOLD = VIZ.changed, GRAY = VIZ.unchanged, NODATA = C.gray100;
 export function mount(root, { E, store }) {
   root.innerHTML = '';
   const head = h('<div></div>');
-  const note = h('<p class="callout"><strong>Como ler:</strong> compara o vencedor de cada município no 1º e no 2º turno do mesmo ano. Empate em um dos turnos conta como virada (regra do PBIX). Municípios no exterior ficam de fora. Os números são agregados: não mostram para onde foi o voto de cada eleitor.</p>');
+  const note = h('<p class="callout"><strong>Como ler:</strong> compara o vencedor de cada município no 1º e no 2º turno do mesmo ano. O cartão, o mapa e a lista usam a <strong>regra do DAX</strong> (a do Power BI): empate em um dos turnos conta como virada. A <strong>contagem estrita</strong>, sem os empates, aparece no rodapé do cartão. Ao citar, informe o critério: <a href="#/sobre?s=faq" data-testid="link-faq-viradas">entenda as contagens 212, 213 e 215</a>. Municípios no exterior ficam de fora. Os números são agregados: não mostram para onde foi o voto de cada eleitor.</p>');
   const kpis = h('<section class="grid grid--kpis" aria-label="Indicadores de virada"></section>');
   const pCand = panel({ title: 'Candidatos no 2º turno', sub: 'Votos e % dos válidos nos dois turnos (sem exterior)' });
   const g1 = h('<div class="grid grid--map section-gap"></div>');
   const pMap = panel({ title: 'Municípios que viraram no 2º turno', sub: '' });
   const side = h('<div class="stack"></div>');
   const detail = h('<div></div>');
-  const pTab = panel({ title: 'Lista de municípios que viraram', sub: '' });
+  const pTab = panel({ title: 'Lista de municípios que viraram (regra DAX)', sub: '' });
   side.append(detail, pTab.el);
   g1.append(pMap.el, side);
   const g2 = h('<div class="grid grid--2 section-gap"></div>');
   const pVar = panel({ title: 'Variação por UF (p.p.)', sub: '% dos válidos no 2º turno menos no 1º turno', tools: csvButton() });
-  const pFlip = panel({ title: 'Viradas por UF', sub: 'Número de municípios que trocaram de vencedor', tools: csvButton() });
+  const pFlip = panel({ title: 'Viradas por UF (regra DAX)', sub: 'Número de municípios que trocaram de vencedor; empate conta como virada', tools: csvButton() });
   g2.append(pVar.el, pFlip.el);
   pCand.el.classList.add('section-gap');
   root.append(head, note, kpis, pCand.el, g1, g2);
@@ -40,7 +40,7 @@ export function mount(root, { E, store }) {
     fillUF: () => GRAY,
     tipMun: (i) => { const ano = E.anoDe(store.get().turno); const r2 = E.resumoMunicipios(`${ano}-2`)[i]; return tipTable(`${E.mun.nome[i]} (${E.mun.uf[i]})`, [['Vencedor 1º turno', E.vencedorTurnoMun(ano, 1, i) ?? '—'], ['Vencedor 2º turno', E.vencedorTurnoMun(ano, 2, i) ?? '—'], ['Margem no 2º turno', pct(r2?.margem)], ['Virou?', ({ 1: 'Sim', 0: 'Não' })[E.virouMun(ano, i)] ?? '—']]); },
   });
-  pMap.body.insertAdjacentHTML('beforeend', `<div class="map-legend"><span class="item"><span class="swatch" style="background:${GOLD}"></span>Virou no 2º turno</span><span class="item"><span class="swatch" style="background:${GRAY}"></span>Manteve o vencedor</span><span class="item"><span class="swatch" style="background:${NODATA};border:1px solid ${C.gray300}"></span>Sem comparação</span></div>`);
+  pMap.body.insertAdjacentHTML('beforeend', `<div class="map-legend"><span class="item"><span class="swatch" style="background:${GOLD}"></span>Virou no 2º turno (regra DAX: empate conta)</span><span class="item"><span class="swatch" style="background:${GRAY}"></span>Manteve o vencedor</span><span class="item"><span class="swatch" style="background:${NODATA};border:1px solid ${C.gray300}"></span>Sem comparação</span></div>`);
 
   const candTable = dataTable(pCand.body, {
     filename: 'candidatos-1o-e-2o-turno', pageSize: 10, sort: { key: 'v2', dir: 'desc' },
@@ -96,14 +96,14 @@ export function mount(root, { E, store }) {
     const nVir = E.MunicipiosQueViraram(ctx) ?? 0;
     const direcoes = [...porDirecao.entries()].sort((a, b) => b[1] - a[1]);
     head.innerHTML = pageHead('1º e 2º turno', 'Onde o vencedor virou no 2º turno',
-      `${escapeHtml(cap(noEscopo(E, { ...s, mun: null })))}, <strong>${int(nVir)}</strong> municípios (${pct(E.PctMunicipiosQueViraram(ctx))}) trocaram de vencedor entre os turnos de ${ano}. ${direcoes.map(([n, c]) => (empate(n) ? `em ${int(c)} o 2º turno empatou` : `${escapeHtml(n)} virou em ${int(c)}`)).join('; ')}.`,
+      `${escapeHtml(cap(noEscopo(E, { ...s, mun: null })))}, pela regra do DAX (empate conta como virada), <strong>${int(nVir)}</strong> municípios (${pct(E.PctMunicipiosQueViraram(ctx))}) trocaram de vencedor entre os turnos de ${ano}. ${direcoes.map(([n, c]) => (empate(n) ? `em ${int(c)} o 2º turno empatou` : `${escapeHtml(n)} virou em ${int(c)}`)).join('; ')}.`,
       escapeHtml(E.turnoByKey.get(s.turno).rotulo), escapeHtml(escopo));
     const rowsCand = finalistas.map((c) => {
       const cc = { ...ctx, cand: { chaves: new Set([c.chave]) } };
       return { chave: c.chave, nome: c.nome, partido: c.partido, v1: E.Votos1T(cc), v2: E.Votos2T(cc), ganho: E.VotosGanhos2T(cc), p1: E.PctVotosValidos1T(cc), p2: E.PctVotosValidos2T(cc), var: E.VariacaoEntreTurnosPP(cc) };
     }).sort((a, b) => b.v2 - a.v2);
     kpis.innerHTML = [
-      kpi({ label: 'Municípios que viraram', value: int(nVir), foot: `de ${int(validos)} com resultado nos dois turnos${porEmpate ? ` · ${int(nVir - porEmpate)} sem contar ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`}` : ''}`, hero: true }),
+      kpi({ label: 'Municípios que viraram (regra DAX)', value: int(nVir), foot: `de ${int(validos)} com resultado nos dois turnos · <span data-testid="viradas-estrita">contagem estrita: ${int(nVir - porEmpate)}</span>${porEmpate ? ` (sem ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`})` : ''}`, hero: true, title: 'Regra do DAX: um empate em qualquer turno conta como virada. A contagem estrita deixa os empates de fora. Veja Sobre e contato, perguntas frequentes.' }),
       kpi({ label: '% que viraram', value: pct(E.PctMunicipiosQueViraram(ctx)), foot: `${ano} · 1º → 2º turno` }),
       kpi({ label: 'Mantiveram o vencedor', value: int(validos - nVir), foot: pct(validos ? (validos - nVir) / validos : null) }),
       ...rowsCand.slice(0, 2).map((r) => kpi({ label: `Votos ganhos · ${r.nome}`, value: signedInt(r.ganho), foot: `${pct(r.p1)} → ${pct(r.p2)} (${pp(r.var)})`, swatch: E.corPartido(r.partido) })),

@@ -107,8 +107,11 @@ test('mapa: tooltip, clique seleciona município, migalhas e voltar ao Brasil', 
   await expect(page).not.toHaveURL(/m=\d+/);
   // nível estados e clique numa UF
   await page.getByRole('button', { name: 'Estados' }).click();
+  await canvas.scrollIntoViewIfNeeded();
   await page.waitForTimeout(700);
-  await page.mouse.click(b.x + b.width * 0.5, b.y + b.height * 0.45);
+  // o clique no botão pode rolar a página (cabeçalho e filtros fixos): mede o mapa de novo
+  const b2 = await canvas.boundingBox();
+  await page.mouse.click(b2.x + b2.width * 0.5, b2.y + b2.height * 0.45);
   await expect(page).toHaveURL(/uf=[A-Z]{2}/);
   // modos do mapa
   await page.getByLabel('Modo do mapa').getByRole('button', { name: '% do candidato' }).click();
