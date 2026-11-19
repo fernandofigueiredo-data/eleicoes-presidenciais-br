@@ -10,6 +10,7 @@ import { ramp, RAMP_DIVERGE } from '../utils/colors.js';
 import { downloadCSV } from '../utils/csv.js';
 import { geoCtx, scopeLabel, pageHead, municipioDetail, bindDetailActions, doEscopo } from './shared.js';
 
+const empate = (x) => !!x && x.includes(' / ');
 const GOLD = VIZ.changed, GRAY = VIZ.unchanged, NODATA = C.gray100;
 const div = ramp(RAMP_DIVERGE);
 const CATS = [
@@ -94,6 +95,7 @@ export function mount(root, { E, store }) {
     const cats = { cont: 0, cand: 0, part: 0, ambos: 0 };
     const trans = new Map();
     const paresCand = new Map();
+    let porEmpate = 0;
     const rows = [];
     const ufCount = new Map();
     for (const i of sel) {
@@ -107,6 +109,7 @@ export function mount(root, { E, store }) {
       if (mp) {
         const de = E.partidoVencedor1T(ano - 4, i), para = E.partidoVencedor1T(ano, i);
         trans.set(`${de}→${para}`, (trans.get(`${de}→${para}`) || 0) + 1);
+        if (empate(de) || empate(para)) porEmpate++;
         rows.push({ tse: E.mun.tse[i], nome: E.mun.nome[i], uf, de, para, cde: E.vencedor1T(ano - 4, i), cpara: E.vencedor1T(ano, i) });
       }
     }
@@ -114,7 +117,7 @@ export function mount(root, { E, store }) {
     const parCand = [...paresCand.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
     const ctx = { turno: s.turno, ...g };
     kpis.innerHTML = [
-      kpi({ label: 'Mudaram de partido vencedor', value: int(E.MunicipiosQueMudaram(ctx)), foot: `de ${int(total)} municípios comparáveis`, hero: true }),
+      kpi({ label: 'Mudaram de partido vencedor', value: int(E.MunicipiosQueMudaram(ctx)), foot: `de ${int(total)} municípios comparáveis${porEmpate ? ` · ${int((E.MunicipiosQueMudaram(ctx) ?? 0) - porEmpate)} sem contar ${porEmpate === 1 ? 'o empate' : `os ${porEmpate} empates`}` : ''}`, hero: true }),
       kpi({ label: '% que mudaram', value: pct(E.PctMunicipiosQueMudaram(ctx)), foot: `${ano - 4} → ${ano} · 1º turno` }),
       kpi({ label: 'Continuidade partidária', value: int(total - (E.MunicipiosQueMudaram(ctx) ?? 0)), foot: pct(total ? 1 - (E.MunicipiosQueMudaram(ctx) ?? 0) / total : null) }),
       kpi({ label: 'Mudaram de candidato vencedor', value: int(E.MunicipiosQueMudaramCandidato(ctx)), foot: '<span class="tag-derived">derivado</span> não está no PBIX' }),

@@ -52,15 +52,37 @@ class Tabela:
 
 
 def ler(caminho: Path) -> dict[str, Tabela]:
-    t = {n: Tabela(n) for n in ("uf", "municipio", "zona", "eleicao", "turno", "pib_municipal", "partido",
-                                "candidatura", "candidatura_turno", "comparecimento_zona", "votacao")}
+    t = {
+        n: Tabela(n)
+        for n in (
+            "uf",
+            "municipio",
+            "zona",
+            "eleicao",
+            "turno",
+            "pib_municipal",
+            "partido",
+            "candidatura",
+            "candidatura_turno",
+            "comparecimento_zona",
+            "votacao",
+        )
+    }
     with caminho.open(encoding="utf-8", newline="") as f:
         for r in csv.DictReader(f, delimiter=";"):
             ano, turno = int(r["ano"]), int(r["nr_turno"])
             mun, zona, nr = int(r["cd_municipio_tse"]), int(r["nr_zona"]), int(r["nr_candidato"])
             t["uf"].add((r["sg_uf"],), (texto(r["sg_regiao"]),))
-            t["municipio"].add((mun,), (inteiro(r["cd_municipio_ibge"]), r["municipio"], r["sg_uf"],
-                                        inteiro(r["populacao_2022"]), real(r["alfabetizacao_2022"])))
+            t["municipio"].add(
+                (mun,),
+                (
+                    inteiro(r["cd_municipio_ibge"]),
+                    r["municipio"],
+                    r["sg_uf"],
+                    inteiro(r["populacao_2022"]),
+                    real(r["alfabetizacao_2022"]),
+                ),
+            )
             t["zona"].add((mun, zona))
             t["eleicao"].add((ano,))
             t["turno"].add((ano, turno))
@@ -69,9 +91,20 @@ def ler(caminho: Path) -> dict[str, Tabela]:
             t["partido"].add((r["sg_partido"],))
             t["candidatura"].add((ano, nr), (r["nm_urna"], r["sg_partido"]))
             t["candidatura_turno"].add((ano, turno, nr), (texto(r["situacao_turno"]),))
-            t["comparecimento_zona"].add((ano, turno, mun, zona), tuple(int(r[c]) for c in (
-                "zona_aptos", "zona_comparecimento", "zona_abstencoes",
-                "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos")))
+            t["comparecimento_zona"].add(
+                (ano, turno, mun, zona),
+                tuple(
+                    int(r[c])
+                    for c in (
+                        "zona_aptos",
+                        "zona_comparecimento",
+                        "zona_abstencoes",
+                        "zona_votos_validos",
+                        "zona_votos_brancos",
+                        "zona_votos_nulos",
+                    )
+                ),
+            )
             t["votacao"].add((ano, turno, mun, zona, nr), (int(r["qt_votos_nominais"]),))
     return t
 
@@ -92,8 +125,19 @@ def main() -> int:
     con.execute("PRAGMA foreign_keys = ON")
 
     # ordem das chaves estrangeiras: referenciadas antes das que referenciam
-    ordem = ["uf", "municipio", "zona", "eleicao", "turno", "pib_municipal", "partido",
-             "candidatura", "candidatura_turno", "comparecimento_zona", "votacao"]
+    ordem = [
+        "uf",
+        "municipio",
+        "zona",
+        "eleicao",
+        "turno",
+        "pib_municipal",
+        "partido",
+        "candidatura",
+        "candidatura_turno",
+        "comparecimento_zona",
+        "votacao",
+    ]
     con.execute("BEGIN")
     try:
         for nome in ordem:
@@ -114,8 +158,10 @@ def main() -> int:
     print(f"v_dataset reconstrói o CSV: {n_view} de {n_csv} linhas")
 
     print("\nControle nacional (ano, turno, candidatos, aptos, comparecimento, válidos, % abstenção, zonas)")
-    for l in con.execute("SELECT * FROM v_controle_nacional"):
-        print("  " + " | ".join(f"{v:,}".replace(",", ".") if isinstance(v, int) and v > 9999 else str(v) for v in l))
+    for linha in con.execute("SELECT * FROM v_controle_nacional"):
+        print(
+            "  " + " | ".join(f"{v:,}".replace(",", ".") if isinstance(v, int) and v > 9999 else str(v) for v in linha)
+        )
     divergentes = con.execute("SELECT COUNT(*) FROM v_integridade_zona").fetchone()[0]
     print(f"Zonas em que a soma dos votos nominais ≠ votos válidos: {divergentes}")
     con.close()

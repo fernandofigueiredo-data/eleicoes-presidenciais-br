@@ -29,6 +29,14 @@ de análise. O diagrama está em [`../diagrama/`](../diagrama/).
 | `v_integridade_zona` | Zonas em que a soma dos votos não fecha com os válidos (deve vir vazia) |
 | `v_municipio_indicadores` | População, alfabetização, PIB e PIB per capita por município |
 
+## Empates
+
+`v_resultado_municipio` numera os candidatos com `ROW_NUMBER()`, ordenando por votos e, no empate, pelo
+número do candidato. Num município empatado, o vencedor é quem tem o número menor (por exemplo, Lula,
+13, antes de Flavio Bolsonaro, 22). Por isso `v_virada_municipio` conta 213 viradas no 2º turno de
+2026 (212 para Lula, 1 para Flavio Bolsonaro), enquanto o Power BI e o site, em que o empate conta
+para os dois, contam 215. Sem os 3 municípios com empate, as duas regras dão 212.
+
 ## Como executar
 
 ```bash

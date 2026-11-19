@@ -209,8 +209,9 @@ PSL 2018 = PL nas comparações; empate conta como virada; PIB per capita ponder
    arquivo já é inteiro.
 2. Ordem de nomes empatados em `CONCATENATEX` não é definida no DAX; no site é alfabética.
 3. `Municípios Vencidos` conta o empate para os dois (2.876 + 2.696 = 5.572 no 2º turno de 2026);
-   `Municípios que Viraram` = 215 e `Municípios que Mudaram` = 716 incluem municípios com empate, por isso
-   diferem dos 213 e 714 citados no README do repositório (contagem estrita).
+   `Municípios que Viraram` = 215 e `Municípios que Mudaram` = 716 incluem 3 e 5 municípios com empate
+   (sem eles, 212 e 711). O banco SQL desempata pelo número do candidato e conta 213 viradas. O README
+   do repositório usa a regra do DAX e cita as outras duas.
 4. Exterior sem dados do IBGE; Boa Esperança do Norte (MT) sem indicadores e sem polígono na malha IBGE usada.
 5. Caminho do CSV no PBIX é absoluto (Windows).
 6. O Azure Map do PBIX geocodifica por nome (`local_mapa`); o site usa o código IBGE, mais robusto.

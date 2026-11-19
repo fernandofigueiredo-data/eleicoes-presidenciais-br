@@ -23,35 +23,35 @@
 |---|---|
 | **Problema** | O TSE publica o resultado por zona eleitoral, em arquivos separados por eleição e turno, sem indicadores do município. Perguntas simples ("onde o vencedor virou no 2º turno?", "o voto muda com a renda do município?") exigem juntar, limpar e ligar 8 turnos a dados do IBGE. |
 | **Para quem** | Jornalistas, analistas e pesquisadores que precisam do resultado oficial por território, rápido e conferível. |
-| **Dados** | 340.702 linhas (candidato × zona × turno), 5.571 municípios e 195 cidades do exterior, 2014, 2018, 2022 e 2026 |
+| **Dados** | 340.702 linhas (candidato × zona × turno), 5.571 municípios e 195 cidades do exterior, 2014, 2018, 2022 e 2026 · [baixar (CSV, Excel, SQLite)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/releases/latest) |
 | **O que construí** | Coleta automatizada (Python) → limpeza em modelo estrela (Pandas e Power Query) → banco relacional (SQL) → dashboard (Power BI, 55 medidas DAX) → análise estatística (regressão ponderada) → **site independente** com mapa de todos os municípios (JavaScript) |
-| **Resultado principal** | 2026 teve virada: Flavio Bolsonaro liderou o 1º turno (47,03%) e Lula venceu o 2º (51,79%), virando o resultado em 212 municípios |
+| **Resultado principal** | 2026 teve virada: Flavio Bolsonaro liderou o 1º turno (47,03%) e Lula venceu o 2º (51,79%), virando o resultado em 213 municípios |
 | **Qualidade** | Totais iguais aos do TSE nos 8 turnos; **340 de 340** indicadores do site iguais aos do Power BI; 41 testes automatizados rodando no GitHub Actions |
 
 ## Principais resultados
 
 - **2026 teve virada no 2º turno.** Flavio Bolsonaro liderou o 1º turno (47,03% contra 45,16%), e
-  Lula venceu o 2º com 51,79% dos válidos (64.256.232 votos contra 59.826.041). Lula virou o
-  resultado em 212 municípios que Flavio Bolsonaro tinha vencido no 1º turno, e Flavio Bolsonaro
-  virou em 1.¹
+  Lula venceu o 2º com 51,79% dos válidos (64.256.232 votos contra 59.826.041). Entre os turnos,
+  215 municípios trocaram de vencedor: 213 para Lula, 1 para Flavio Bolsonaro e 1 que empatou no
+  2º turno. Sem os 3 casos que envolvem empate, são 212.¹
 - **O mapa ficou dividido.** No 2º turno de 2026, Lula venceu em 2.876 municípios e Flavio Bolsonaro
-  em 2.695 (um município empatou).¹
+  em 2.696; o único município empatado conta para os dois.¹
 - **A renda do município importa menos do que parece; a região importa mais.** Lula teve 73,9% dos
   válidos no quarto de municípios com menor PIB per capita e 44,1% no quarto com maior. Sozinho,
   dobrar o PIB per capita acompanha 8,8 pontos a menos para Lula. Com alfabetização e região no
-  modelo, o efeito cai para 1,7 ponto (IC 95%: −3,3 a −0,1), e o R² sobe de 0,33 para 0,65. Com renda
-  e alfabetização iguais, um município do Nordeste ainda dá a Lula 21 pontos a mais do que um do
+  modelo, o efeito cai para 1,7 ponto e deixa de ser estatisticamente distinguível de zero (IC 95% com
+  erros agrupados por UF: −4,0 a +0,6; p = 0,15), enquanto o R² sobe de 0,33 para 0,65. Com renda e
+  alfabetização iguais, um município do Nordeste ainda dá a Lula 21 pontos a mais do que um do
   Centro-Oeste. O resultado se repete em 2022. → [`notebooks/analise_perfil.ipynb`](notebooks/analise_perfil.ipynb)
-- **O partido vencedor mudou em menos municípios.** No 1º turno, mudou em 812 municípios de 2018
-  para 2022 e em 714 de 2022 para 2026. PSL e PL contam como o mesmo campo, porque Bolsonaro trocou
-  de sigla.¹
+- **O partido vencedor mudou em menos municípios.** No 1º turno, mudou em 813 municípios de 2018
+  para 2022 e em 716 de 2022 para 2026 (4 e 5 deles por empate). PSL e PL contam como o mesmo campo,
+  porque Bolsonaro trocou de sigla.¹
 - **A abstenção ficou perto de 20% em todos os turnos** (de 19,22% a 21,30%). No 2º turno de 2026,
   foi maior no Acre (26,08%) e menor no Ceará (13,89%).
 
-¹ Contagem estrita, sem empates. O Power BI e o site seguem a regra do DAX, em que um empate conta
-como vitória dos dois e como virada ou mudança: por isso mostram 215 viradas, 2.696 municípios de
-Flavio Bolsonaro, 813 e 716 mudanças. As duas regras estão em
-[`election-intelligence/docs/AUDITORIA_PBIX.md`](election-intelligence/docs/AUDITORIA_PBIX.md).
+¹ Empates seguem a regra do Power BI, a mesma do site: um empate conta como vitória dos dois
+candidatos e como virada ou mudança. O banco SQL desempata pelo número do candidato (Lula, 13, antes
+de Flavio Bolsonaro, 22) e por isso conta 213 viradas; ver [`sql/README.md`](sql/README.md).
 
 ![Relação entre PIB per capita e voto em Lula, por região](notebooks/figuras/perfil_renda_regiao.png)
 
@@ -86,7 +86,7 @@ O link já traz o filtro: dá para mandar a mesma visão para outra pessoa.
 | Separar votos e comparecimento em duas tabelas de fato | Tabela única, como o dataset bruto | No bruto, o total da zona se repete em cada linha de candidato: somar ali multiplica o comparecimento |
 | Percentual sempre como razão de somas | Média dos percentuais dos municípios | A média dá o mesmo peso a um município de 1 mil e a outro de 11 milhões de eleitores |
 | PSL (2018) e PL (2022/2026) como o mesmo campo | Comparar siglas literalmente | Sem isso, a troca de partido do mesmo candidato apareceria como mudança em mais de mil municípios |
-| Regressão ponderada pelos votos, com erros robustos e controle por região | Comparar quartis de renda | Os quartis misturam renda com região e escolaridade; o modelo mostra quanto sobra da renda |
+| Regressão ponderada pelos votos, com controle por região e erros agrupados por UF | Comparar quartis de renda; erros que tratam cada município como independente | Os quartis misturam renda com região e escolaridade. Municípios do mesmo estado votam parecido: sem agrupar, o intervalo exclui o zero e a conclusão seria otimista demais |
 | Mapa em Canvas, ligado pelo código IBGE | SVG; geocodificação por nome (Azure Maps, no Power BI) | 5.570 polígonos em SVG travam o navegador; o código não falha com homônimos |
 | Recalcular as medidas DAX no navegador | Pré-calcular todos os cruzamentos de filtros | São milhões de combinações de turno × território × candidato; o motor responde em milissegundos e é testado contra o próprio PBIX |
 

@@ -5,6 +5,12 @@
 Dataset de votação para presidente por zona eleitoral (2014, 2018, 2022 e 2026, 1º e 2º turnos),
 gerado por `scripts/gerar_dataset.py` a partir dos arquivos do TSE e do IBGE.
 
+## Download direto
+
+Sem clonar o repositório: a [Release mais recente](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/releases/latest)
+traz o dataset em CSV e Excel, as 5 tabelas limpas num `.zip` e o banco SQLite pronto (`eleicoes.db`,
+com as 10 views), com o SHA-256 de cada arquivo.
+
 ## Arquivos
 
 | Arquivo | Descrição |

@@ -78,8 +78,9 @@ maior no Acre (26,08%) e menor no Ceará (13,89%).
    reproduz o PBIX. Recomendação: no Power Query, tipar a coluna direto como número decimal e
    reexportar (o motor não muda).
 2. **Empates:** contados como no DAX (Municípios Vencidos para os dois; virada/mudança quando um dos
-   lados empata). Por isso 215 viradas e 716 mudanças, contra 213 e 714 da contagem estrita citada no
-   README do repositório. A ordem dos nomes empatados é alfabética (o DAX não a define).
+   lados empata): 215 viradas e 716 mudanças, das quais 3 e 5 por empate. O banco SQL desempata pelo
+   número do candidato (213 viradas). O README usa a regra do DAX. A ordem dos nomes empatados é
+   alfabética (o DAX não a define).
 3. **Boa Esperança do Norte (MT)** não tem polígono na malha do IBGE usada nem indicadores; aparece nas
    tabelas e totais, não no mapa.
 4. **Exterior:** sem dados do IBGE; fora dos mapas e rankings territoriais (como no PBIX).
