@@ -25,8 +25,8 @@
 | **Para quem** | Jornalistas, analistas e pesquisadores que precisam do resultado oficial por território, rápido e conferível. |
 | **Dados** | 340.702 linhas (candidato × zona × turno), 5.571 municípios e 195 cidades do exterior, 2014, 2018, 2022 e 2026 · [baixar (CSV, Excel, SQLite)](https://github.com/fernandofigueiredo-data/eleicoes-presidenciais-br/releases/latest) |
 | **O que construí** | Coleta automatizada (Python) → limpeza em modelo estrela (Pandas e Power Query) → banco relacional (SQL) → dashboard (Power BI, 55 medidas DAX) → análise estatística (regressão ponderada) → **site independente** com mapa de todos os municípios (JavaScript) |
-| **Resultado principal** | 2026 teve virada: Flavio Bolsonaro liderou o 1º turno (47,03%) e Lula venceu o 2º (51,79%), virando o resultado em 213 municípios |
-| **Qualidade** | Totais iguais aos do TSE nos 8 turnos; **340 de 340** indicadores do site iguais aos do Power BI; 41 testes automatizados rodando no GitHub Actions |
+| **Resultado principal** | 2026 teve virada: Flavio Bolsonaro liderou o 1º turno (47,03%) e Lula venceu o 2º (51,79%); 212 municípios trocaram de vencedor entre os turnos, 211 deles para Lula (contagem estrita; [por que há 212, 213 e 215](docs/divulgacao-election-intelligence/09_FAQ.md)) |
+| **Qualidade** | Totais iguais aos do TSE nos 8 turnos; **340 de 340** indicadores do site iguais aos do Power BI; testes automatizados de pipeline, motor e interface (pytest e Vitest rodam no GitHub Actions) |
 
 ## Principais resultados
 
@@ -77,7 +77,7 @@ O link já traz o filtro: dá para mandar a mesma visão para outra pessoa.
 | Integridade | Soma dos votos dos candidatos = votos válidos, em cada zona (`v_integridade_zona`) e em cada município | Nenhuma divergência |
 | Reprodutibilidade | A CI roda `limpeza_dados.ipynb` e exige que `data/limpo/` saia idêntico ao versionado | Idêntico, byte a byte |
 | Site × Power BI | 340 indicadores calculados dentro do PBIX (PBIX-MCP) contra o motor JavaScript do site | 340 / 340, diferença 0 |
-| Testes | pytest (10, pipeline Python), Vitest (13) e Playwright (18, desktop e celular) | Todos passam na CI |
+| Testes | pytest (20, pipeline Python e números da divulgação), Vitest (34, motor e critérios de contagem) e Playwright (105, desktop e celular, incluindo os 27 links por UF) | pytest e Vitest passam na CI; o Playwright roda localmente (`PW_CHANNEL=chrome npx playwright test`) |
 
 ## Decisões técnicas
 
@@ -106,7 +106,7 @@ O link já traz o filtro: dá para mandar a mesma visão para outra pessoa.
 ## O site
 
 8 páginas: visão nacional, mapa dos vencedores, comparecimento e abstenção, mudanças entre eleições,
-1º e 2º turno, perfil socioeconômico, comparação lado a lado e fontes com conferência ao vivo.
+1º e 2º turno, perfil socioeconômico, comparação lado a lado e sobre e contato (fontes, como citar, perguntas frequentes e conferência ao vivo).
 Filtros de eleição, turno, região, UF, município, candidato e partido valem em todas as páginas e
 ficam no link. Funciona no celular. Detalhes: [`election-intelligence/README.md`](election-intelligence/README.md).
 
@@ -147,7 +147,7 @@ python3 scripts/carregar_banco.py           # cria data/eleicoes.db a partir do 
 ```
 
 ```bash
-pytest -q tests                             # 10 testes: tabelas, totais do TSE, banco SQL
+pytest -q tests                             # 20 testes: tabelas, totais do TSE, banco SQL, regressão e UTM
 ```
 
 Para refazer tudo a partir da fonte: `python3 scripts/baixar_dados.py && python3 scripts/gerar_dataset.py`.
@@ -234,6 +234,26 @@ repositório: os scripts recriam os dois.
   https://sidra.ibge.gov.br; API de Malhas Territoriais (mapa do site)
 
 Código sob a [licença MIT](LICENSE). Os dados seguem as licenças das fontes (cite o TSE e o IBGE).
+
+## Aviso, como citar e contato
+
+O ELECTION INTELLIGENCE é um projeto independente de análise e visualização de dados. **Não é fonte
+oficial do Tribunal Superior Eleitoral (TSE) nem do IBGE.** Para resultados oficiais, consulte o
+[portal de resultados do TSE](https://resultados.tse.jus.br/).
+
+**Como citar** (os três formatos, com botão de copiar, estão em
+[Sobre e contato](https://eleicoes-presidenciais-br.vercel.app/#/sobre?s=citar)):
+
+- Fonte em matéria ou gráfico: `Fonte: TSE e IBGE. Elaboração: ELECTION INTELLIGENCE (https://eleicoes-presidenciais-br.vercel.app/).`
+- Referência (ABNT): `FIGUEIREDO, Fernando. ELECTION INTELLIGENCE: análise eleitoral brasileira. [S. l.], 2026. Disponível em: https://eleicoes-presidenciais-br.vercel.app/. Acesso em: <data>.`
+
+Cite o TSE e o IBGE como fontes dos dados e o projeto como ferramenta. Confirme os números oficiais
+no TSE antes de publicar. Para reproduzir um recorte, copie o link da página: os filtros ficam no
+endereço. Ao citar viradas entre turnos, informe o critério (veja as
+[perguntas frequentes](docs/divulgacao-election-intelligence/09_FAQ.md)).
+
+**Contato:** Fernando Figueiredo · [fernandofigueiredo123@gmail.com](mailto:fernandofigueiredo123@gmail.com?subject=Contato%20sobre%20o%20ELECTION%20INTELLIGENCE).
+Respostas podem levar alguns dias.
 
 ## Autor
 
