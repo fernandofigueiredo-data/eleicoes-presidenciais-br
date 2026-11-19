@@ -116,7 +116,8 @@ Status: **ok** (confere), **divergente** (a base mostra outro valor ou outro sen
 - **D6. 812 e 714.** A base mostra 813 (2018 para 2022) e 716 (2022 para 2026) pela regra do site;
   sem os empates, 809 e 711. Afeta o follow-up da ficha A1 e a ficha B5.
 - **D7. Testes na CI.** O Playwright não roda no GitHub Actions. O README e o plano dizem que os 41
-  testes rodam na CI. Proposta: incluir um job de Playwright no workflow do site (decisão de Fernando,
-  porque aumenta o tempo da CI em cerca de 1 minuto).
+  testes rodam na CI. **Resolvido depois, a pedido de Fernando:** o workflow
+  `.github/workflows/site-testes-e2e.yml` roda o Vitest e o Playwright em todo pull request e em cada
+  push na `main` que altere o site.
 - **D8. Página Sobre.** Já existia em `#/sobre`, com outro nome ("Sobre os Dados"). Foi integrada,
   sem duplicar: a rota continua a mesma.

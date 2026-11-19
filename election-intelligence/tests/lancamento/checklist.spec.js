@@ -104,14 +104,15 @@ async function rastreamento(request, baseURL) {
   const robots = await request.get('/robots.txt', { failOnStatusCode: false });
   const sitemap = await request.get('/sitemap.xml', { failOnStatusCode: false });
   const html = await (await request.get('/')).text();
+  const verif = await request.get('/google18c225c689ba1d80.html', { failOnStatusCode: false });
   resultado.rastreamento = {
     robots: robots.status(), robotsBloqueia: /Disallow:\s*\/\s*$/m.test(await robots.text()), sitemap: sitemap.status(),
     sitemapValido: /<urlset[\s\S]*<loc>https:\/\/eleicoes-presidenciais-br\.vercel\.app\/<\/loc>/.test(await sitemap.text()),
-    canonical: /rel="canonical"/.test(html), ogImage: (html.match(/property="og:image" content="([^"]+)"/) || [])[1] || null,
+    canonical: /rel="canonical"/.test(html), searchConsole: verif.status() === 200 && (await verif.text()).includes('google-site-verification: google18c225c689ba1d80.html'), ogImage: (html.match(/property="og:image" content="([^"]+)"/) || [])[1] || null,
   };
   if (resultado.rastreamento.ogImage) resultado.rastreamento.ogImageStatus = (await request.get(resultado.rastreamento.ogImage, { failOnStatusCode: false })).status();
   salvar(baseURL);
-  expect.soft(resultado.rastreamento).toMatchObject({ robots: 200, robotsBloqueia: false, sitemap: 200, sitemapValido: true, canonical: true });
+  expect.soft(resultado.rastreamento).toMatchObject({ robots: 200, robotsBloqueia: false, sitemap: 200, sitemapValido: true, canonical: true, searchConsole: true });
 }
 
 test('checklist de lançamento: páginas, links e desempenho', async ({ page, request, browser, baseURL }) => {

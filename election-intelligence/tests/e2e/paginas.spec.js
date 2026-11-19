@@ -52,10 +52,18 @@ test('"Pular para o conteúdo" leva o foco ao conteúdo sem trocar de página', 
   await page.goto('/#/mapa');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
   await expect(page.locator('.page-title')).toBeVisible();
-  await page.keyboard.press('Tab');
+  // o foco inicial do Tab varia entre navegadores (no Chromium da CI não começa no documento):
+  // o que se testa é o efeito de ativar o link pelo teclado
+  await page.locator('.skip-link').focus();
   await expect(page.locator('.skip-link')).toBeFocused();
   await page.keyboard.press('Enter');
   await expect(page.locator('main#conteudo')).toBeFocused();
   await expect(page).toHaveURL(/#\/mapa$/);
   await expect(page.locator('.tab[data-page="mapa"]')).toHaveAttribute('aria-current', 'page');
+});
+
+test('arquivo de verificação do Google Search Console é servido na raiz', async ({ request }) => {
+  const r = await request.get('/google18c225c689ba1d80.html');
+  expect(r.status()).toBe(200);
+  expect((await r.text()).trim()).toBe('google-site-verification: google18c225c689ba1d80.html');
 });
