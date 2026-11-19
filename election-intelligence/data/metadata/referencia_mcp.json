@@ -1,0 +1,497 @@
+{
+  "fonte": "Valores avaliados diretamente no PBIX pelo PBIX-MCP (pbix_evaluate_dax, pbix_evaluate_dax_grouped, pbix_evaluate_dax_per_dimension) em 2026-11-18, sobre powerbi/eleicoes-presidenciais-br.pbix.",
+  "nacional_por_turno": {
+    "contexto": "agrupado por dTurno.rotulo_turno, sem outros filtros (modelo bruto)",
+    "linhas": {
+      "2014-1": {
+        "Aptos": 142821362,
+        "Comparecimento": 115122883,
+        "Abstenções": 27698475,
+        "Votos Válidos": 104023802,
+        "Votos Brancos": 4420489,
+        "Votos Nulos": 6678592,
+        "% Abstenção": 0.19393789985002383,
+        "% Comparecimento": 0.8060620721429613,
+        "% Brancos": 0.038398004678183745,
+        "% Nulos": 0.05801272367371133,
+        "% Brancos e Nulos": 0.09641072835189508,
+        "Votos Todos os Candidatos": 104023802,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Dilma",
+        "% do Vencedor": 0.41594007494553986,
+        "Margem de Vitória": 0.08046674740844408,
+        "Municípios": 5571
+      },
+      "2014-2": {
+        "Aptos": 142821362,
+        "Comparecimento": 112683879,
+        "Abstenções": 30137479,
+        "Votos Válidos": 105542273,
+        "Votos Brancos": 1921819,
+        "Votos Nulos": 5219787,
+        "% Abstenção": 0.2110152051343692,
+        "% Comparecimento": 0.788984766858616,
+        "% Brancos": 0.017054959565245352,
+        "% Nulos": 0.0463223936407088,
+        "% Brancos e Nulos": 0.06337735320595415,
+        "Votos Todos os Candidatos": 105542273,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Dilma",
+        "% do Vencedor": 0.5163913610236536,
+        "Margem de Vitória": 0.032782722047307054,
+        "Municípios": 5571
+      },
+      "2018-1": {
+        "Aptos": 147305825,
+        "Comparecimento": 117364654,
+        "Abstenções": 29941171,
+        "Votos Válidos": 107050749,
+        "Votos Brancos": 3106937,
+        "Votos Nulos": 7206222,
+        "% Abstenção": 0.2032585676771438,
+        "% Comparecimento": 0.7967414323228562,
+        "% Brancos": 0.026472510198854247,
+        "% Nulos": 0.06140027473688969,
+        "% Brancos e Nulos": 0.08787278493574394,
+        "Votos Todos os Candidatos": 107050749,
+        "Diferença de Apuração": 746,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Jair Bolsonaro",
+        "% do Vencedor": 0.4603144813120364,
+        "Margem de Vitória": 0.16753697818592564,
+        "Municípios": 5571
+      },
+      "2018-2": {
+        "Aptos": 147305824,
+        "Comparecimento": 115933451,
+        "Abstenções": 31372373,
+        "Votos Válidos": 104838753,
+        "Votos Brancos": 2486593,
+        "Votos Nulos": 8608105,
+        "% Abstenção": 0.2129744238761395,
+        "% Comparecimento": 0.7870255761238605,
+        "% Brancos": 0.021448451491364644,
+        "% Nulos": 0.07425039905005502,
+        "% Brancos e Nulos": 0.09569885054141966,
+        "Votos Todos os Candidatos": 104838753,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Jair Bolsonaro",
+        "% do Vencedor": 0.5513023128003058,
+        "Margem de Vitória": 0.10260462560061163,
+        "Municípios": 5571
+      },
+      "2022-1": {
+        "Aptos": 156454011,
+        "Comparecimento": 123682372,
+        "Abstenções": 32770982,
+        "Votos Válidos": 118229719,
+        "Votos Brancos": 1964779,
+        "Votos Nulos": 3487874,
+        "% Abstenção": 0.20946079803604395,
+        "% Comparecimento": 0.79053500264688,
+        "% Brancos": 0.015885683369655946,
+        "% Nulos": 0.028200251528164418,
+        "% Brancos e Nulos": 0.04408593489782036,
+        "Votos Todos os Candidatos": 118229719,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Lula",
+        "% do Vencedor": 0.48430719859868737,
+        "Margem de Vitória": 0.052331673054217445,
+        "Municípios": 5571
+      },
+      "2022-2": {
+        "Aptos": 156454011,
+        "Comparecimento": 124252796,
+        "Abstenções": 32200558,
+        "Votos Válidos": 118552353,
+        "Votos Brancos": 1769678,
+        "Votos Nulos": 3930765,
+        "% Abstenção": 0.20581484484919982,
+        "% Comparecimento": 0.7941809558337242,
+        "% Brancos": 0.014242560787123052,
+        "% Nulos": 0.03163522372566972,
+        "% Brancos e Nulos": 0.04587778451279277,
+        "Votos Todos os Candidatos": 118552353,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Lula",
+        "% do Vencedor": 0.5090240511717216,
+        "Margem de Vitória": 0.018048102343443152,
+        "Municípios": 5571
+      },
+      "2026-1": {
+        "Aptos": 158745502,
+        "Comparecimento": 125275835,
+        "Abstenções": 33469244,
+        "Votos Válidos": 119300788,
+        "Votos Brancos": 2300798,
+        "Votos Nulos": 3674249,
+        "% Abstenção": 0.21083585725786422,
+        "% Comparecimento": 0.789161478099707,
+        "% Brancos": 0.01836585643192879,
+        "% Nulos": 0.02932927168276308,
+        "% Brancos e Nulos": 0.04769512811469187,
+        "Votos Todos os Candidatos": 119300788,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Flavio Bolsonaro",
+        "% do Vencedor": 0.47027772356373704,
+        "Margem de Vitória": 0.01865004445737609,
+        "Municípios": 5571
+      },
+      "2026-2": {
+        "Aptos": 158745502,
+        "Comparecimento": 128236074,
+        "Abstenções": 30509005,
+        "Votos Válidos": 124082273,
+        "Votos Brancos": 1430496,
+        "Votos Nulos": 2723305,
+        "% Abstenção": 0.19218815409333614,
+        "% Comparecimento": 0.8078091812642352,
+        "% Brancos": 0.011155176194804592,
+        "% Nulos": 0.021236652956172067,
+        "% Brancos e Nulos": 0.03239182915097666,
+        "Votos Todos os Candidatos": 124082273,
+        "Diferença de Apuração": 0,
+        "Conferência Válidos": "✔ confere",
+        "Vencedor": "Lula",
+        "% do Vencedor": 0.517851828842626,
+        "Margem de Vitória": 0.035703657685252105,
+        "Municípios": 5571
+      }
+    }
+  },
+  "candidatos": {
+    "contexto": "filtro dTurno.rotulo_turno, agrupado por dCandidato.chave_candidato (sem filtro de exterior)",
+    "2026-2": {
+      "2026-13": {
+        "Votos": 64256232,
+        "% Votos Válidos": 0.517851828842626,
+        "Posição": 1
+      },
+      "2026-22": {
+        "Votos": 59826041,
+        "% Votos Válidos": 0.48214817115737396
+      }
+    },
+    "2026-1": {
+      "2026-22": {
+        "Votos": 56104503,
+        "% Votos Válidos": 0.47027772356373704
+      },
+      "2026-13": {
+        "Votos": 53879538,
+        "% Votos Válidos": 0.451627679106361
+      },
+      "2026-70": {
+        "Votos": 3448569,
+        "% Votos Válidos": 0.028906506468339505
+      },
+      "2026-14": {
+        "Votos": 2675887,
+        "% Votos Válidos": 0.022429751260318584
+      },
+      "2026-55": {
+        "Votos": 2605148,
+        "% Votos Válidos": 0.021836804632002934
+      },
+      "2026-30": {
+        "Votos": 326488,
+        "% Votos Válidos": 0.0027366793252027806
+      },
+      "2026-80": {
+        "Votos": 122911,
+        "% Votos Válidos": 0.001030261426269875
+      },
+      "2026-16": {
+        "Votos": 43103,
+        "% Votos Válidos": 0.00036129685916240554
+      },
+      "2026-27": {
+        "Votos": 40043,
+        "% Votos Válidos": 0.0003356474057824329
+      },
+      "2026-21": {
+        "Votos": 22693,
+        "% Votos Válidos": 0.00019021668155284942
+      },
+      "2026-35": {
+        "Votos": 16881,
+        "% Votos Válidos": 0.00014149948447951576
+      },
+      "2026-29": {
+        "Votos": 15024,
+        "% Votos Válidos": 0.00012593378679108137
+      }
+    }
+  },
+  "municipios_vencidos": {
+    "contexto": "filtro turno + dMunicipio.exterior = false + dCandidato.chave_candidato",
+    "2026-2|2026-13": {
+      "Municípios Vencidos": 2876,
+      "% Municípios Vencidos": 0.5162448393466164
+    },
+    "2026-2|2026-22": {
+      "Municípios Vencidos": 2696,
+      "Votos": 59654544,
+      "% Votos Válidos": 0.48221036347226515
+    }
+  },
+  "comparacoes": {
+    "contexto": "filtro turno + dMunicipio.exterior = false",
+    "2026-2": {
+      "Municípios que Viraram": 215,
+      "% Municípios que Viraram": 0.03859271225991743,
+      "Municípios que Mudaram": 716,
+      "% Municípios que Mudaram": 0.12854578096947936,
+      "PIB per capita": 53886.66871025436,
+      "Alfabetização": 92.85739903390945,
+      "Municípios": 5571,
+      "População 2022": 203080756
+    },
+    "2022-2": {
+      "Municípios que Mudaram": 813,
+      "Municípios que Viraram": 256,
+      "Variação Abstenção p.p.": -0.740176812420304,
+      "% Abstenção Eleição Anterior": 0.21166487213218957
+    }
+  },
+  "uf_2026_2": {
+    "contexto": "filtro 2026 · 2º turno + exterior = false, agrupado por dMunicipio.sg_uf",
+    "linhas": {
+      "AC": [
+        0.26080672624915474,
+        "Flavio Bolsonaro",
+        0.6656556261972848,
+        0.33131125239456954
+      ],
+      "AL": [
+        0.20083240482195308,
+        "Lula",
+        0.6076785636144986,
+        0.21535712722899722
+      ],
+      "AM": [
+        0.2167472230470214,
+        "Lula",
+        0.5402017323675123,
+        0.08040346473502472
+      ],
+      "AP": [
+        0.25469310637707787,
+        "Lula",
+        0.5288087998823646,
+        0.05761759976472932
+      ],
+      "BA": [
+        0.16714065396723082,
+        "Lula",
+        0.7131344238449469,
+        0.42626884768989376
+      ],
+      "CE": [
+        0.13888016629979386,
+        "Lula",
+        0.689275671399798,
+        0.378551342799596
+      ],
+      "DF": [
+        0.17295965683854989,
+        "Flavio Bolsonaro",
+        0.542752910903685,
+        0.08550582180737004
+      ],
+      "ES": [
+        0.19465087087980504,
+        "Flavio Bolsonaro",
+        0.5636932177181577,
+        0.1273864354363155
+      ],
+      "GO": [
+        0.2033517144862053,
+        "Flavio Bolsonaro",
+        0.596642133624226,
+        0.19328426724845194
+      ],
+      "MA": [
+        0.2036017795702877,
+        "Lula",
+        0.6954161777939786,
+        0.3908323555879572
+      ],
+      "MG": [
+        0.2032684906753813,
+        "Lula",
+        0.5043402683340632,
+        0.008680536668126486
+      ],
+      "MS": [
+        0.2123933715892369,
+        "Flavio Bolsonaro",
+        0.596000295465567,
+        0.19200059093113403
+      ],
+      "MT": [
+        0.20946563508030505,
+        "Flavio Bolsonaro",
+        0.6605981813612508,
+        0.3211963627225016
+      ],
+      "PA": [
+        0.20320619578563806,
+        "Lula",
+        0.5501503050166356,
+        0.10030061003327138
+      ],
+      "PB": [
+        0.1554207350372518,
+        "Lula",
+        0.6746436708734619,
+        0.34928734174692366
+      ],
+      "PE": [
+        0.15183795275989526,
+        "Lula",
+        0.6920111992016225,
+        0.38402239840324487
+      ],
+      "PI": [
+        0.17187335355742514,
+        "Lula",
+        0.7587634550665918,
+        0.5175269101331836
+      ],
+      "PR": [
+        0.1804453361580045,
+        "Flavio Bolsonaro",
+        0.6257621084324348,
+        0.2515242168648698
+      ],
+      "RJ": [
+        0.21622176770243356,
+        "Flavio Bolsonaro",
+        0.5310054234322599,
+        0.0620108468645198
+      ],
+      "RN": [
+        0.1605508846870915,
+        "Lula",
+        0.657179318504606,
+        0.31435863700921196
+      ],
+      "RO": [
+        0.21915735990887303,
+        "Flavio Bolsonaro",
+        0.6960802123803194,
+        0.3921604247606386
+      ],
+      "RR": [
+        0.2314663545350401,
+        "Flavio Bolsonaro",
+        0.7245695626360578,
+        0.4491391252721156
+      ],
+      "RS": [
+        0.19157698644899193,
+        "Flavio Bolsonaro",
+        0.578357737728264,
+        0.15671547545652814
+      ],
+      "SC": [
+        0.16956182612930748,
+        "Flavio Bolsonaro",
+        0.6942224502709456,
+        0.3884449005418912
+      ],
+      "SE": [
+        0.1571375782788621,
+        "Lula",
+        0.6953349807894431,
+        0.39066996157888634
+      ],
+      "SP": [
+        0.19808003208103156,
+        "Flavio Bolsonaro",
+        0.5384619778804934,
+        0.07692395576098697
+      ],
+      "TO": [
+        0.19227590244331627,
+        "Flavio Bolsonaro",
+        0.5136977729179978,
+        0.0273955458359956
+      ]
+    },
+    "colunas": [
+      "% Abstenção",
+      "Vencedor",
+      "% do Vencedor",
+      "Margem de Vitória"
+    ]
+  },
+  "perfil_2026_2_lula": {
+    "contexto": "filtro 2026 · 2º turno + exterior = false + dCandidato.chave_candidato = 2026-13",
+    "Quartil PIB per capita": {
+      "1º quartil (menor PIB)": 0.7394464496844542,
+      "2º quartil": 0.5904854401087287,
+      "3º quartil": 0.49569736785674495,
+      "4º quartil (maior PIB)": 0.44109738793353354,
+      "Sem dado": 0.2865372953305033
+    },
+    "faixa_populacao": {
+      "Até 5 mil": 0.5236778761721668,
+      "5 a 20 mil": 0.5743433857614878,
+      "20 a 100 mil": 0.5373663884159978,
+      "100 a 500 mil": 0.46532629629104805,
+      "Mais de 500 mil": 0.5183854711723973,
+      "Sem dado": 0.2865372953305033
+    }
+  },
+  "turnos_2026_lula": {
+    "contexto": "filtro 2026 · 2º turno + dCandidato.chave_candidato = 2026-13",
+    "Votos 1º Turno": 53879538,
+    "Votos 2º Turno": 64256232,
+    "Votos Ganhos no 2º Turno": 10376694,
+    "% Votos Válidos 1º Turno": 0.451627679106361,
+    "% Votos Válidos 2º Turno": 0.517851828842626,
+    "Variação entre Turnos p.p.": 6.622414973626506
+  },
+  "variacao_pl_sp_2026_2": {
+    "contexto": "filtro 2026 · 2º turno + dCandidato.partido_atual = PL + exterior = false + sg_uf = SP",
+    "% Votos Válidos": 0.5384619778804934,
+    "% Votos Válidos Eleição Anterior": 0.5523907339425622,
+    "Variação p.p.": -1.3928756062068781,
+    "% Abstenção Eleição Anterior": 0.21059279554581656,
+    "Variação Abstenção p.p.": -1.2512763464785
+  },
+  "municipio_sao_paulo_2026_2": {
+    "contexto": "filtro 2026 · 2º turno + dMunicipio.cd_municipio_tse = 71072",
+    "Vencedor": "Lula",
+    "% do Vencedor": 0.5550416911019197,
+    "Margem de Vitória": 0.11008338220383934,
+    "% Abstenção": 0.2035758048163076,
+    "PIB per capita": 93156.23455782697,
+    "Alfabetização": 97.0,
+    "Vencedor 1º Turno": "Lula",
+    "Vencedor 2º Turno": "Lula",
+    "Virou no 2º Turno": 0,
+    "Partido Vencedor 1º Turno": "PT",
+    "Partido Vencedor 1º Turno Anterior": "PT",
+    "Mudou Partido Vencedor": 0
+  },
+  "verificacao_cega_2018_1_sul": {
+    "contexto": "filtro 2018 · 1º turno + exterior = false + dMunicipio.sg_regiao = S (avaliado depois do motor JS pronto, sem ajuste)",
+    "Municípios que Mudaram": 999,
+    "% Municípios que Mudaram": 0.8387909319899244,
+    "Municípios que Viraram": 32,
+    "Vencedor": "Jair Bolsonaro",
+    "% do Vencedor": 0.5738611627550669,
+    "Margem de Vitória": 0.3757999012741846,
+    "% Abstenção": 0.17262845707580066,
+    "PIB per capita": 61274.539405257034
+  }
+}

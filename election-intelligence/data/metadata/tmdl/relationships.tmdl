@@ -1,0 +1,20 @@
+relationship AutoDetected_a17f1431-e20c-4dea-9ae6-28161443f56d
+	fromColumn: 'fVotos'.'cd_municipio_tse'
+	toColumn: 'dMunicipio'.'cd_municipio_tse'
+
+relationship AutoDetected_c72f8aee-866e-4a80-85d1-5735fef49fda
+	fromColumn: 'fVotos'.'chave_turno'
+	toColumn: 'dTurno'.'chave_turno'
+
+relationship AutoDetected_47efcdf5-98d1-4e18-b546-793ed9893100
+	fromColumn: 'fVotos'.'chave_candidato'
+	toColumn: 'dCandidato'.'chave_candidato'
+
+relationship AutoDetected_bed2fa56-6ddf-4ac6-8759-7a1ba808c52e
+	fromColumn: 'fComparecimento'.'cd_municipio_tse'
+	toColumn: 'dMunicipio'.'cd_municipio_tse'
+
+relationship AutoDetected_741137ae-cb53-4bc2-9b57-52dfcf96a9e8
+	fromColumn: 'fComparecimento'.'chave_turno'
+	toColumn: 'dTurno'.'chave_turno'
+

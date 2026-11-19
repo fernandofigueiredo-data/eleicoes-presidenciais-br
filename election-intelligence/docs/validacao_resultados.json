@@ -1,0 +1,3067 @@
+{
+ "gerado_em": "2026-11-19T00:37:31.162Z",
+ "total": 340,
+ "divergentes": 0,
+ "casos": [
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2014-1",
+   "mcp": 142821362,
+   "js": 142821362,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2014-1",
+   "mcp": 115122883,
+   "js": 115122883,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2014-1",
+   "mcp": 27698475,
+   "js": 27698475,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2014-1",
+   "mcp": 104023802,
+   "js": 104023802,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2014-1",
+   "mcp": 4420489,
+   "js": 4420489,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2014-1",
+   "mcp": 6678592,
+   "js": 6678592,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2014-1",
+   "mcp": 0.19393789985002383,
+   "js": 0.19393789985002383,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2014-1",
+   "mcp": 0.8060620721429613,
+   "js": 0.8060620721429613,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2014-1",
+   "mcp": 0.038398004678183745,
+   "js": 0.038398004678183745,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2014-1",
+   "mcp": 0.05801272367371133,
+   "js": 0.05801272367371133,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2014-1",
+   "mcp": 0.09641072835189508,
+   "js": 0.09641072835189508,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2014-1",
+   "mcp": 104023802,
+   "js": 104023802,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2014-1",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2014-1",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2014-1",
+   "mcp": "Dilma",
+   "js": "Dilma",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2014-1",
+   "mcp": 0.41594007494553986,
+   "js": 0.41594007494553986,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2014-1",
+   "mcp": 0.08046674740844408,
+   "js": 0.08046674740844408,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2014-1",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2014-2",
+   "mcp": 142821362,
+   "js": 142821362,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2014-2",
+   "mcp": 112683879,
+   "js": 112683879,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2014-2",
+   "mcp": 30137479,
+   "js": 30137479,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2014-2",
+   "mcp": 105542273,
+   "js": 105542273,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2014-2",
+   "mcp": 1921819,
+   "js": 1921819,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2014-2",
+   "mcp": 5219787,
+   "js": 5219787,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2014-2",
+   "mcp": 0.2110152051343692,
+   "js": 0.2110152051343692,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2014-2",
+   "mcp": 0.788984766858616,
+   "js": 0.788984766858616,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2014-2",
+   "mcp": 0.017054959565245352,
+   "js": 0.017054959565245352,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2014-2",
+   "mcp": 0.0463223936407088,
+   "js": 0.0463223936407088,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2014-2",
+   "mcp": 0.06337735320595415,
+   "js": 0.06337735320595415,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2014-2",
+   "mcp": 105542273,
+   "js": 105542273,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2014-2",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2014-2",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2014-2",
+   "mcp": "Dilma",
+   "js": "Dilma",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2014-2",
+   "mcp": 0.5163913610236536,
+   "js": 0.5163913610236536,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2014-2",
+   "mcp": 0.032782722047307054,
+   "js": 0.032782722047307054,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2014-2",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2018-1",
+   "mcp": 147305825,
+   "js": 147305825,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2018-1",
+   "mcp": 117364654,
+   "js": 117364654,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2018-1",
+   "mcp": 29941171,
+   "js": 29941171,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2018-1",
+   "mcp": 107050749,
+   "js": 107050749,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2018-1",
+   "mcp": 3106937,
+   "js": 3106937,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2018-1",
+   "mcp": 7206222,
+   "js": 7206222,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2018-1",
+   "mcp": 0.2032585676771438,
+   "js": 0.2032585676771438,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2018-1",
+   "mcp": 0.7967414323228562,
+   "js": 0.7967414323228562,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2018-1",
+   "mcp": 0.026472510198854247,
+   "js": 0.026472510198854247,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2018-1",
+   "mcp": 0.06140027473688969,
+   "js": 0.06140027473688969,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2018-1",
+   "mcp": 0.08787278493574394,
+   "js": 0.08787278493574394,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2018-1",
+   "mcp": 107050749,
+   "js": 107050749,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2018-1",
+   "mcp": 746,
+   "js": 746,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2018-1",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2018-1",
+   "mcp": "Jair Bolsonaro",
+   "js": "Jair Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2018-1",
+   "mcp": 0.4603144813120364,
+   "js": 0.4603144813120364,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2018-1",
+   "mcp": 0.16753697818592564,
+   "js": 0.16753697818592564,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2018-1",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2018-2",
+   "mcp": 147305824,
+   "js": 147305824,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2018-2",
+   "mcp": 115933451,
+   "js": 115933451,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2018-2",
+   "mcp": 31372373,
+   "js": 31372373,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2018-2",
+   "mcp": 104838753,
+   "js": 104838753,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2018-2",
+   "mcp": 2486593,
+   "js": 2486593,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2018-2",
+   "mcp": 8608105,
+   "js": 8608105,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2018-2",
+   "mcp": 0.2129744238761395,
+   "js": 0.2129744238761395,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2018-2",
+   "mcp": 0.7870255761238605,
+   "js": 0.7870255761238605,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2018-2",
+   "mcp": 0.021448451491364644,
+   "js": 0.021448451491364644,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2018-2",
+   "mcp": 0.07425039905005502,
+   "js": 0.07425039905005502,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2018-2",
+   "mcp": 0.09569885054141966,
+   "js": 0.09569885054141966,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2018-2",
+   "mcp": 104838753,
+   "js": 104838753,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2018-2",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2018-2",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2018-2",
+   "mcp": "Jair Bolsonaro",
+   "js": "Jair Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2018-2",
+   "mcp": 0.5513023128003058,
+   "js": 0.5513023128003058,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2018-2",
+   "mcp": 0.10260462560061163,
+   "js": 0.10260462560061163,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2018-2",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2022-1",
+   "mcp": 156454011,
+   "js": 156454011,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2022-1",
+   "mcp": 123682372,
+   "js": 123682372,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2022-1",
+   "mcp": 32770982,
+   "js": 32770982,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2022-1",
+   "mcp": 118229719,
+   "js": 118229719,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2022-1",
+   "mcp": 1964779,
+   "js": 1964779,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2022-1",
+   "mcp": 3487874,
+   "js": 3487874,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2022-1",
+   "mcp": 0.20946079803604395,
+   "js": 0.20946079803604395,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2022-1",
+   "mcp": 0.79053500264688,
+   "js": 0.79053500264688,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2022-1",
+   "mcp": 0.015885683369655946,
+   "js": 0.015885683369655946,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2022-1",
+   "mcp": 0.028200251528164418,
+   "js": 0.028200251528164418,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2022-1",
+   "mcp": 0.04408593489782036,
+   "js": 0.04408593489782036,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2022-1",
+   "mcp": 118229719,
+   "js": 118229719,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2022-1",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2022-1",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2022-1",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2022-1",
+   "mcp": 0.48430719859868737,
+   "js": 0.48430719859868737,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2022-1",
+   "mcp": 0.052331673054217445,
+   "js": 0.052331673054217445,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2022-1",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2022-2",
+   "mcp": 156454011,
+   "js": 156454011,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2022-2",
+   "mcp": 124252796,
+   "js": 124252796,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2022-2",
+   "mcp": 32200558,
+   "js": 32200558,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2022-2",
+   "mcp": 118552353,
+   "js": 118552353,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2022-2",
+   "mcp": 1769678,
+   "js": 1769678,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2022-2",
+   "mcp": 3930765,
+   "js": 3930765,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2022-2",
+   "mcp": 0.20581484484919982,
+   "js": 0.20581484484919982,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2022-2",
+   "mcp": 0.7941809558337242,
+   "js": 0.7941809558337242,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2022-2",
+   "mcp": 0.014242560787123052,
+   "js": 0.014242560787123052,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2022-2",
+   "mcp": 0.03163522372566972,
+   "js": 0.03163522372566972,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2022-2",
+   "mcp": 0.04587778451279277,
+   "js": 0.04587778451279277,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2022-2",
+   "mcp": 118552353,
+   "js": 118552353,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2022-2",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2022-2",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2022-2",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2022-2",
+   "mcp": 0.5090240511717216,
+   "js": 0.5090240511717216,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2022-2",
+   "mcp": 0.018048102343443152,
+   "js": 0.018048102343443152,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2022-2",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2026-1",
+   "mcp": 158745502,
+   "js": 158745502,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2026-1",
+   "mcp": 125275835,
+   "js": 125275835,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2026-1",
+   "mcp": 33469244,
+   "js": 33469244,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2026-1",
+   "mcp": 119300788,
+   "js": 119300788,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2026-1",
+   "mcp": 2300798,
+   "js": 2300798,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2026-1",
+   "mcp": 3674249,
+   "js": 3674249,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2026-1",
+   "mcp": 0.21083585725786422,
+   "js": 0.21083585725786422,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2026-1",
+   "mcp": 0.789161478099707,
+   "js": 0.789161478099707,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2026-1",
+   "mcp": 0.01836585643192879,
+   "js": 0.01836585643192879,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2026-1",
+   "mcp": 0.02932927168276308,
+   "js": 0.02932927168276308,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2026-1",
+   "mcp": 0.04769512811469187,
+   "js": 0.04769512811469187,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2026-1",
+   "mcp": 119300788,
+   "js": 119300788,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2026-1",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2026-1",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2026-1",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2026-1",
+   "mcp": 0.47027772356373704,
+   "js": 0.47027772356373704,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2026-1",
+   "mcp": 0.01865004445737609,
+   "js": 0.01865004445737609,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2026-1",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Aptos",
+   "contexto": "2026-2",
+   "mcp": 158745502,
+   "js": 158745502,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Comparecimento",
+   "contexto": "2026-2",
+   "mcp": 128236074,
+   "js": 128236074,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Abstenções",
+   "contexto": "2026-2",
+   "mcp": 30509005,
+   "js": 30509005,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Válidos",
+   "contexto": "2026-2",
+   "mcp": 124082273,
+   "js": 124082273,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Brancos",
+   "contexto": "2026-2",
+   "mcp": 1430496,
+   "js": 1430496,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Nulos",
+   "contexto": "2026-2",
+   "mcp": 2723305,
+   "js": 2723305,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Abstenção",
+   "contexto": "2026-2",
+   "mcp": 0.19218815409333614,
+   "js": 0.19218815409333614,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Comparecimento",
+   "contexto": "2026-2",
+   "mcp": 0.8078091812642352,
+   "js": 0.8078091812642352,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos",
+   "contexto": "2026-2",
+   "mcp": 0.011155176194804592,
+   "js": 0.011155176194804592,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Nulos",
+   "contexto": "2026-2",
+   "mcp": 0.021236652956172067,
+   "js": 0.021236652956172067,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% Brancos e Nulos",
+   "contexto": "2026-2",
+   "mcp": 0.03239182915097666,
+   "js": 0.03239182915097666,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Votos Todos os Candidatos",
+   "contexto": "2026-2",
+   "mcp": 124082273,
+   "js": 124082273,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Diferença de Apuração",
+   "contexto": "2026-2",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Conferência Válidos",
+   "contexto": "2026-2",
+   "mcp": "✔ confere",
+   "js": "✔ confere",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Vencedor",
+   "contexto": "2026-2",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "% do Vencedor",
+   "contexto": "2026-2",
+   "mcp": 0.517851828842626,
+   "js": 0.517851828842626,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Margem de Vitória",
+   "contexto": "2026-2",
+   "mcp": 0.035703657685252105,
+   "js": 0.035703657685252105,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Nacional por turno",
+   "medida": "Municípios",
+   "contexto": "2026-2",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-2 · Lula",
+   "mcp": 64256232,
+   "js": 64256232,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-2 · Lula",
+   "mcp": 0.517851828842626,
+   "js": 0.517851828842626,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Posição",
+   "contexto": "2026-2 · Lula",
+   "mcp": 1,
+   "js": 1,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-2 · Flavio Bolsonaro",
+   "mcp": 59826041,
+   "js": 59826041,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-2 · Flavio Bolsonaro",
+   "mcp": 0.48214817115737396,
+   "js": 0.48214817115737396,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Flavio Bolsonaro",
+   "mcp": 56104503,
+   "js": 56104503,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Flavio Bolsonaro",
+   "mcp": 0.47027772356373704,
+   "js": 0.47027772356373704,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Lula",
+   "mcp": 53879538,
+   "js": 53879538,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Lula",
+   "mcp": 0.451627679106361,
+   "js": 0.451627679106361,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Escritor Augusto Cury",
+   "mcp": 3448569,
+   "js": 3448569,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Escritor Augusto Cury",
+   "mcp": 0.028906506468339505,
+   "js": 0.028906506468339505,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Renan Santos",
+   "mcp": 2675887,
+   "js": 2675887,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Renan Santos",
+   "mcp": 0.022429751260318584,
+   "js": 0.022429751260318584,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Ronaldo Caiado",
+   "mcp": 2605148,
+   "js": 2605148,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Ronaldo Caiado",
+   "mcp": 0.021836804632002934,
+   "js": 0.021836804632002934,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Zema",
+   "mcp": 326488,
+   "js": 326488,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Zema",
+   "mcp": 0.0027366793252027806,
+   "js": 0.0027366793252027806,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Samara",
+   "mcp": 122911,
+   "js": 122911,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Samara",
+   "mcp": 0.001030261426269875,
+   "js": 0.001030261426269875,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Hertz Dias",
+   "mcp": 43103,
+   "js": 43103,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Hertz Dias",
+   "mcp": 0.00036129685916240554,
+   "js": 0.00036129685916240554,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Clariana Barao",
+   "mcp": 40043,
+   "js": 40043,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Clariana Barao",
+   "mcp": 0.0003356474057824329,
+   "js": 0.0003356474057824329,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Edmilson Costa",
+   "mcp": 22693,
+   "js": 22693,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Edmilson Costa",
+   "mcp": 0.00019021668155284942,
+   "js": 0.00019021668155284942,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Veterinário Wilson Grassi",
+   "mcp": 16881,
+   "js": 16881,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Veterinário Wilson Grassi",
+   "mcp": 0.00014149948447951576,
+   "js": 0.00014149948447951576,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "Votos",
+   "contexto": "2026-1 · Rui Costa Pimenta",
+   "mcp": 15024,
+   "js": 15024,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Candidatos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-1 · Rui Costa Pimenta",
+   "mcp": 0.00012593378679108137,
+   "js": 0.00012593378679108137,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Municípios vencidos",
+   "medida": "Municípios Vencidos",
+   "contexto": "2026-2 · Lula · sem exterior",
+   "mcp": 2876,
+   "js": 2876,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Municípios vencidos",
+   "medida": "% Municípios Vencidos",
+   "contexto": "2026-2 · Lula · sem exterior",
+   "mcp": 0.5162448393466164,
+   "js": 0.5162448393466164,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Municípios vencidos",
+   "medida": "Municípios Vencidos",
+   "contexto": "2026-2 · Flavio Bolsonaro · sem exterior",
+   "mcp": 2696,
+   "js": 2696,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Municípios vencidos",
+   "medida": "Votos",
+   "contexto": "2026-2 · Flavio Bolsonaro · sem exterior",
+   "mcp": 59654544,
+   "js": 59654544,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Municípios vencidos",
+   "medida": "% Votos Válidos",
+   "contexto": "2026-2 · Flavio Bolsonaro · sem exterior",
+   "mcp": 0.48221036347226515,
+   "js": 0.48221036347226515,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Municípios que Viraram",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 215,
+   "js": 215,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "% Municípios que Viraram",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 0.03859271225991743,
+   "js": 0.03859271225991743,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Municípios que Mudaram",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 716,
+   "js": 716,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "% Municípios que Mudaram",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 0.12854578096947936,
+   "js": 0.12854578096947936,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "PIB per capita",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 53886.66871025436,
+   "js": 53886.66871025436,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Alfabetização",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 92.85739903390945,
+   "js": 92.85739903390945,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Municípios",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 5571,
+   "js": 5571,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "População 2022",
+   "contexto": "2026-2 · sem exterior",
+   "mcp": 203080756,
+   "js": 203080756,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Municípios que Mudaram",
+   "contexto": "2022-2 · sem exterior",
+   "mcp": 813,
+   "js": 813,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Municípios que Viraram",
+   "contexto": "2022-2 · sem exterior",
+   "mcp": 256,
+   "js": 256,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "Variação Abstenção p.p.",
+   "contexto": "2022-2 · sem exterior",
+   "mcp": -0.740176812420304,
+   "js": -0.740176812420304,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Comparações",
+   "medida": "% Abstenção Eleição Anterior",
+   "contexto": "2022-2 · sem exterior",
+   "mcp": 0.21166487213218957,
+   "js": 0.21166487213218957,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "AC",
+   "mcp": 0.26080672624915474,
+   "js": 0.26080672624915474,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "AC",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "AC",
+   "mcp": 0.6656556261972848,
+   "js": 0.6656556261972848,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "AC",
+   "mcp": 0.33131125239456954,
+   "js": 0.33131125239456954,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "AL",
+   "mcp": 0.20083240482195308,
+   "js": 0.20083240482195308,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "AL",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "AL",
+   "mcp": 0.6076785636144986,
+   "js": 0.6076785636144986,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "AL",
+   "mcp": 0.21535712722899722,
+   "js": 0.21535712722899722,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "AM",
+   "mcp": 0.2167472230470214,
+   "js": 0.2167472230470214,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "AM",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "AM",
+   "mcp": 0.5402017323675123,
+   "js": 0.5402017323675123,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "AM",
+   "mcp": 0.08040346473502472,
+   "js": 0.08040346473502472,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "AP",
+   "mcp": 0.25469310637707787,
+   "js": 0.25469310637707787,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "AP",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "AP",
+   "mcp": 0.5288087998823646,
+   "js": 0.5288087998823646,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "AP",
+   "mcp": 0.05761759976472932,
+   "js": 0.05761759976472932,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "BA",
+   "mcp": 0.16714065396723082,
+   "js": 0.16714065396723082,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "BA",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "BA",
+   "mcp": 0.7131344238449469,
+   "js": 0.7131344238449469,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "BA",
+   "mcp": 0.42626884768989376,
+   "js": 0.42626884768989376,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "CE",
+   "mcp": 0.13888016629979386,
+   "js": 0.13888016629979386,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "CE",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "CE",
+   "mcp": 0.689275671399798,
+   "js": 0.689275671399798,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "CE",
+   "mcp": 0.378551342799596,
+   "js": 0.378551342799596,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "DF",
+   "mcp": 0.17295965683854989,
+   "js": 0.17295965683854989,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "DF",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "DF",
+   "mcp": 0.542752910903685,
+   "js": 0.542752910903685,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "DF",
+   "mcp": 0.08550582180737004,
+   "js": 0.08550582180737004,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "ES",
+   "mcp": 0.19465087087980504,
+   "js": 0.19465087087980504,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "ES",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "ES",
+   "mcp": 0.5636932177181577,
+   "js": 0.5636932177181577,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "ES",
+   "mcp": 0.1273864354363155,
+   "js": 0.1273864354363155,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "GO",
+   "mcp": 0.2033517144862053,
+   "js": 0.2033517144862053,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "GO",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "GO",
+   "mcp": 0.596642133624226,
+   "js": 0.596642133624226,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "GO",
+   "mcp": 0.19328426724845194,
+   "js": 0.19328426724845194,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "MA",
+   "mcp": 0.2036017795702877,
+   "js": 0.2036017795702877,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "MA",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "MA",
+   "mcp": 0.6954161777939786,
+   "js": 0.6954161777939786,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "MA",
+   "mcp": 0.3908323555879572,
+   "js": 0.3908323555879572,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "MG",
+   "mcp": 0.2032684906753813,
+   "js": 0.2032684906753813,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "MG",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "MG",
+   "mcp": 0.5043402683340632,
+   "js": 0.5043402683340632,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "MG",
+   "mcp": 0.008680536668126486,
+   "js": 0.008680536668126486,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "MS",
+   "mcp": 0.2123933715892369,
+   "js": 0.2123933715892369,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "MS",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "MS",
+   "mcp": 0.596000295465567,
+   "js": 0.596000295465567,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "MS",
+   "mcp": 0.19200059093113403,
+   "js": 0.19200059093113403,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "MT",
+   "mcp": 0.20946563508030505,
+   "js": 0.20946563508030505,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "MT",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "MT",
+   "mcp": 0.6605981813612508,
+   "js": 0.6605981813612508,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "MT",
+   "mcp": 0.3211963627225016,
+   "js": 0.3211963627225016,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "PA",
+   "mcp": 0.20320619578563806,
+   "js": 0.20320619578563806,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "PA",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "PA",
+   "mcp": 0.5501503050166356,
+   "js": 0.5501503050166356,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "PA",
+   "mcp": 0.10030061003327138,
+   "js": 0.10030061003327138,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "PB",
+   "mcp": 0.1554207350372518,
+   "js": 0.1554207350372518,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "PB",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "PB",
+   "mcp": 0.6746436708734619,
+   "js": 0.6746436708734619,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "PB",
+   "mcp": 0.34928734174692366,
+   "js": 0.34928734174692366,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "PE",
+   "mcp": 0.15183795275989526,
+   "js": 0.15183795275989526,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "PE",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "PE",
+   "mcp": 0.6920111992016225,
+   "js": 0.6920111992016225,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "PE",
+   "mcp": 0.38402239840324487,
+   "js": 0.38402239840324487,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "PI",
+   "mcp": 0.17187335355742514,
+   "js": 0.17187335355742514,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "PI",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "PI",
+   "mcp": 0.7587634550665918,
+   "js": 0.7587634550665918,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "PI",
+   "mcp": 0.5175269101331836,
+   "js": 0.5175269101331836,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "PR",
+   "mcp": 0.1804453361580045,
+   "js": 0.1804453361580045,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "PR",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "PR",
+   "mcp": 0.6257621084324348,
+   "js": 0.6257621084324348,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "PR",
+   "mcp": 0.2515242168648698,
+   "js": 0.2515242168648698,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "RJ",
+   "mcp": 0.21622176770243356,
+   "js": 0.21622176770243356,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "RJ",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "RJ",
+   "mcp": 0.5310054234322599,
+   "js": 0.5310054234322599,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "RJ",
+   "mcp": 0.0620108468645198,
+   "js": 0.0620108468645198,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "RN",
+   "mcp": 0.1605508846870915,
+   "js": 0.1605508846870915,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "RN",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "RN",
+   "mcp": 0.657179318504606,
+   "js": 0.657179318504606,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "RN",
+   "mcp": 0.31435863700921196,
+   "js": 0.31435863700921196,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "RO",
+   "mcp": 0.21915735990887303,
+   "js": 0.21915735990887303,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "RO",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "RO",
+   "mcp": 0.6960802123803194,
+   "js": 0.6960802123803194,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "RO",
+   "mcp": 0.3921604247606386,
+   "js": 0.3921604247606386,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "RR",
+   "mcp": 0.2314663545350401,
+   "js": 0.2314663545350401,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "RR",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "RR",
+   "mcp": 0.7245695626360578,
+   "js": 0.7245695626360578,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "RR",
+   "mcp": 0.4491391252721156,
+   "js": 0.4491391252721156,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "RS",
+   "mcp": 0.19157698644899193,
+   "js": 0.19157698644899193,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "RS",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "RS",
+   "mcp": 0.578357737728264,
+   "js": 0.578357737728264,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "RS",
+   "mcp": 0.15671547545652814,
+   "js": 0.15671547545652814,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "SC",
+   "mcp": 0.16956182612930748,
+   "js": 0.16956182612930748,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "SC",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "SC",
+   "mcp": 0.6942224502709456,
+   "js": 0.6942224502709456,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "SC",
+   "mcp": 0.3884449005418912,
+   "js": 0.3884449005418912,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "SE",
+   "mcp": 0.1571375782788621,
+   "js": 0.1571375782788621,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "SE",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "SE",
+   "mcp": 0.6953349807894431,
+   "js": 0.6953349807894431,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "SE",
+   "mcp": 0.39066996157888634,
+   "js": 0.39066996157888634,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "SP",
+   "mcp": 0.19808003208103156,
+   "js": 0.19808003208103156,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "SP",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "SP",
+   "mcp": 0.5384619778804934,
+   "js": 0.5384619778804934,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "SP",
+   "mcp": 0.07692395576098697,
+   "js": 0.07692395576098697,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% Abstenção",
+   "contexto": "TO",
+   "mcp": 0.19227590244331627,
+   "js": 0.19227590244331627,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Vencedor",
+   "contexto": "TO",
+   "mcp": "Flavio Bolsonaro",
+   "js": "Flavio Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "% do Vencedor",
+   "contexto": "TO",
+   "mcp": 0.5136977729179978,
+   "js": 0.5136977729179978,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "UF (2026 · 2º turno)",
+   "medida": "Margem de Vitória",
+   "contexto": "TO",
+   "mcp": 0.0273955458359956,
+   "js": 0.0273955458359956,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Quartil PIB: 1º quartil (menor PIB)",
+   "mcp": 0.7394464496844542,
+   "js": 0.7394464496844542,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Quartil PIB: 2º quartil",
+   "mcp": 0.5904854401087287,
+   "js": 0.5904854401087287,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Quartil PIB: 3º quartil",
+   "mcp": 0.49569736785674495,
+   "js": 0.49569736785674495,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Quartil PIB: 4º quartil (maior PIB)",
+   "mcp": 0.44109738793353354,
+   "js": 0.44109738793353354,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Quartil PIB: Sem dado",
+   "mcp": 0.2865372953305033,
+   "js": 0.2865372953305033,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: Até 5 mil",
+   "mcp": 0.5236778761721668,
+   "js": 0.5236778761721668,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: 5 a 20 mil",
+   "mcp": 0.5743433857614878,
+   "js": 0.5743433857614878,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: 20 a 100 mil",
+   "mcp": 0.5373663884159978,
+   "js": 0.5373663884159978,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: 100 a 500 mil",
+   "mcp": 0.46532629629104805,
+   "js": 0.46532629629104805,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: Mais de 500 mil",
+   "mcp": 0.5183854711723973,
+   "js": 0.5183854711723973,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Perfil (Lula, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "Faixa: Sem dado",
+   "mcp": 0.2865372953305033,
+   "js": 0.2865372953305033,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "Votos 1º Turno",
+   "contexto": "2026",
+   "mcp": 53879538,
+   "js": 53879538,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "Votos 2º Turno",
+   "contexto": "2026",
+   "mcp": 64256232,
+   "js": 64256232,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "Votos Ganhos no 2º Turno",
+   "contexto": "2026",
+   "mcp": 10376694,
+   "js": 10376694,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "% Votos Válidos 1º Turno",
+   "contexto": "2026",
+   "mcp": 0.451627679106361,
+   "js": 0.451627679106361,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "% Votos Válidos 2º Turno",
+   "contexto": "2026",
+   "mcp": 0.517851828842626,
+   "js": 0.517851828842626,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Turnos (Lula, 2026)",
+   "medida": "Variação entre Turnos p.p.",
+   "contexto": "2026",
+   "mcp": 6.622414973626506,
+   "js": 6.622414973626506,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Variação (PL, SP, 2026 · 2º)",
+   "medida": "% Votos Válidos",
+   "contexto": "SP · PL",
+   "mcp": 0.5384619778804934,
+   "js": 0.5384619778804934,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Variação (PL, SP, 2026 · 2º)",
+   "medida": "% Votos Válidos Eleição Anterior",
+   "contexto": "SP · PL",
+   "mcp": 0.5523907339425622,
+   "js": 0.5523907339425622,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Variação (PL, SP, 2026 · 2º)",
+   "medida": "Variação p.p.",
+   "contexto": "SP · PL",
+   "mcp": -1.3928756062068781,
+   "js": -1.3928756062068781,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Variação (PL, SP, 2026 · 2º)",
+   "medida": "% Abstenção Eleição Anterior",
+   "contexto": "SP",
+   "mcp": 0.21059279554581656,
+   "js": 0.21059279554581656,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Variação (PL, SP, 2026 · 2º)",
+   "medida": "Variação Abstenção p.p.",
+   "contexto": "SP",
+   "mcp": -1.2512763464785,
+   "js": -1.2512763464785,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Vencedor",
+   "contexto": "São Paulo (SP)",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "% do Vencedor",
+   "contexto": "São Paulo (SP)",
+   "mcp": 0.5550416911019197,
+   "js": 0.5550416911019197,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Margem de Vitória",
+   "contexto": "São Paulo (SP)",
+   "mcp": 0.11008338220383934,
+   "js": 0.11008338220383934,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "% Abstenção",
+   "contexto": "São Paulo (SP)",
+   "mcp": 0.2035758048163076,
+   "js": 0.2035758048163076,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "PIB per capita",
+   "contexto": "São Paulo (SP)",
+   "mcp": 93156.23455782697,
+   "js": 93156.23455782697,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Alfabetização",
+   "contexto": "São Paulo (SP)",
+   "mcp": 97,
+   "js": 97,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Vencedor 1º Turno",
+   "contexto": "São Paulo (SP)",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Vencedor 2º Turno",
+   "contexto": "São Paulo (SP)",
+   "mcp": "Lula",
+   "js": "Lula",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Virou no 2º Turno",
+   "contexto": "São Paulo (SP)",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Partido Vencedor 1º Turno",
+   "contexto": "São Paulo (SP)",
+   "mcp": "PT",
+   "js": "PT",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Partido Vencedor 1º Turno Anterior",
+   "contexto": "São Paulo (SP)",
+   "mcp": "PT",
+   "js": "PT",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Município (São Paulo, 2026 · 2º)",
+   "medida": "Mudou Partido Vencedor",
+   "contexto": "São Paulo (SP)",
+   "mcp": 0,
+   "js": 0,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "Municípios que Mudaram",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 999,
+   "js": 999,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "% Municípios que Mudaram",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 0.8387909319899244,
+   "js": 0.8387909319899244,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "Municípios que Viraram",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 32,
+   "js": 32,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "Vencedor",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": "Jair Bolsonaro",
+   "js": "Jair Bolsonaro",
+   "diff": null,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "% do Vencedor",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 0.5738611627550669,
+   "js": 0.5738611627550669,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "Margem de Vitória",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 0.3757999012741846,
+   "js": 0.3757999012741846,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "% Abstenção",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 0.17262845707580066,
+   "js": 0.17262845707580066,
+   "diff": 0,
+   "status": "VALIDADO"
+  },
+  {
+   "grupo": "Verificação cega (2018 · 1º, Sul)",
+   "medida": "PIB per capita",
+   "contexto": "Região Sul · sem exterior",
+   "mcp": 61274.539405257034,
+   "js": 61274.539405257034,
+   "diff": 0,
+   "status": "VALIDADO"
+  }
+ ]
+}

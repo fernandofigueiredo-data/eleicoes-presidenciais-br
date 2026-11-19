@@ -1,0 +1,45 @@
+expression Eleicoes =
+		let
+		    Fonte = Csv.Document(File.Contents("C:\Mac\Home\Documents\análise-de-dados\projetos_github\eleicoes-presidenciais-br\data\eleicoes_presidente.csv"),[Delimiter=";", Columns=22, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+		    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Fonte, [PromoteAllScalars=true]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"ano", type date}, {"nr_turno", Int64.Type}, {"sg_regiao", type text}, {"sg_uf", type text}, {"cd_municipio_tse", Int64.Type}, {"cd_municipio_ibge", Int64.Type}, {"municipio", type text}, {"nr_zona", Int64.Type}, {"nr_candidato", Int64.Type}, {"nm_urna", type text}, {"sg_partido", type text}, {"situacao_turno", type text}, {"qt_votos_nominais", Int64.Type}, {"zona_aptos", Int64.Type}, {"zona_comparecimento", Int64.Type}, {"zona_abstencoes", Int64.Type}, {"zona_votos_validos", Int64.Type}, {"zona_votos_brancos", Int64.Type}, {"zona_votos_nulos", Int64.Type}, {"populacao_2022", Int64.Type}, {"alfabetizacao_2022", Int64.Type}, {"pib_mil_reais", Int64.Type}}),
+		    #"Ano Extraído" = Table.TransformColumns(#"Tipo Alterado",{{"ano", Date.Year, Int64.Type}}),
+		    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Ano Extraído",{{"alfabetizacao_2022", type number}, {"pib_mil_reais", type number}}),
+		    #"Texto Aparado" = Table.TransformColumns(#"Tipo Alterado1",{{"municipio", Text.Trim, type text}, {"nm_urna", Text.Trim, type text}, {"sg_partido", Text.Trim, type text}}),
+		    #"Texto Aparado1" = Table.TransformColumns(#"Texto Aparado",{{"municipio", Text.Trim, type text}, {"nm_urna", Text.Trim, type text}, {"sg_partido", Text.Trim, type text}, {"situacao_turno", Text.Trim, type text}}),
+		    #"Valor Substituído" = Table.ReplaceValue(#"Texto Aparado1","","EX",Replacer.ReplaceValue,{"sg_regiao"}),
+		    #"Coluna Condicional Adicionada" = Table.AddColumn(#"Valor Substituído", "sg_regiao_nome", each if [sg_regiao] = "N" then "Norte" else if [sg_regiao] = "NE" then "Nordeste" else if [sg_regiao] = "SE" then "Sudeste" else if [sg_regiao] = "S" then "Sul" else if [sg_regiao] = "CO" then "Centro-Oeste" else if [sg_regiao] = "EX" then "Exterior" else null),
+		    #"Colunas Reordenadas" = Table.ReorderColumns(#"Coluna Condicional Adicionada",{"ano", "nr_turno", "sg_regiao", "sg_regiao_nome", "sg_uf", "cd_municipio_tse", "cd_municipio_ibge", "municipio", "nr_zona", "nr_candidato", "nm_urna", "sg_partido", "situacao_turno", "qt_votos_nominais", "zona_aptos", "zona_comparecimento", "zona_abstencoes", "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos", "populacao_2022", "alfabetizacao_2022", "pib_mil_reais"}),
+		    #"Linhas Filtradas" = Table.SelectRows(#"Colunas Reordenadas", each true),
+		    #"Coluna Condicional Adicionada1" = Table.AddColumn(#"Linhas Filtradas", "sg_uf_nome", each if [sg_uf] = "AC" then "Acre" else if [sg_uf] = "AL" then "Alagoas" else if [sg_uf] = "AP" then "Amapá" else if [sg_uf] = "AM" then "Amazonas" else if [sg_uf] = "BA" then "Bahia" else if [sg_uf] = "CE" then "Ceará" else if [sg_uf] = "DF" then "Distrito Federal" else if [sg_uf] = "ES" then "Espírito Santo" else if [sg_uf] = "GO" then "Goiás" else if [sg_uf] = "MA" then "Maranhão" else if [sg_uf] = "MT" then "Mato Grosso" else if [sg_uf] = "MS" then "Mato Grosso do Sul" else if [sg_uf] = "MG" then "Minas Gerais" else if [sg_uf] = "PA" then "Pará" else if [sg_uf] = "PB" then "Paraíba" else if [sg_uf] = "PR" then "Paraná" else if [sg_uf] = "PE" then "Pernambuco" else if [sg_uf] = "PI" then "Piauí" else if [sg_uf] = "RJ" then "Rio de Janeiro" else if [sg_uf] = "RN" then "Rio Grande do Norte" else if [sg_uf] = "RS" then "Rio Grande do Sul" else if [sg_uf] = "RO" then "Rondônia" else if [sg_uf] = "RR" then "Roraima" else if [sg_uf] = "SC" then "Santa Catarina" else if [sg_uf] = "SP" then "São Paulo" else if [sg_uf] = "SE" then "Sergipe" else if [sg_uf] = "TO" then "Tocantins" else if [sg_uf] = "ZZ" then "Exterior" else null),
+		    #"Linhas Filtradas1" = Table.SelectRows(#"Coluna Condicional Adicionada1", each true),
+		    #"Colunas Reordenadas1" = Table.ReorderColumns(#"Linhas Filtradas1",{"ano", "nr_turno", "sg_regiao", "sg_regiao_nome", "sg_uf", "sg_uf_nome", "cd_municipio_tse", "cd_municipio_ibge", "municipio", "nr_zona", "nr_candidato", "nm_urna", "sg_partido", "situacao_turno", "qt_votos_nominais", "zona_aptos", "zona_comparecimento", "zona_abstencoes", "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos", "populacao_2022", "alfabetizacao_2022", "pib_mil_reais"}),
+		    #"Personalização Adicionada" = Table.AddColumn(#"Colunas Reordenadas1", "exterior", each [sg_uf] = "ZZ"),
+		    #"Linhas Filtradas2" = Table.SelectRows(#"Personalização Adicionada", each true),
+		    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Linhas Filtradas2",{{"exterior", type logical}}),
+		    #"Personalização Adicionada1" = Table.AddColumn(#"Tipo Alterado2", "municipio_uf", each [municipio] & " (" & [sg_uf] & ")"),
+		    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Personalização Adicionada1",{{"municipio_uf", type text}}),
+		    #"Texto Aparado2" = Table.TransformColumns(#"Tipo Alterado3",{{"municipio_uf", Text.Trim, type text}}),
+		    #"Coluna Condicional Adicionada2" = Table.AddColumn(#"Texto Aparado2", "partido_atual", each if [sg_partido] = "PSDC" then "DC" else [sg_partido]),
+		    #"Tipo Alterado4" = Table.TransformColumnTypes(#"Coluna Condicional Adicionada2",{{"partido_atual", type text}}),
+		    #"Texto Aparado3" = Table.TransformColumns(#"Tipo Alterado4",{{"partido_atual", Text.Trim, type text}}),
+		    #"Colunas Reordenadas2" = Table.ReorderColumns(#"Texto Aparado3",{"ano", "nr_turno", "sg_regiao", "sg_regiao_nome", "sg_uf", "sg_uf_nome", "exterior", "cd_municipio_tse", "cd_municipio_ibge", "municipio", "municipio_uf", "nr_zona", "nr_candidato", "nm_urna", "sg_partido", "partido_atual", "situacao_turno", "qt_votos_nominais", "zona_aptos", "zona_comparecimento", "zona_abstencoes", "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos", "populacao_2022", "alfabetizacao_2022", "pib_mil_reais"}),
+		    #"Personalização Adicionada2" = Table.AddColumn(#"Colunas Reordenadas2", "chave_turno", each Text.From([ano]) & "-" & Text.From([nr_turno])),
+		    #"Personalização Adicionada3" = Table.AddColumn(#"Personalização Adicionada2", "chave_candidato", each Text.From([ano]) & "-" & Text.From([nr_candidato])),
+		    #"Colunas Reordenadas3" = Table.ReorderColumns(#"Personalização Adicionada3",{"ano", "nr_turno", "sg_regiao", "sg_regiao_nome", "sg_uf", "sg_uf_nome", "exterior", "cd_municipio_tse", "cd_municipio_ibge", "municipio", "municipio_uf", "nr_zona", "nr_candidato", "nm_urna", "sg_partido", "partido_atual", "situacao_turno", "chave_turno", "chave_candidato", "qt_votos_nominais", "zona_aptos", "zona_comparecimento", "zona_abstencoes", "zona_votos_validos", "zona_votos_brancos", "zona_votos_nulos", "populacao_2022", "alfabetizacao_2022", "pib_mil_reais"}),
+		    #"Tipo Alterado5" = Table.TransformColumnTypes(#"Colunas Reordenadas3",{{"chave_turno", type text}, {"chave_candidato", type text}}),
+		    #"Texto Aparado4" = Table.TransformColumns(#"Tipo Alterado5",{{"chave_turno", Text.Trim, type text}, {"chave_candidato", Text.Trim, type text}}),
+		    #"Colocar Cada Palavra Em Maiúscula" = Table.TransformColumns(#"Texto Aparado4",{{"nm_urna", Text.Proper, type text}, {"situacao_turno", Text.Proper, type text}})
+		in
+		    #"Colocar Cada Palavra Em Maiúscula"
+	lineageTag: 303f50dc-b64a-40eb-b0e5-715d49d437f6
+
+expression Medidas =
+		let
+		    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+		    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+		    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+		in
+		    #"Colunas Removidas"
+	lineageTag: f4e9490e-7802-4020-8027-7c1d766d82ca
+

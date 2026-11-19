@@ -80,6 +80,7 @@ nuvem no Databricks. Cada etapa confere os números com o resultado oficial do T
 | Modelo de dados | dbdiagram.io (DBML) | [`diagrama/`](diagrama/) | Concluída |
 | Dashboard | Power BI, Power Query, DAX | [`powerbi/`](powerbi/) · [online](https://app.powerbi.com/view?r=eyJrIjoiNjlmZGIxNmItMDU5Yy00MzQ2LWE2YTYtYWMyZTE0OTRhMzM2IiwidCI6IjI2MGZmOWM5LTM4OGYtNDdiYi04NjlhLTc3YTk1N2JmNzA4MiJ9) | Concluída |
 | Nuvem | Databricks (AI/BI Dashboard) | [`databricks/`](databricks/) | Concluída |
+| Site independente | Vite, JavaScript, ECharts, D3/Canvas, IBGE TopoJSON (extraído do PBIX com o PBIX-MCP) | [`election-intelligence/`](election-intelligence/) | Concluída |
 
 ## Modelo de dados
 

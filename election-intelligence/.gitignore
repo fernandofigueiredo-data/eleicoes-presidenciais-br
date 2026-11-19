@@ -1,0 +1,8 @@
+node_modules/
+dist/
+test-results/
+playwright-report/
+# malhas brutas do IBGE (recriadas por scripts/fetch_geo.sh; a cópia usada pelo site fica em public/geo/)
+data/geo_src/
+# a raiz do repositório ignora data/raw/ (downloads do TSE); aqui data/raw/ é a exportação do PBIX e deve ser versionada
+!data/raw/

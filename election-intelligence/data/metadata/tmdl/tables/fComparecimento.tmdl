@@ -1,0 +1,81 @@
+table 'fComparecimento'
+	lineageTag: d37776d0-daf0-4ce6-991b-bc2805abb65e
+
+	column 'chave_turno'
+		dataType: string
+		sourceColumn: chave_turno
+		lineageTag: d585d2b6-961a-4655-89d5-7dbbfff37573
+
+	column 'ano'
+		dataType: int64
+		sourceColumn: ano
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: dbcc246b-90ff-45cf-b7e4-f3cddda028fd
+
+	column 'nr_turno'
+		dataType: int64
+		sourceColumn: nr_turno
+		formatString: 0
+		summarizeBy: sum
+		lineageTag: 4a6da9ef-56bc-4a54-a949-d242bafa855a
+
+	column 'cd_municipio_tse'
+		dataType: int64
+		sourceColumn: cd_municipio_tse
+		formatString: 0
+		summarizeBy: none
+		lineageTag: b34a9fb7-4ba8-4a7b-be12-f253beff83c9
+
+	column 'aptos'
+		dataType: double
+		sourceColumn: aptos
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: e1b45937-b69b-4e6a-bcd2-b21d45f92fc2
+
+	column 'comparecimento'
+		dataType: double
+		sourceColumn: comparecimento
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 791fe56b-df8e-4848-b775-acd9bce448cf
+
+	column 'abstencoes'
+		dataType: double
+		sourceColumn: abstencoes
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 20fc5f55-ea74-462f-8d1b-3993f0a67c10
+
+	column 'votos_validos'
+		dataType: double
+		sourceColumn: votos_validos
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 10d0166c-998b-42f1-a4be-73f0e80c5ea9
+
+	column 'votos_brancos'
+		dataType: double
+		sourceColumn: votos_brancos
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 28c11607-24f3-4972-aba5-06e57dda80e4
+
+	column 'votos_nulos'
+		dataType: double
+		sourceColumn: votos_nulos
+		formatString: #,0.00
+		summarizeBy: sum
+		lineageTag: 44cb0a05-c729-4f59-a66e-d695fefdde4c
+
+	partition 'fComparecimento' = m
+		mode: import
+		source =
+				let
+				    Fonte = Eleicoes,
+				    #"Duplicatas Removidas" = Table.Distinct(Fonte, {"chave_turno", "cd_municipio_tse", "nr_zona"}),
+				    #"Linhas Agrupadas" = Table.Group(#"Duplicatas Removidas", {"chave_turno", "ano", "nr_turno", "cd_municipio_tse"}, {{"aptos", each List.Sum([zona_aptos]), type nullable number}, {"comparecimento", each List.Sum([zona_comparecimento]), type nullable number}, {"abstencoes", each List.Sum([zona_abstencoes]), type nullable number}, {"votos_validos", each List.Sum([zona_votos_validos]), type nullable number}, {"votos_brancos", each List.Sum([zona_votos_brancos]), type nullable number}, {"votos_nulos", each List.Sum([zona_votos_nulos]), type nullable number}})
+				in
+				    #"Linhas Agrupadas"
+

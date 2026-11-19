@@ -1,0 +1,481 @@
+table '_Medidas'
+	lineageTag: 6b3cf91d-27be-4765-aa43-fb1faea8fd1b
+
+	measure 'Aptos' = SUM ( fComparecimento[aptos] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: d0d45183-571e-4d3a-a606-a9efc5581704
+
+	measure 'Comparecimento' = SUM ( fComparecimento[comparecimento] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: eaf1683f-38d3-4135-bd38-ac74d746a41a
+
+	measure 'Abstenções' = SUM ( fComparecimento[abstencoes] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: 9cf6a453-ae5c-4149-8b2b-3cefb82a0032
+
+	measure 'Votos Válidos' = SUM ( fComparecimento[votos_validos] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: 9c579db1-1fb4-434f-8ea7-434b9ab0d5e7
+
+	measure 'Votos Brancos' = SUM ( fComparecimento[votos_brancos] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: b64d028e-4e8a-4aed-b300-e74be7a577a3
+
+	measure 'Votos Nulos' = SUM ( fComparecimento[votos_nulos] )
+		formatString: #,0
+		displayFolder: 1. Eleitorado
+		lineageTag: 6d454401-c12c-4fa5-8351-ed5119f0247c
+
+	measure '% Abstenção' = DIVIDE ( [Abstenções], [Aptos] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: d1cdfa43-ffe3-46db-8b6a-faeeb020a91e
+
+	measure '% Comparecimento' = DIVIDE ( [Comparecimento], [Aptos] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: 6d2bb3f4-6834-4fd4-99f3-b9d84b998c35
+
+	measure '% Brancos' = DIVIDE ( [Votos Brancos], [Comparecimento] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: a18034f7-0cfc-4d2d-a064-3a4958d66676
+
+	measure '% Nulos' = DIVIDE ( [Votos Nulos], [Comparecimento] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: 56d5e9f5-1e6e-4e79-a496-f31e23f34a78
+
+	measure '% Brancos e Nulos' = DIVIDE ( [Votos Brancos] + [Votos Nulos], [Comparecimento] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: f38cea47-0d6d-41f9-bf7b-336e71baacd1
+
+	measure 'Votos' = SUM ( fVotos[qt_votos_nominais] )
+		formatString: #,0
+		displayFolder: 2. Votos
+		lineageTag: 3898dd42-a459-4b36-96e6-38b6a9bd7814
+
+	measure 'Votos Todos os Candidatos' = CALCULATE ( [Votos], REMOVEFILTERS ( dCandidato ) )
+		formatString: #,0
+		displayFolder: 2. Votos
+		lineageTag: 20c7aa5a-ea03-4a52-95a7-0b9d23c9aa58
+
+	measure '% Votos Válidos' = DIVIDE ( [Votos], [Votos Todos os Candidatos] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 2. Votos
+		lineageTag: b1cd110e-6f3d-4f6c-b0a1-4b1229bcb629
+
+	measure 'Posição' =
+			IF (
+			    NOT ISBLANK ( [Votos] ),
+			    RANKX ( ALLSELECTED ( dCandidato[nm_urna] ), [Votos],, DESC, DENSE ))
+		formatString: 0
+		displayFolder: 2. Votos
+		lineageTag: 85dbcf23-609c-4aa7-a063-0b1cea9085a8
+
+	measure 'Vencedor' =
+			VAR primeiro =
+			    TOPN ( 1, VALUES ( dCandidato[nm_urna] ), [Votos] )
+			RETURN
+			    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[nm_urna], " / " ) )
+		displayFolder: 3. Vencedores
+		lineageTag: 8144b8d0-ec10-4ffb-9a09-cd30e6fafca2
+
+	measure 'Partido Vencedor' =
+			VAR primeiro =
+			    TOPN ( 1, VALUES ( dCandidato[partido_atual] ), [Votos] )
+			RETURN
+			    IF ( [Votos Todos os Candidatos] > 0, CONCATENATEX ( primeiro, dCandidato[partido_atual], " / " ) )
+		displayFolder: 3. Vencedores
+		lineageTag: f796b2eb-46ed-4c1a-881e-219dade62a06
+
+	measure '% do Vencedor' =
+			VAR primeiro =
+			    TOPN ( 1, VALUES ( dCandidato[chave_candidato] ), [Votos] )
+			RETURN
+			    DIVIDE ( MAXX ( primeiro, [Votos] ), [Votos Todos os Candidatos] )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 3. Vencedores
+		lineageTag: 72a09c51-e71f-4dd3-974b-a58ab19561c8
+
+	measure 'Margem de Vitória' =
+			VAR doisPrimeiros =
+			    TOPN ( 2, VALUES ( dCandidato[chave_candidato] ), [Votos] )
+			VAR primeiro = MAXX ( doisPrimeiros, [Votos] )
+			VAR segundo = MINX ( doisPrimeiros, [Votos] )
+			RETURN
+			    IF (
+			        COUNTROWS ( doisPrimeiros ) >= 2,
+			        DIVIDE ( primeiro - segundo, [Votos Todos os Candidatos] )
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 3. Vencedores
+		lineageTag: 400c4db5-6abb-47e9-86d6-ec5bc55841d5
+
+	measure 'Municípios Vencidos' =
+			COUNTROWS (
+			    FILTER (
+			        VALUES ( dMunicipio[cd_municipio_tse] ),
+			        VAR votosCandidato = [Votos]
+			        VAR maiorVotacao =
+			            CALCULATE (
+			                MAXX ( VALUES ( dCandidato[chave_candidato] ), [Votos] ),
+			                REMOVEFILTERS ( dCandidato )
+			            )
+			        RETURN
+			            votosCandidato > 0 && votosCandidato = maiorVotacao
+			    )
+			)
+		formatString: #,0
+		displayFolder: 3. Vencedores
+		lineageTag: 55b724fa-e325-4c41-a061-9df664aaf092
+
+	measure '% Municípios Vencidos' =
+			DIVIDE (
+			    [Municípios Vencidos],
+			    CALCULATE ( DISTINCTCOUNT ( fVotos[cd_municipio_tse] ), REMOVEFILTERS ( dCandidato ) )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 3. Vencedores
+		lineageTag: 72167779-7626-47ac-a8c4-82c69100f356
+
+	measure 'Ano Selecionado' = SELECTEDVALUE ( dTurno[ano] )
+		formatString: 0
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 2629fd66-a284-4ee4-9d0a-45d4c5ff785d
+
+	measure 'Partido Vencedor 1º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE (
+			        [Partido Vencedor],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAtual,
+			        dTurno[nr_turno] = 1
+			    )
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: d6db1280-cee9-4776-a2d2-c9bfb85f4a6f
+
+	measure 'Partido Vencedor 1º Turno Anterior' =
+			VAR anoAnterior = [Ano Selecionado] - 4
+			RETURN
+			    CALCULATE (
+			        [Partido Vencedor],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAnterior,
+			        dTurno[nr_turno] = 1
+			    )
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: b1a12443-7747-4d1c-b91d-23f4fdfcf526
+
+	measure 'Mudou Partido Vencedor' =
+			VAR atual = [Partido Vencedor 1º Turno]
+			VAR anterior = [Partido Vencedor 1º Turno Anterior]
+			-- Bolsonaro concorreu pelo PSL em 2018 e pelo PL em 2022/2026: tratamos PSL e PL como o mesmo
+			-- campo para que a troca de sigla do mesmo candidato não conte como mudança de vencedor.
+			VAR atualComparavel = SUBSTITUTE ( atual, "PSL", "PL" )
+			VAR anteriorComparavel = SUBSTITUTE ( anterior, "PSL", "PL" )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ),
+			        IF ( atualComparavel <> anteriorComparavel, 1, 0 )
+			    )
+		formatString: 0
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: df69899e-f2c5-4f40-8ca9-ee9e3c134468
+
+	measure 'Municípios que Mudaram' = SUMX ( VALUES ( dMunicipio[cd_municipio_tse] ), [Mudou Partido Vencedor] )
+		formatString: #,0
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 9c8f9820-d498-4495-8216-b7e92b04b372
+
+	measure '% Municípios que Mudaram' =
+			DIVIDE (
+			    [Municípios que Mudaram],
+			    SUMX (
+			        VALUES ( dMunicipio[cd_municipio_tse] ),
+			        IF ( NOT ISBLANK ( [Mudou Partido Vencedor] ), 1 )
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 936fb040-f6d7-406b-a5a5-b7a0211a89e8
+
+	measure '% Votos Válidos Eleição Anterior' =
+			VAR anoAnterior = [Ano Selecionado] - 4
+			VAR turnoAtual = SELECTEDVALUE ( dTurno[nr_turno] )
+			-- Bolsonaro concorreu pelo PSL em 2018 e pelo PL em 2022: na comparação 2022 x 2018,
+			-- o PL usa o resultado do PSL, como nos cards, no mapa e na tabela da página.
+			VAR partidoSelecionado = SELECTEDVALUE ( dCandidato[partido_atual] )
+			VAR usarPSL = partidoSelecionado = "PL" && anoAnterior = 2018
+			RETURN
+			    IF (
+			        usarPSL,
+			        CALCULATE (
+			            [% Votos Válidos],
+			            REMOVEFILTERS ( dTurno ),
+			            dTurno[ano] = anoAnterior,
+			            dTurno[nr_turno] = turnoAtual,
+			            dCandidato[partido_atual] = "PSL"
+			        ),
+			        CALCULATE (
+			            [% Votos Válidos],
+			            REMOVEFILTERS ( dTurno ),
+			            dTurno[ano] = anoAnterior,
+			            dTurno[nr_turno] = turnoAtual
+			        )
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 8f08ae50-afeb-4d45-bd1d-30f47766a21d
+
+	measure 'Variação p.p.' =
+			VAR atual = [% Votos Válidos]
+			VAR anterior = [% Votos Válidos Eleição Anterior]
+			RETURN
+			    IF ( NOT ISBLANK ( atual ) && NOT ISBLANK ( anterior ), ( atual - anterior ) * 100 )
+		formatString: +0.0" p.p.";-0.0" p.p.";0.0" p.p."
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 0646a153-0ffa-4f8a-a8a2-6f352cdc37f8
+
+	measure '% Abstenção Eleição Anterior' =
+			VAR anoAnterior = [Ano Selecionado] - 4
+			VAR turnoAtual = SELECTEDVALUE ( dTurno[nr_turno] )
+			RETURN
+			    CALCULATE (
+			        [% Abstenção],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAnterior,
+			        dTurno[nr_turno] = turnoAtual
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 353ce57b-ba81-4477-ba8e-8f763136ed20
+
+	measure 'Variação Abstenção p.p.' =
+			VAR atual = [% Abstenção]
+			VAR anterior = [% Abstenção Eleição Anterior]
+			RETURN
+			    IF ( NOT ISBLANK ( anterior ), ( atual - anterior ) * 100 )
+		formatString: +0.0" p.p.";-0.0" p.p.";0.0" p.p."
+		displayFolder: 4. Comparação entre eleições
+		lineageTag: 092dc339-4d9e-445c-8b33-bab6c6f75b73
+
+	measure 'Vencedor 1º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE (
+			        [Vencedor],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAtual,
+			        dTurno[nr_turno] = 1
+			    )
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 550bb3a7-933e-4afd-b081-9b2990007503
+
+	measure 'Vencedor 2º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE (
+			        [Vencedor],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAtual,
+			        dTurno[nr_turno] = 2
+			    )
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 68fe29e7-51de-472b-8403-1c7c419968d0
+
+	measure 'Virou no 2º Turno' =
+			VAR primeiro = [Vencedor 1º Turno]
+			VAR segundo = [Vencedor 2º Turno]
+			RETURN
+			    IF ( NOT ISBLANK ( primeiro ) && NOT ISBLANK ( segundo ), IF ( primeiro <> segundo, 1, 0 ) )
+		formatString: 0
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 5acdfb84-976e-46e7-8528-af87f0431033
+
+	measure 'Municípios que Viraram' = SUMX ( VALUES ( dMunicipio[cd_municipio_tse] ), [Virou no 2º Turno] )
+		formatString: #,0
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: ab42bc7c-ff0d-4995-9599-1d3ff8a34216
+
+	measure '% Municípios que Viraram' =
+			DIVIDE (
+			    [Municípios que Viraram],
+			    SUMX (
+			        VALUES ( dMunicipio[cd_municipio_tse] ),
+			        IF ( NOT ISBLANK ( [Virou no 2º Turno] ), 1 )
+			    )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 86ac42d9-a02e-4351-9d5f-5b5c357481b3
+
+	measure 'Votos 1º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE ( [Votos], REMOVEFILTERS ( dTurno ), dTurno[ano] = anoAtual, dTurno[nr_turno] = 1 )
+		formatString: #,0
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 263510e7-4a3c-40f1-bf55-942892040014
+
+	measure 'Votos 2º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE ( [Votos], REMOVEFILTERS ( dTurno ), dTurno[ano] = anoAtual, dTurno[nr_turno] = 2 )
+		formatString: #,0
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: ed726ea3-009b-4204-aef3-df1945320a80
+
+	measure 'Votos Ganhos no 2º Turno' =
+			VAR primeiro = [Votos 1º Turno]
+			VAR segundo = [Votos 2º Turno]
+			RETURN
+			    IF ( NOT ISBLANK ( segundo ), segundo - primeiro )
+		formatString: +#,0;-#,0;0
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 60279a4a-d020-41e1-8588-c04fd89d38be
+
+	measure '% Votos Válidos 1º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE (
+			        [% Votos Válidos],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAtual,
+			        dTurno[nr_turno] = 1
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: b491a15d-ce21-4a4c-ac3f-17a3156f5f25
+
+	measure '% Votos Válidos 2º Turno' =
+			VAR anoAtual = [Ano Selecionado]
+			RETURN
+			    CALCULATE (
+			        [% Votos Válidos],
+			        REMOVEFILTERS ( dTurno ),
+			        dTurno[ano] = anoAtual,
+			        dTurno[nr_turno] = 2
+			    )
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 97387ca8-fee8-44ef-8561-cfc3b6c30a71
+
+	measure 'Variação entre Turnos p.p.' =
+			VAR primeiro = [% Votos Válidos 1º Turno]
+			VAR segundo = [% Votos Válidos 2º Turno]
+			RETURN
+			    IF ( NOT ISBLANK ( primeiro ) && NOT ISBLANK ( segundo ), ( segundo - primeiro ) * 100 )
+		formatString: +0.0" p.p.";-0.0" p.p.";0.0" p.p."
+		displayFolder: 5. Comparação entre turnos
+		lineageTag: 8b70dd1f-d085-4b8f-a0e3-92db88d28d5a
+
+	measure 'Municípios' = CALCULATE ( DISTINCTCOUNT ( dMunicipio[cd_municipio_tse] ), dMunicipio[exterior] = FALSE () )
+		formatString: #,0
+		displayFolder: 6. Perfil dos municípios
+		lineageTag: acf8088c-3081-4f06-9598-e3c64753e4c9
+
+	measure 'População 2022' = SUM ( dMunicipio[populacao_2022] )
+		formatString: #,0
+		displayFolder: 6. Perfil dos municípios
+		lineageTag: 44b914fc-506f-4415-814d-7535384423ce
+
+	measure 'PIB per capita' =
+			-- PIB total / população total (e não a média dos PIB per capita).
+			-- Soma de (PIB per capita × população) = PIB total, contando só municípios com PIB.
+			DIVIDE (
+			    SUMX ( dMunicipio, dMunicipio[pib_per_capita] * dMunicipio[populacao_2022] ),
+			    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[pib_per_capita] ) )
+			)
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		displayFolder: 6. Perfil dos municípios
+		lineageTag: 447e33d1-ef23-46bb-92fe-261ef8ada52a
+
+	measure 'Alfabetização' =
+			DIVIDE (
+			    SUMX ( dMunicipio, dMunicipio[alfabetizacao_2022] * dMunicipio[populacao_2022] ),
+			    CALCULATE ( SUM ( dMunicipio[populacao_2022] ), NOT ISBLANK ( dMunicipio[alfabetizacao_2022] ) )
+			)
+		formatString: 0.0"%"
+		displayFolder: 6. Perfil dos municípios
+		lineageTag: c740b665-821a-4819-a585-949ba10bb316
+
+	measure 'Diferença de Apuração' = [Comparecimento] - ( [Votos Válidos] + [Votos Brancos] + [Votos Nulos] )
+		formatString: #,0
+		displayFolder: 7. Qualidade dos dados
+		lineageTag: 55fccc26-5c8f-4fb1-907d-1ffc5ce5a600
+
+	measure 'Conferência Válidos' = IF ( [Votos Todos os Candidatos] = [Votos Válidos], "✔ confere", "✖ diferente" )
+		displayFolder: 7. Qualidade dos dados
+		lineageTag: 5c3af3b0-a6ca-4658-b922-fa7c8f256f63
+
+	measure 'Cor do Partido' =
+			VAR partido =
+			    CONCATENATEX ( TOPN ( 1, VALUES ( dCandidato[partido_atual] ), [Votos] ), dCandidato[partido_atual], " / " )
+			RETURN
+			    COALESCE ( LOOKUPVALUE ( PartidoCores[cor], PartidoCores[sg_partido], partido ), "#9AA3AE" )
+		displayFolder: 8. Cores e textos
+		lineageTag: 7d6d6fa1-522f-4dfd-8058-e69bd4be9c80
+
+	measure 'Cor do Partido Vencedor' =
+			VAR partido = [Partido Vencedor]
+			RETURN
+			    IF (
+			        NOT ISBLANK ( partido ),
+			        COALESCE ( LOOKUPVALUE ( PartidoCores[cor], PartidoCores[sg_partido], partido ), "#9AA3AE" )
+			    )
+		displayFolder: 8. Cores e textos
+		lineageTag: 1048234d-7982-4bac-8b93-ba9b53c50f9f
+
+	measure 'Cor Mudança' = SWITCH ( [Mudou Partido Vencedor], 1, "#E3B505", 0, "#C9CED6" )
+		displayFolder: 8. Cores e textos
+		lineageTag: 7f57176c-b8a2-4c10-a4c6-9e0e76469e9b
+
+	measure 'Cor Virada' = SWITCH ( [Virou no 2º Turno], 1, "#E3B505", 0, "#C9CED6" )
+		displayFolder: 8. Cores e textos
+		lineageTag: 03ad2f5e-68bf-431c-9774-fc44104afa12
+
+	measure 'Título Eleição' =
+			VAR rotulo = SELECTEDVALUE ( dTurno[rotulo_turno], "Selecione uma eleição e um turno" )
+			RETURN
+			    "Eleição presidencial · " & rotulo
+		displayFolder: 8. Cores e textos
+		lineageTag: c9d04c25-d623-41db-beb6-185c8fcfc7e0
+
+	measure 'Resumo Vencedor' =
+			VAR nome = [Vencedor]
+			VAR pct = [% do Vencedor]
+			RETURN
+			    IF (
+			        NOT ISBLANK ( nome ),
+			        nome & " teve " & FORMAT ( pct, "0.00%" ) & " dos votos válidos"
+			    )
+		displayFolder: 8. Cores e textos
+		lineageTag: 5b4ab33d-7dba-4c60-a6aa-7de3accd40b3
+
+	measure '% Abstenção Nacional' =
+			CALCULATE (
+			    [% Abstenção],
+			    REMOVEFILTERS ( dMunicipio[sg_uf] )
+			)
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: 1. Eleitorado
+		lineageTag: 0ed62b88-7273-4815-a767-f7269228026e
+
+	partition '_Medidas' = m
+		mode: import
+		source =
+				let
+				    Fonte = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Coluna 1" = _t]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"Coluna 1", type text}}),
+				    #"Colunas Removidas" = Table.RemoveColumns(#"Tipo Alterado",{"Coluna 1"})
+				in
+				    #"Colunas Removidas"
+

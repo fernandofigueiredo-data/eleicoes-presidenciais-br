@@ -1,0 +1,82 @@
+
+## PAGE Visão Nacional  filters=
+- barChart {'Category': ['dCandidato.nm_urna'], 'Tooltips': ['_Medidas.Votos', 'Min(dCandidato.partido_atual)', '_Medidas.Municípios Vencidos'], 'Y': ['_Medidas.% Votos Válidos']} TITLES=["'Votos válidos por candidato'"] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Comparecimento']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% Nulos']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Aptos']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Votos Válidos']} TITLES=[] VFILTERS=[]
+- barChart {'Category': ['dCandidato.nm_urna'], 'Y': ['_Medidas.Municípios Vencidos']} TITLES=["'Municípios vencidos'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- clusteredColumnChart {'Category': ['dTurno.rotulo_turno'], 'Y': ['_Medidas.% Abstenção', '_Medidas.% Brancos', '_Medidas.% Nulos']} TITLES=["'Participação ao longo das eleições'"] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% Brancos']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% Abstenção']} TITLES=[] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Resumo Vencedor']} TITLES=[] VFILTERS=[]
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+
+## PAGE Mapa dos vencedores  filters=
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- azureMap {'Category': ['dMunicipio.local_mapa'], 'Size': ['_Medidas.Aptos'], 'Tooltips': ['_Medidas.Vencedor', '_Medidas.% do Vencedor']} TITLES=["'d459d72b67011cb8080c'", "'Vencedor por município'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- tableEx {'Values': ['dMunicipio.sg_uf', '_Medidas.Vencedor', '_Medidas.% do Vencedor', '_Medidas.Margem de Vitória', '_Medidas.% Abstenção']} TITLES=["'Resultado por UF'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+- azureMap {'Category': ['dMunicipio.sg_uf_nome'], 'Tooltips': ['_Medidas.Vencedor', '_Medidas.% do Vencedor', '_Medidas.Margem de Vitória']} TITLES=["'Partido vencedor por UF'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- slicer {'Values': ['dMunicipio.sg_regiao_nome']} TITLES=[] VFILTERS=['dMunicipio.exterior', 'd.exterior'] SLICER_FILTER="" MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Basic'"}}}, "isInvertedSelectionMode": {"expr": {"Literal": {"
+
+## PAGE Comparecimento e abstenção  filters=
+- cardVisual {'Data': ['_Medidas.Variação Abstenção p.p.']} TITLES=["'Variação vs. eleição anterior'"] VFILTERS=[]
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- clusteredColumnChart {'Category': ['dTurno.rotulo_turno'], 'Y': ['_Medidas.% Brancos', '_Medidas.% Nulos']} TITLES=["'Brancos e nulos'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- lineChart {'Category': ['dTurno.rotulo_turno'], 'Series': ['dMunicipio.sg_regiao_nome'], 'Y': ['_Medidas.% Abstenção']} TITLES=["'Abstenção por região ao longo do tempo'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- clusteredBarChart {'Category': ['dMunicipio.sg_uf'], 'Y': ['_Medidas.% Abstenção']} TITLES=["'por UF · linha amarela = média Brasil (sem exterior)'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- scatterChart {'Category': ['dMunicipio.cd_municipio_tse'], 'Size': ['_Medidas.Aptos'], 'Tooltips': ['Min(dMunicipio.municipio_uf)'], 'X': ['_Medidas.Alfabetização'], 'Y': ['_Medidas.% Abstenção']} TITLES=["'Abstenção x alfabetização'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- azureMap {'Category': ['dMunicipio.sg_uf_nome'], 'Tooltips': ['_Medidas.% Abstenção', '_Medidas.Aptos', '_Medidas.Comparecimento']} TITLES=["'Abstenção por UF'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+
+## PAGE Mudanças entre eleições  filters=[{"name": "f0e1d2c3b4a596870001", "field": {"Column": {"Expression": {"SourceRef": {"Entity": "dMunicipio"}}, "Property": "exterior"}}, "type": "Categorical", "filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dMunicipio", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column
+- tableEx {'Values': ['dMunicipio.municipio_uf', '_Medidas.Partido Vencedor 1º Turno Anterior', '_Medidas.Partido Vencedor 1º Turno']} TITLES=["'Municípios que mudaram de partido vencedor'"] VFILTERS=['_Medidas.Mudou Partido Vencedor', '_.Mudou Partido Vencedor', 'dMunicipio.exterior', 'd.exterior']
+- azureMap {'Category': ['dMunicipio.local_mapa'], 'Tooltips': ['_Medidas.Partido Vencedor 1º Turno Anterior', '_Medidas.Partido Vencedor 1º Turno', '_Medidas.Mudou Partido Vencedor']} TITLES=["'d459d72b67011cb8080c'", "'Municípios que mudaram de partido vencedor'"] VFILTERS=['dMunicipio.exterior', 'd.exterior']
+- textbox {} TITLES=['Mudou de partido vencedor', 'Manteve o partido vencedor'] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+- slicer {'Values': ['dCandidato.partido_atual']} TITLES=[] VFILTERS=['dCandidato.partido_atual'] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dCandidato", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "partido_atual"}}], "Values": [[{"Literal": {"Value": "'PT'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Basic'"}}}}}]
+- cardVisual {'Data': ['_Medidas.Municípios que Mudaram']} TITLES=[] VFILTERS=['_Medidas.Municípios que Mudaram']
+- pivotTable {'Columns': ['dCandidato.partido_atual'], 'Rows': ['dMunicipio.sg_uf'], 'Values': ['_Medidas.Variação p.p.']} TITLES=["'Variação por UF (p.p.)'"] VFILTERS=['_Medidas.Variação p.p.', '_.Variação p.p.', 'dMunicipio.exterior', 'd.exterior']
+- textbox {} TITLES=['Como ler: ', 'cards, mapa e tabela comparam sempre o 1º turno do ano escolhido com o 1º turno de 4 anos antes (PSL 2018 e PL contam como o mesmo campo); a matriz segue o turno selecionado. Municípios no exterior ficam de fora. 2014 não tem eleição anterior na base.'] VFILTERS=[]
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- cardVisual {'Data': ['_Medidas.% Municípios que Mudaram']} TITLES=[] VFILTERS=[]
+
+## PAGE Do 1º ao 2º turno  filters=[{"name": "872e4a33ce68ab1b1043", "field": {"Column": {"Expression": {"SourceRef": {"Entity": "dMunicipio"}}, "Property": "exterior"}}, "type": "Categorical", "filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dMunicipio", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column
+- cardVisual {'Data': ['_Medidas.Municípios que Viraram']} TITLES=[] VFILTERS=['_Medidas.Municípios que Viraram', 'dMunicipio.exterior', 'd.exterior']
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+- textbox {} TITLES=[' Virou no 2º turno', 'Manteve o vencedor'] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% Municípios que Viraram']} TITLES=[] VFILTERS=['dMunicipio.exterior', 'd.exterior', '_Medidas.% Municípios que Viraram']
+- textbox {} TITLES=['Como ler: ', 'os cartões, o mapa e a tabela comparam o vencedor de cada município no 1º e no 2º turno do mesmo ano; escolha um 2º turno na segmentação. Municípios no exterior ficam de fora. Empate em um dos turnos conta como virada.'] VFILTERS=[]
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- azureMap {'Category': ['dMunicipio.local_mapa'], 'Tooltips': ['_Medidas.Vencedor 1º Turno', '_Medidas.Vencedor 2º Turno', '_Medidas.Virou no 2º Turno']} TITLES=["'Municípios que viraram no 2º turno'", "'d459d72b67011cb8080c'"] VFILTERS=['dMunicipio.local_mapa', '_Medidas.Vencedor 1º Turno', '_Medidas.Vencedor 2º Turno', '_Medidas.Virou no 2º Turno', 'dMunicipio.exterior', 'd.exterior']
+- tableEx {'Values': ['dMunicipio.municipio_uf', '_Medidas.Vencedor 1º Turno', '_Medidas.Vencedor 2º Turno']} TITLES=["'Municípios que viraram no 2º turno'"] VFILTERS=['dMunicipio.municipio_uf', '_Medidas.Vencedor 1º Turno', '_Medidas.Vencedor 2º Turno', '_Medidas.Virou no 2º Turno', '_.Virou no 2º Turno', 'dMunicipio.exterior', 'dMunicipio.exterior', 'd.exterior']
+- barChart {'Category': ['dMunicipio.sg_uf'], 'Series': ['dCandidato.nm_urna'], 'Y': ['_Medidas.Variação entre Turnos p.p.']} TITLES=["'Variação por UF (p.p.)'"] VFILTERS=['dMunicipio.sg_uf', 'dCandidato.nm_urna', '_Medidas.Variação entre Turnos p.p.', '_Medidas.Votos 2º Turno', '_.Votos 2º Turno']
+- tableEx {'Values': ['dCandidato.nm_urna', '_Medidas.Votos 1º Turno', '_Medidas.Votos 2º Turno', '_Medidas.Votos Ganhos no 2º Turno', '_Medidas.% Votos Válidos 1º Turno', '_Medidas.% Votos Válidos 2º Turno', '_Medidas.Variação entre Turnos p.p.']} TITLES=[] VFILTERS=['dCandidato.nm_urna', '_Medidas.Votos 1º Turno', '_Medidas.Votos 2º Turno', '_.Votos 2º Turno', '_Medidas.Votos Ganhos no 2º Turno', '_Medidas.% Votos Válidos 1º Turno', '_Medidas.% Votos Válidos 2º Turno', '_Medidas.Variação entre Turnos p.p.']
+
+## PAGE Perfil socioeconômico  filters=
+- scatterChart {'Category': ['dMunicipio.cd_municipio_tse'], 'Size': ['_Medidas.População 2022'], 'Tooltips': ['Min(dMunicipio.municipio_uf)', '_Medidas.PIB per capita', '_Medidas.% Votos Válidos', '_Medidas.População 2022'], 'X': ['_Medidas.PIB per capita'], 'Y': ['_Medidas.% Votos Válidos']} TITLES=["'PIB per capita x votação por município'"] VFILTERS=['dMunicipio.cd_municipio_tse', '_Medidas.PIB per capita', '_Medidas.% Votos Válidos', '_Medidas.População 2022', 'dMunicipio.municipio_uf', 'dMunicipio.exterior', 'd.exterior']
+- cardVisual {'Data': ['_Medidas.Título Eleição']} TITLES=[] VFILTERS=[]
+- barChart {'Category': ['dMunicipio.Quartil PIB per capita'], 'Series': ['dCandidato.nm_urna'], 'Y': ['_Medidas.% Votos Válidos']} TITLES=["'Votos por faixa de PIB per capita'"] VFILTERS=['dMunicipio.Quartil PIB per capita', 'd.Quartil PIB per capita', 'dCandidato.nm_urna', '_Medidas.% Votos Válidos', 'dMunicipio.exterior', 'd.exterior']
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- textbox {} TITLES=['Como ler: ', 'as barras mostram a participação de cada candidato nos votos válidos, por grupo de municípios; escolha um 2º turno na segmentação. Municípios no exterior ficam de fora.'] VFILTERS=[]
+- textbox {} TITLES=['Os indicadores descrevem o município, não o eleitor.', ' Uma relação entre PIB e voto não mostra como cada pessoa votou.'] VFILTERS=[]
+- slicer {'Values': ['dCandidato.nm_urna']} TITLES=[] VFILTERS=['dCandidato.nm_urna'] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dCandidato", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "nm_urna"}}], "Values": [[{"Literal": {"Value": "'Lula'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Basic'"}}}}}]
+- barChart {'Category': ['dMunicipio.Quartil Alfabetização'], 'Series': ['dCandidato.nm_urna'], 'Y': ['_Medidas.% Votos Válidos']} TITLES=["'Votos por faixa de alfabetização'"] VFILTERS=['dMunicipio.Quartil PIB per capita', 'd.Quartil PIB per capita', 'dMunicipio.exterior', 'd.exterior', 'dCandidato.nm_urna', '_Medidas.% Votos Válidos', 'dMunicipio.Quartil Alfabetização']
+- barChart {'Category': ['dMunicipio.faixa_populacao'], 'Series': ['dCandidato.nm_urna'], 'Y': ['_Medidas.% Votos Válidos']} TITLES=["'Votos por porte de município'"] VFILTERS=['dMunicipio.Quartil PIB per capita', 'd.Quartil PIB per capita', 'dMunicipio.exterior', 'd.exterior', 'dCandidato.nm_urna', '_Medidas.% Votos Válidos', 'dMunicipio.faixa_populacao']
+
+## PAGE Sobre os dados  filters=
+- textbox {} TITLES=['Fontes', 'TSE, Portal de Dados Abertos (licença CC-BY).', 'IBGE: Censo 2022 (SIDRA 4709 e 9543) e PIB dos Municípios (SIDRA 5938).'] VFILTERS=[]
+- tableEx {'Values': ['dTurno.rotulo_turno', '_Medidas.Comparecimento', '_Medidas.Votos Válidos', '_Medidas.Votos Todos os Candidatos', '_Medidas.Conferência Válidos', '_Medidas.Diferença de Apuração']} TITLES=["'Conferência com o TSE'"] VFILTERS=[]
+- textbox {} TITLES=['Sobre os dados'] VFILTERS=[]
+- textbox {} TITLES=['Limitações', '• O exterior não tem dados do IBGE; em 2014 e 2018 faltam 684 e 470 eleitores aptos de zonas do exterior onde ninguém votou.', '• Boa Esperança do Norte (MT) foi criado depois do Censo 2022 e não tem indicadores.', '• O 2º turno de 2026 (25/10/2026) vem dos arquivos publicados pelo TSE em 28/10/2026.'] VFILTERS=[]
+
+## PAGE Dica do município  filters=
+- cardVisual {'Data': ['_Medidas.Vencedor']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% Abstenção']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
+- cardVisual {'Data': ['Min(dMunicipio.municipio_uf)']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.PIB per capita']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
+- slicer {'Values': ['dTurno.rotulo_turno']} TITLES=[] VFILTERS=[] SLICER_FILTER={"filter": {"Version": 2, "From": [{"Name": "d", "Entity": "dTurno", "Type": 0}], "Where": [{"Condition": {"In": {"Expressions": [{"Column": {"Expression": {"SourceRef": {"Source": "d"}}, "Property": "rotulo_turno"}}], "Values": [[{"Literal": {"Value": "'2026 · 2º turno'"}}]]}}}]}} MODE=[{"properties": {"mode": {"expr": {"Literal": {"Value": "'Dropdown'"}}}}}]
+- cardVisual {'Data': ['_Medidas.Margem de Vitória']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
+- cardVisual {'Data': ['_Medidas.% do Vencedor']} TITLES=["'Segoe UI Semibold'"] VFILTERS=[]
