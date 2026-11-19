@@ -43,6 +43,11 @@ export function createApp(E, rootEl) {
     <nav class="footer-links" aria-label="Rodapé"><a href="#/sobre">Sobre e contato</a><a href="#/sobre?s=citar">Como citar</a><a href="#/sobre?s=faq">Perguntas frequentes</a><a href="${mailto()}">${PROJETO.email}</a><a href="${PROJETO.repositorio}" target="_blank" rel="noopener">Código no GitHub</a></nav></div></footer>`);
   rootEl.append(h('<a class="skip-link" href="#conteudo">Pular para o conteúdo</a>'), header, filterBar(E, store), main, footer);
 
+  // a barra de filtros fixa fica logo abaixo do cabeçalho inteiro (faixa azul + abas), cuja altura muda no celular
+  const alturaCabecalho = () => document.documentElement.style.setProperty('--sticky-top', `${header.offsetHeight}px`);
+  new ResizeObserver(alturaCabecalho).observe(header);
+  alturaCabecalho();
+
   const palette = searchPalette(E, store);
   header.querySelector('[data-act=search]').addEventListener('click', () => palette.open());
   header.querySelector('[data-act=share]').addEventListener('click', async () => {

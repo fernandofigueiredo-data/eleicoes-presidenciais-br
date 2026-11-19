@@ -35,3 +35,15 @@ for (const v of LARGURAS) {
     }
   });
 }
+
+for (const v of LARGURAS) {
+  test(`a barra de filtros fixa não fica sob as abas ao rolar (${v.nome})`, async ({ page }) => {
+    await page.setViewportSize({ width: v.width, height: v.height });
+    await page.goto('/#/turnos?uf=MG');
+    await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
+    await page.evaluate(() => window.scrollTo(0, 1500));
+    await page.waitForTimeout(300);
+    const [cab, filtros] = await page.evaluate(() => [document.querySelector('.app-header').getBoundingClientRect().bottom, document.querySelector('.filterbar').getBoundingClientRect().top]);
+    expect(Math.abs(filtros - cab)).toBeLessThanOrEqual(1);
+  });
+}
