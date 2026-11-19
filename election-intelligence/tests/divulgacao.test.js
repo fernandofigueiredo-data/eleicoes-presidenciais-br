@@ -142,3 +142,36 @@ describe('Medição de acessos (T5)', () => {
     expect(head[0].src).toBe('/_vercel/insights/script.js');
   });
 });
+
+describe('Vídeo e imagens (T4): números e legendas', () => {
+  it('todo número do roteiro, dos cartões e das imagens está na lista conferida na base', async () => {
+    const { LEGENDAS, CARTOES, IMAGENS, FINAL } = await import('../scripts/midia/roteiro.mjs');
+    const res = E.resumoMunicipios('2026-2');
+    const venc = { Lula: 0, Flavio: 0, empate: 0 };
+    for (let i = 0; i < E.N; i++) if (!E.mun.exterior[i] && res[i]?.vencedor) venc[res[i].chaves.length > 1 ? 'empate' : res[i].vencedor === 'Lula' ? 'Lula' : 'Flavio']++;
+    const ab = (uf) => `${(E.PctAbstencao({ turno: '2026-2', uf }) * 100).toFixed(2).replace('.', ',')}%`;
+    const fmt = (n) => n.toLocaleString('pt-BR');
+    const mg = rows.filter((r) => r.uf === 'MG');
+    // valores recalculados aqui; os da regressão (8,8 e 1,7) são recalculados no pytest tests/test_divulgacao.py
+    const conferidos = new Set([fmt(venc.Lula), fmt(venc.Flavio), String(venc.empate), String(mg.filter((r) => r.estrita).length), fmt(mg.length),
+      ab('CE'), ab('AC'), `${(E.PctAbstencao({ turno: '2026-2' }) * 100).toFixed(2).replace('.', ',')}%`, '73,9%', '44,1%', '8,8', '1,7', '−8,8', '−1,7']);
+    expect([...conferidos].slice(0, 7)).toEqual(['2.875', '2.695', '1', '76', '853', '13,89%', '26,08%']);
+    const textos = [...LEGENDAS.map((l) => l.texto), ...CARTOES.flatMap((c) => [c.titulo, ...c.linhas]), ...Object.values(IMAGENS).flatMap((t) => [t.titulo, t.linha, t.nota]), FINAL.aviso];
+    const numeros = textos.flatMap((t) => t.match(/−?\d[\d.,]*\d%?|−?\d%?/g) || []).filter((n) => !/^20(14|18|22|26)$/.test(n));
+    const ordinais = textos.join(' ').match(/\d[ºª]/g) || [];
+    expect(ordinais.every((o) => ['1º', '2º'].includes(o))).toBe(true);
+    const fora = numeros.filter((n) => !conferidos.has(n) && !['1', '2'].includes(n));
+    expect(fora).toEqual([]);
+  });
+  it('legendas: dentro dos 75 s, sem sobreposição, e o .srt versionado está atualizado', async () => {
+    const { LEGENDAS, CENAS, DURACAO, srt } = await import('../scripts/midia/roteiro.mjs');
+    expect(CENAS.at(-1).fim).toBe(DURACAO);
+    expect(CENAS.map((c) => [c.ini, c.fim])).toEqual([[0, 8], [8, 20], [20, 38], [38, 50], [50, 63], [63, 71], [71, 75]]);
+    LEGENDAS.forEach((l, i) => {
+      expect(l.ini).toBeGreaterThanOrEqual(0);
+      expect(l.fim).toBeLessThanOrEqual(DURACAO);
+      if (i) expect(l.ini).toBeGreaterThanOrEqual(LEGENDAS[i - 1].fim);
+    });
+    expect(readFileSync(join(repo, 'docs/divulgacao-election-intelligence/assets/video/legendas_pt-BR.srt'), 'utf8')).toBe(srt());
+  });
+});

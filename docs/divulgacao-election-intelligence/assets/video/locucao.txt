@@ -1,0 +1,20 @@
+Locução do vídeo de 75 segundos (ELECTION INTELLIGENCE)
+Grave em ritmo calmo; os tempos são o início e o fim de cada frase.
+
+0 a 8 s · tela #/nacional
+8 a 20 s · tela #/mapa
+20 a 38 s · tela #/turnos?uf=MG
+38 a 50 s · tela #/participacao
+50 a 63 s · tela #/perfil
+63 a 75 s · tela #/turnos?uf=MG
+
+[0.5 s a 7.6 s] Como o Brasil votou para presidente, cidade por cidade, de 2014 a 2026.
+[8.3 s a 14.0 s] No 2º turno de 2026, Lula venceu em 2.875 municípios;
+[14.0 s a 19.6 s] Flavio Bolsonaro, em 2.695. Um município empatou.
+[20.5 s a 28.5 s] Em Minas, 76 cidades trocaram de vencedor entre os turnos.
+[28.5 s a 37.5 s] As maiores ficam na Grande BH.
+[38.5 s a 49.5 s] No 2º turno, a abstenção foi de 13,89% no Ceará a 26,08% no Acre.
+[50.5 s a 57.5 s] Com alfabetização e região no modelo, o efeito da renda cai de 8,8 para 1,7 ponto.
+[57.5 s a 62.5 s] Associação, não causalidade.
+[63.5 s a 67.5 s] Todo filtro vira um link.
+[67.5 s a 74.6 s] Dados do TSE e do IBGE, conferidos. Projeto aberto, não oficial.
