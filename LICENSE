@@ -19,14 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Dados
-
-A licença MIT acima vale para o código deste repositório (scripts, notebooks, SQL,
-site e documentação). Os dados derivados de fontes públicas seguem as licenças das fontes:
-
-- TSE, Portal de Dados Abertos: Creative Commons Atribuição (CC-BY). Cite o TSE ao reutilizar.
-- IBGE (Censo 2022, PIB dos Municípios, API de Localidades e API de Malhas): dados públicos;
-  cite o IBGE como fonte.
