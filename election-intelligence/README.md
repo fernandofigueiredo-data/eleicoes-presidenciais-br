@@ -4,6 +4,15 @@ Site independente (HTML, CSS e JavaScript, sem Power BI) que reconstrói e ampli
 `powerbi/eleicoes-presidenciais-br.pbix`: eleições para presidente de 2014 a 2026, 1º e 2º turnos,
 em todos os 5.570 municípios com malha oficial do IBGE.
 
+**▶ No ar:** https://eleicoes-presidenciais-br.vercel.app (cópia em [GitHub Pages](https://fernandofigueiredo-data.github.io/eleicoes-presidenciais-br/))
+
+| Números | |
+|---|---|
+| Indicadores conferidos com o Power BI (PBIX-MCP) | 340 / 340, diferença 0 |
+| Testes automatizados | 13 unitários (Vitest) + 18 de ponta a ponta (Playwright, desktop e celular) |
+| Municípios no mapa | 5.570 polígonos do IBGE em Canvas |
+| Medidas DAX reproduzidas em JavaScript | 55 |
+
 ![Mapa dos vencedores](docs/prints/02_mapa.png)
 
 ## Páginas

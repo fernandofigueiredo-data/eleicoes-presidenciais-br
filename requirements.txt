@@ -1,0 +1,3 @@
+# Dependências Python do projeto (os scripts em scripts/ usam só a biblioteca padrão)
+pandas>=2.2
+notebook>=7

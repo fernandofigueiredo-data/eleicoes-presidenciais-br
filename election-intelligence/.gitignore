@@ -6,3 +6,6 @@ playwright-report/
 data/geo_src/
 # a raiz do repositório ignora data/raw/ (downloads do TSE); aqui data/raw/ é a exportação do PBIX e deve ser versionada
 !data/raw/
+.vite/
+.vercel/
+.vercel
