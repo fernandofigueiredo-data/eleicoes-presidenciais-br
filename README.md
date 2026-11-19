@@ -237,4 +237,8 @@ Código sob a [licença MIT](LICENSE). Os dados seguem as licenças das fontes (
 
 ## Autor
 
-Fernando Figueiredo · [github.com/fernandofigueiredo-data](https://github.com/fernandofigueiredo-data)
+**Fernando Figueiredo**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-fernandofigueiredoalves-0A66C2?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/fernandofigueiredoalves/)
+[![E-mail](https://img.shields.io/badge/e--mail-fernandofigueiredo123%40gmail.com-EA4335?style=flat&logo=gmail&logoColor=white)](mailto:fernandofigueiredo123@gmail.com)
+[![GitHub](https://img.shields.io/badge/GitHub-fernandofigueiredo--data-181717?style=flat&logo=github&logoColor=white)](https://github.com/fernandofigueiredo-data)
