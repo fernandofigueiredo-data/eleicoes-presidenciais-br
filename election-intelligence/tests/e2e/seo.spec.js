@@ -56,6 +56,15 @@ test('sitemap com as oito páginas, llms.txt e 404 fora do índice', async ({ re
   expect(n).not.toContain('<script type="module"');
 });
 
+test('chave do IndexNow publicada na raiz', async ({ request }) => {
+  const { readdirSync } = await import('node:fs');
+  const arquivo = readdirSync(new URL('../../public/', import.meta.url)).find((f) => /^[0-9a-f]{32}\.txt$/.test(f));
+  expect(arquivo).toBeTruthy();
+  const r = await request.get(`/${arquivo}`);
+  expect(r.status()).toBe(200);
+  expect((await r.text()).trim()).toBe(arquivo.replace('.txt', ''));
+});
+
 test('ao navegar, título, descrição e canonical acompanham a página', async ({ page }) => {
   await page.goto('/');
   await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30_000 });
