@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:e2e": "playwright test",
     "validate": "node scripts/validate.mjs",
-    "docs:divulgacao": "node scripts/gerar_docs_divulgacao.mjs"
+    "docs:divulgacao": "node scripts/gerar_docs_divulgacao.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
     "@fontsource-variable/ibm-plex-sans": "^5.2.6",

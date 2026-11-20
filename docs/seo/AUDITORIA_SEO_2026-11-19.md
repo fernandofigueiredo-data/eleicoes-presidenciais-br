@@ -86,3 +86,15 @@ Perplexity, Claude, prévias de link) não viam nada para citar.
    e no [validador do schema.org](https://validator.schema.org/).
 3. Rodar o PageSpeed Insights no celular e comparar com o laboratório (LCP de 3,6 a 3,9 s e CLS de
    0,284 antes das correções).
+
+## IndexNow (Bing e outros buscadores)
+
+Desde 20/11/2026 o site publica a chave do IndexNow (`election-intelligence/public/<chave>.txt`).
+O pedido manual de indexação no Search Console ficou bloqueado pela cota diária do Google; o IndexNow
+avisa Bing, Yandex, Naver e Seznam sem cota manual (o Google não participa). O Bing alimenta a busca
+do ChatGPT e do Copilot. Para avisar de novo depois de uma mudança no ar:
+
+```bash
+cd election-intelligence && npm run indexnow
+```
+
